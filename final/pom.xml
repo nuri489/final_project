@@ -19,19 +19,6 @@
 	</properties>
 	<dependencies>
 	
-		<!-- java to json -->
-		<dependency>
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
-			<version>1.1.1</version>
-		</dependency>
-			
-		<dependency>
-	  		<groupId>org.json</groupId>
-	  		<artifactId>json</artifactId>
-	    	<version>20220320</version>
-		</dependency>
-	
 		<!-- for jsp -->
 		<dependency>
 	        <groupId>org.apache.tomcat.embed</groupId>
@@ -51,9 +38,9 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
-        
-        <!-- mysql 연결 jar -->
-        <dependency>
+		
+		
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
 		</dependency>
@@ -64,17 +51,15 @@
 			<version>2.2.2</version>
 		</dependency>
 		
-        <dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
