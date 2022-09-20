@@ -35,7 +35,7 @@ $(document).ready(function() {
 <p>정찬식 추가</p>
 <p>김미애 추가</p>
 <p>최윤서 추가 테스트</p>
-zz
+<p>김미애 추가 테스트</p>
 <form>
 		상품제목<input type=text id="title">
 		상품이름
