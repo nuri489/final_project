@@ -14,6 +14,6 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-초기화 테스트
+초기화 테스트22
 </body>
 </html>
