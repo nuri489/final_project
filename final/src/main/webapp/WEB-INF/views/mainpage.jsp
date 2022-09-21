@@ -14,6 +14,6 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-메인 페이지
+메인 페이지22
 </body>
 </html>
