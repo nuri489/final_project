@@ -16,7 +16,5 @@ public class web_config implements WebMvcConfigurer {
 	}
 	
 	// 외부 경로에 저장된 파일 불러오기
-	
-	
 
 }

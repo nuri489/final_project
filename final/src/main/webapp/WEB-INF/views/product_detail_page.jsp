@@ -9,11 +9,11 @@
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
-	
+
 });
 </script>
 </head>
 <body>
-메인 페이지
+제품 상세 정보 페이지
 </body>
 </html>
