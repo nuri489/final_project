@@ -12,6 +12,7 @@ $(document).ready(function() {
 	
 });
 </script>
+<title> 회원가입 폼 </title>
 </head>
 <body>
 
