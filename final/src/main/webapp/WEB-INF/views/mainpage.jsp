@@ -15,5 +15,6 @@ $(document).ready(function() {
 </head>
 <body>
 메인 페이지22
+메인페이지 추가 수정~~!
 </body>
 </html>
