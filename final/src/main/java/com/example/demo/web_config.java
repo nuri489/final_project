@@ -10,6 +10,8 @@ public class web_config implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		
+		// 저는 맥이라 경로가 저런데 윈도우이신 분들은 수정하셔야할 것 같습니다. c://images/ 
+		registry.addResourceHandler("/images/**").addResourceLocations("file:/Users/choiyoonseo/Documents/final_images/"); 
 		registry.addResourceHandler("/final/**").addResourceLocations("file:///"+NaverInform.path);
 		// file: ~~ 경로에 있는걸(이미지 등) 호출하는 URL은 8092/naverai/~~~ 이다.
 	

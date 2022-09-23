@@ -5,6 +5,7 @@
 <configuration>
 <!-- mybatis.MemberDTO  : memberdto -->
 <typeAliases>
+<typeAlias type="product.ProductDTO" alias="productdto"/>
 </typeAliases>
 </configuration>
 

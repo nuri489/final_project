@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="product.ProductDAO">
+  	<resultMap type="java.util.HashMap" id="tagnames">
+  		<id column="detail_num" property="detail_num"/>
+  		<id column="detail_name" property="detail_name"/>
+  	</resultMap>
+  	
+  	<select id="getpdtDetailTags" parameterType="String" resultType="product.ProductDetailDTO">
+  		select * from product_detail where detail_name like #{keyword}
+  	</select>
+  	<insert id="insertSales" parameterType="productdto">
+  		insert into product_info 
+  		(product_title, idol_num, user_num, product_contents, product_time, safe_trade, auction_check, product_status1,
+  		product_status2, product_status3, product_status4, product_status5, detail_num, product_price) 
+  		values (#{product_title}, #{idol_num}, #{user_num}, #{product_contents}, now(), #{safe_trade}, #{auction_check}, #{product_status1},
+  		#{product_status2}, #{product_status3}, #{product_status4}, #{product_status5}, #{detail_num}, #{product_price})
+  	</insert>
+	<select id="getLastInsertNum" resultType="int">
+		select product_num from product_info order by product_num desc limit 0,1
+	</select>  	
+
+
+  	
+  </mapper>
