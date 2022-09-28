@@ -22,6 +22,5 @@
 		select product_num from product_info order by product_num desc limit 0,1
 	</select>  	
 
-
   	
   </mapper>

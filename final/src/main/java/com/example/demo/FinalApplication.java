@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = "securepayment")
 @MapperScan(basePackages = "product")
 @MapperScan(basePackages = "upload")
+@MapperScan(basePackages = "securepayment")
 //@MapperScan("CHATBOT")
 public class FinalApplication {
 
