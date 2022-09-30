@@ -28,6 +28,11 @@ public class ProductServiceImpl implements ProductService{
 	public int getLastInsertNum() {
 		return productDAO.getLastInsertNum();
 	}
+
+	@Override
+	public List<String> getforSale(HashMap<String, String> map) {
+		return productDAO.getforSale(map);
+	}
 	
 	
 	

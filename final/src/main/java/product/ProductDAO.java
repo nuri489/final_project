@@ -13,4 +13,5 @@ public interface ProductDAO {
 	List<ProductDetailDTO> getpdtDetailTags(String keyword);
 	int insertSales(ProductDTO dto);
 	int getLastInsertNum();
+	List<String> getforSale(HashMap<String, String> map);
 }

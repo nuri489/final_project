@@ -7,6 +7,10 @@
   		<id column="detail_num" property="detail_num"/>
   		<id column="detail_name" property="detail_name"/>
   	</resultMap>
+  	<parameterMap type="java.util.HashMap" id="getforsale">
+  		<parameter property="idol_name"/>
+  		<parameter property="detail_name"/>
+  	</parameterMap>
   	
   	<select id="getpdtDetailTags" parameterType="String" resultType="product.ProductDetailDTO">
   		select * from product_detail where detail_name like #{keyword}
@@ -21,6 +25,10 @@
 	<select id="getLastInsertNum" resultType="int">
 		select product_num from product_info order by product_num desc limit 0,1
 	</select>  	
-
+	<select id="getforSale" parameterMap="getforsale" resultType="String">
+		select distinct(detail_name) from product_info pi join product_detail pd on pi.detail_num=pd.detail_num 
+		join product_category pc on pi.category_num=pc.category_num join idol_category ic 
+		on pi.idol_num=ic.idol_num where pc.category_name= #{category_name} and ic.idol_name=#{idol_name}
+	</select>
   	
   </mapper>

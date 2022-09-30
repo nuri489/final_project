@@ -23,6 +23,14 @@ public class ProductDTO {
 	
 	MultipartFile[] images;
 	
+	String billing_number;
+	
+	public String getBilling_number() {
+		return billing_number;
+	}
+	public void setBilling_number(String billing_number) {
+		this.billing_number = billing_number;
+	}
 	public MultipartFile[] getImages() {
 		return images;
 	}
