@@ -12,9 +12,11 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = "upload")
 @ComponentScan(basePackages = "securepayment")
 @ComponentScan(basePackages = "chatbot")
+@ComponentScan(basePackages = "member")
 @MapperScan(basePackages = "final_project")
 @MapperScan(basePackages = "product")
 @MapperScan(basePackages = "upload")
+@MapperScan(basePackages = "member")
 @MapperScan(basePackages = "securepayment")
 public class FinalApplication {
 

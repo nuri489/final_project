@@ -10,33 +10,24 @@
 <script>
 $(document).ready(function() {
 	
-$("#login-button").on('click',function(e){
-		
-		$.ajax({
-			url : 'login',
-			data : {'id':$("#id").val()},
-			type : 'post',
-			dataType : 'text',
-			success : function(s) { 
-				$("#user_num").html(s);
-				
-			}
-		});
-	});
-	// 로그인 버튼에 대한 ajax
+	if("${sessionUser_num}" != "") {
+		$("#login-button").attr('hidden',true);
+		$("#logout-button").removeAttr("hidden");
+	}
 	
 	$("#logout-button").on('click',function(e){
-	
+		
 		$.ajax({
 			url : 'logout',
 			type : 'post',
 			dataType : 'text',
 			success : function(s) { 
-				$("#user_num").html(s);
+				location.reload();
 			}
 		});
 	});
 	// 로그아웃 버튼에 대한 ajax
+
 });
 </script>
 </head>
@@ -50,9 +41,8 @@ board/list.jsp 참조. 지금은 그냥 1 값을 직접 줌
  --%>
  <a href="auctionpage?product_num=1">경매 판매</a>
 <hr>
-아이디 입력 : <input type="text" id="id"><br>
-<input type="button" id="login-button" value="로그인">
-<input type="button" id="logout-button" value="로그아웃"><br>
+<a href="loginform"><input type="button" id="login-button" value="로그인"></a>
+<a href="logout"><input type="button" id="logout-button" value="로그아웃" hidden="true"></a><br>
 로그인한 사람의 user_num : <div id="user_num">${sessionUser_num}</div><hr>
 </body>
 </html>

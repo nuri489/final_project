@@ -16,11 +16,6 @@ public interface AuctionService {
 	public AuctionDTO auction_info(int product_num);
 	public ProductDTO product_info(int product_num);
 	
-	public int user_num(String user_id);
-	// 임시 유저 고유 번호 호출
-	public String user_id(int user_num);
-	// 임시 유저 아이디 호출
-	
 	public String detail_name(int detail_num);
 	// detail_name 호출
 	

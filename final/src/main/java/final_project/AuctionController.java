@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import member.MemberService;
 import product.ProductDTO;
 
 @Controller
@@ -19,6 +20,10 @@ public class AuctionController {
 	@Autowired
 	@Qualifier("auctionservice")
 	AuctionService auction_service;
+	
+	@Autowired
+	@Qualifier("memberservice")
+	MemberService member_service;
 	
 	
 	@GetMapping("/temp_main")
@@ -72,7 +77,7 @@ public class AuctionController {
 		ModelAndView mv = new ModelAndView();
 		ProductDTO dto = auction_service.product_info(product_num); 
 		// 제품에 대한 정보 dto에 저장
-		String user_id = auction_service.user_id(auction_service.product_info(product_num).getUser_num());
+		String user_id = member_service.user_id(auction_service.product_info(product_num).getUser_num());
 		// 판매자 아이디
 		String detail_name = auction_service.detail_name(auction_service.product_info(product_num).getDetail_num());
 		// 상품 상세 이름
@@ -121,7 +126,7 @@ public class AuctionController {
 		
 		ProductDTO dto2 = auction_service.product_info(product_num); 
 		// 제품에 대한 상세 정보를 dto2에 저장
-		String user_id = auction_service.user_id(auction_service.product_info(product_num).getUser_num());
+		String user_id = member_service.user_id(auction_service.product_info(product_num).getUser_num());
 		// 상품 등록자 ID
 		String detail_name = auction_service.detail_name(auction_service.product_info(product_num).getDetail_num());
 		// 상품 상세 이름
@@ -274,39 +279,5 @@ public class AuctionController {
 		return mybid;
 	}
 	// 내 제시가 호출
-	
-	@ResponseBody
-	@PostMapping("/login")
-	public int loginprocess(String id, HttpServletRequest request) {
 
-		HttpSession session = request.getSession();
-		
-		int user_num = auction_service.user_num(id);
-		
-		session.setAttribute("sessionUser_num", user_num);
-
-		return user_num;	
-	}
-	
-	@ResponseBody
-	@PostMapping("/logout")
-	public String logout(HttpServletRequest request) {
-		
-		HttpSession session = request.getSession();
-		if(session.getAttribute("sessionUser_num") != null) {
-			session.removeAttribute("sessionUser_num");
-		}
-		else {
-			session.setAttribute("sessionUser_num", null);
-		}
-		return "로그아웃";
-	}
-	// 임시 로그인 및 로그아웃
-	
-	
-	
-	
-	
-	
-	
 }

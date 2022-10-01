@@ -56,18 +56,6 @@ public class AuctionService_Impl implements AuctionService {
 	// 임시 제품 정보
 
 	@Override
-	public int user_num(String user_id) {
-		return dao.getUser_num(user_id);
-	}
-	// 임시 유저 고유 번호 확인
-
-	@Override
-	public String user_id(int user_num) {
-		return dao.getUser_id(user_num);
-	}
-	// 임시 유저 아이디 호출
-
-	@Override
 	public String detail_name(int detail_num) {
 		return dao.getDetail_name(detail_num);
 	}
