@@ -3,6 +3,8 @@ package final_project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import product.ProductDTO;
+
 @Service("auctionservice")
 public class AuctionService_Impl implements AuctionService {
 
@@ -47,7 +49,7 @@ public class AuctionService_Impl implements AuctionService {
 	// 경매 정보 호출
 
 	@Override
-	public temp_ProductDTO product_info(int product_num) {
+	public ProductDTO product_info(int product_num) {
 		
 		return dao.getProduct_info(product_num);
 	}

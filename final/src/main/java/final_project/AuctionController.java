@@ -11,19 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import product.ProductDTO;
+
 @Controller
 public class AuctionController {
 	
 	@Autowired
 	@Qualifier("auctionservice")
 	AuctionService auction_service;
-	
-/*	
-	@GetMapping("/auction")
-	public String auction() {
-		return "AuctionPage";
-	}
-*/
 	
 	
 	@GetMapping("/temp_main")
@@ -36,7 +31,7 @@ public class AuctionController {
 	public ModelAndView temp_product(int product_num) {
 		
 		ModelAndView mv = new ModelAndView();
-		temp_ProductDTO dto = auction_service.product_info(product_num);
+		ProductDTO dto = auction_service.product_info(product_num);
 		// product_info 테이블에서 제품 정보 가져옴
 		int request_num = auction_service.request_num(product_num);
 		// auction_gauge 테이블에서 경매 요청 정보 가져옴
@@ -75,11 +70,11 @@ public class AuctionController {
 	public ModelAndView auctionAccepting(int product_num) {
 		
 		ModelAndView mv = new ModelAndView();
-		temp_ProductDTO dto = auction_service.product_info(product_num); 
+		ProductDTO dto = auction_service.product_info(product_num); 
 		// 제품에 대한 정보 dto에 저장
-		String user_id = auction_service.user_id(auction_service.product_info(product_num).user_num);
+		String user_id = auction_service.user_id(auction_service.product_info(product_num).getUser_num());
 		// 판매자 아이디
-		String detail_name = auction_service.detail_name(auction_service.product_info(product_num).detail_num);
+		String detail_name = auction_service.detail_name(auction_service.product_info(product_num).getDetail_num());
 		// 상품 상세 이름
 		
 		mv.addObject("dto",dto);
@@ -124,11 +119,11 @@ public class AuctionController {
 		auction_service.auctionCheck(product_num); // auction_check 값 1로 바꿈
 		int check = auction_service.auctionChecking(product_num); // 경매 유무 확인
 		
-		temp_ProductDTO dto2 = auction_service.product_info(product_num); 
+		ProductDTO dto2 = auction_service.product_info(product_num); 
 		// 제품에 대한 상세 정보를 dto2에 저장
-		String user_id = auction_service.user_id(auction_service.product_info(product_num).user_num);
+		String user_id = auction_service.user_id(auction_service.product_info(product_num).getUser_num());
 		// 상품 등록자 ID
-		String detail_name = auction_service.detail_name(auction_service.product_info(product_num).detail_num);
+		String detail_name = auction_service.detail_name(auction_service.product_info(product_num).getDetail_num());
 		// 상품 상세 이름
 		AuctionDTO dto1 = auction_service.auction_info(product_num);
 		// 경매 정보 dto1에 저장

@@ -1,5 +1,7 @@
 package final_project;
 
+import product.ProductDTO;
+
 public interface AuctionService {
 
 	public int auction_request(int product_num , int user_num);
@@ -12,7 +14,7 @@ public interface AuctionService {
 	public int auctionChecking(int product_num);
 	
 	public AuctionDTO auction_info(int product_num);
-	public temp_ProductDTO product_info(int product_num);
+	public ProductDTO product_info(int product_num);
 	
 	public int user_num(String user_id);
 	// 임시 유저 고유 번호 호출

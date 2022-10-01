@@ -3,6 +3,8 @@ package final_project;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import product.ProductDTO;
+
 @Mapper
 @Repository("auctiondao")
 public interface AuctionDAO {
@@ -23,7 +25,7 @@ public interface AuctionDAO {
 	public AuctionDTO getAuction_info(int product_num);
 	// 경매 상세 정보 호출
 	
-	public temp_ProductDTO getProduct_info(int product_num);
+	public ProductDTO getProduct_info(int product_num);
 	// 임시 제품 상세 정보 호출
 	
 	public int getUser_num(String user_id);
