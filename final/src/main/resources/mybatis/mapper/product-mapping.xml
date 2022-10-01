@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="product.ProductDAO">
+  	<resultMap type="java.util.HashMap" id="tagnames">
+  		<id column="detail_num" property="detail_num"/>
+  		<id column="detail_name" property="detail_name"/>
+  	</resultMap>
+  	<parameterMap type="java.util.HashMap" id="getforsale">
+  		<parameter property="idol_name"/>
+  		<parameter property="detail_name"/>
+  	</parameterMap>
+  	
+  	<select id="getpdtDetailTags" parameterType="String" resultType="product.ProductDetailDTO">
+  		select * from product_detail where detail_name like #{keyword}
+  	</select>
+  	<insert id="insertSales" parameterType="productdto">
+  		insert into product_info 
+  		(product_title, idol_num, user_num, product_contents, product_time, safe_trade, auction_check, product_status1,
+  		product_status2, product_status3, product_status4, product_status5, detail_num, product_price) 
+  		values (#{product_title}, #{idol_num}, #{user_num}, #{product_contents}, now(), #{safe_trade}, #{auction_check}, #{product_status1},
+  		#{product_status2}, #{product_status3}, #{product_status4}, #{product_status5}, #{detail_num}, #{product_price})
+  	</insert>
+	<select id="getLastInsertNum" resultType="int">
+		select product_num from product_info order by product_num desc limit 0,1
+	</select>  	
+	<select id="getforSale" parameterMap="getforsale" resultType="String">
+		select distinct(detail_name) from product_info pi join product_detail pd on pi.detail_num=pd.detail_num 
+		join product_category pc on pi.category_num=pc.category_num join idol_category ic 
+		on pi.idol_num=ic.idol_num where pc.category_name= #{category_name} and ic.idol_name=#{idol_name}
+	</select>
+  	
+  </mapper>

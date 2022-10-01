@@ -8,7 +8,14 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan
 @ComponentScan(basePackages = "final_project")
+@ComponentScan(basePackages = "product")
+@ComponentScan(basePackages = "upload")
+@ComponentScan(basePackages = "securepayment")
+@ComponentScan(basePackages = "chatbot")
 @MapperScan(basePackages = "final_project")
+@MapperScan(basePackages = "product")
+@MapperScan(basePackages = "upload")
+@MapperScan(basePackages = "securepayment")
 public class FinalApplication {
 
 	public static void main(String[] args) {
