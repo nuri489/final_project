@@ -102,7 +102,7 @@ button, input[type=submit]{
 			<input type="checkbox" name="auction_check" value="1"> 경매전환
 		</td>
 		<td class="header">카테고리</td>
-		<td><select name="category_num" id="category_num" required="required">
+		<td><select name="category_num" id="category_num">
 				<option value="1">DVD</option>
 				<option value="2">콘서트굿즈</option>
 				<option value="3">앨범</option>
