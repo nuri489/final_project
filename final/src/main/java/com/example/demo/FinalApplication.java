@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan
 @ComponentScan(basePackages = "final_project")
-//@MapperScan("CHATBOT")
+@MapperScan(basePackages = "final_project")
 public class FinalApplication {
 
 	public static void main(String[] args) {

@@ -10,10 +10,5 @@ public class mainController {
 	public String main() {
 		return "mainpage";
 	}
-	
-	@GetMapping("/auction")
-	public String auction() {
-		return "AuctionPage";
-	}
 
 }

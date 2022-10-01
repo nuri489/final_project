@@ -3,8 +3,10 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   <!-- mybatis db 연결정보 세팅 파일 -->
 <configuration>
-<!-- mybatis.MemberDTO  : memberdto -->
 <typeAliases>
+	<typeAlias type="final_project.AuctionDTO" alias="auctiondto"/>
+	<typeAlias type="final_project.temp_ProductDTO" alias="productdto"/>
+	<typeAlias type="final_project.BidDTO" alias="biddto"/>
 </typeAliases>
 </configuration>
 
