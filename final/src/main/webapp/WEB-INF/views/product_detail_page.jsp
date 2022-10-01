@@ -9,14 +9,11 @@
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
-	
+
 });
 </script>
 </head>
 <body>
-메인 페이지22
-메인페이지 추가 수정~~!
-메인페이지 수정 테스트 22
-test
+제품 상세 정보 페이지
 </body>
 </html>
