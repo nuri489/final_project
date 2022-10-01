@@ -14,6 +14,7 @@ $(document).ready(function() {
 		$("#login-button").attr('hidden',true);
 		$("#logout-button").removeAttr("hidden");
 	}
+	// 로그인 및 로그아웃 버튼에 대한 표시
 	
 	$("#logout-button").on('click',function(e){
 		
@@ -41,8 +42,10 @@ board/list.jsp 참조. 지금은 그냥 1 값을 직접 줌
  --%>
  <a href="auctionpage?product_num=1">경매 판매</a>
 <hr>
+<div id="login">
 <a href="loginform"><input type="button" id="login-button" value="로그인"></a>
 <a href="logout"><input type="button" id="logout-button" value="로그아웃" hidden="true"></a><br>
-로그인한 사람의 user_num : <div id="user_num">${sessionUser_num}</div><hr>
+로그인한 사람의 user_num : ${sessionUser_num} // 버튼 위치 옮겨야 함
+</div>
 </body>
 </html>

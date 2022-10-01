@@ -10,6 +10,25 @@
 <script>
 $(document).ready(function() {
 	
+	if("${sessionUser_num}" != "") {
+		$("#login-button").attr('hidden',true);
+		$("#logout-button").removeAttr("hidden");
+	}
+	
+	$("#logout-button").on('click',function(e){
+		
+		$.ajax({
+			url : 'logout',
+			type : 'post',
+			dataType : 'text',
+			success : function(s) { 
+				location.reload();
+			}
+		});
+	});
+	// 로그아웃 버튼에 대한 ajax
+	
+	
 	if("${sessionUser_num}" != "${dto2.user_num}") {
 		
 		$.ajax({
@@ -148,6 +167,11 @@ $(document).ready(function() {
 </head>
 <body>
 <h1>경매장 페이지</h1><hr>
+<div id="login">
+<a href="loginform"><input type="button" id="login-button" value="로그인"></a>
+<a href="logout"><input type="button" id="logout-button" value="로그아웃" hidden="true"></a><br>
+로그인한 사람의 user_num : ${sessionUser_num} // 버튼 위치 옮겨야 함
+</div>
 <table border="2">
 <tr><td>물품번호</td><td>${dto1.product_num}</td></tr>
 <tr><td>경매번호</td><td>${dto1.auction_num}</td></tr>

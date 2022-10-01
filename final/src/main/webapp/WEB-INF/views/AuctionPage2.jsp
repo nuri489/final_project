@@ -44,30 +44,19 @@ $(document).ready(function() {
 	// product_num 값에 대하여 나중에 설정해야 함. 지금은 무조건 1로 줌
 	// 마찬가지로 user_num 값에 대해서도 
 	
-
-	$("#login-button").on('click',function(e){
-		
-		$.ajax({
-			url : 'login',
-			data : {'id':$("#id").val()},
-			type : 'post',
-			dataType : 'text',
-			success : function(s) { 
-				$("#user_num").html(s);
-				
-			}
-		});
-	});
-	// 로그인 버튼에 대한 ajax
+	if("${sessionUser_num}" != "") {
+		$("#login-button").attr('hidden',true);
+		$("#logout-button").removeAttr("hidden");
+	}
 	
 	$("#logout-button").on('click',function(e){
-	
+		
 		$.ajax({
 			url : 'logout',
 			type : 'post',
 			dataType : 'text',
 			success : function(s) { 
-				$("#user_num").html(s);
+				location.reload();
 			}
 		});
 	});
@@ -108,10 +97,10 @@ $(document).ready(function() {
 <input type=button id="accept-button" value="경매로 바꾸기"><br>
 게시글 id와 sessionID가 같은 유저한테만 보임. 경매 요청 값이 5 이상이면 활성화(색상을 바꾼던가 해서?)
 <hr>
-아이디 입력 : <input type="text" id="id"><br>
-<input type="button" id="login-button" value="로그인">
-<input type="button" id="logout-button" value="로그아웃"><br>
-로그인한 사람의 user_num : <div id="user_num">${sessionUser_num}</div><hr>
-로그인은 새로운 페이지로 연결되게
+<div id="login">
+<a href="loginform"><input type="button" id="login-button" value="로그인"></a>
+<a href="logout"><input type="button" id="logout-button" value="로그아웃" hidden="true"></a><br>
+로그인한 사람의 user_num : ${sessionUser_num} // 버튼 위치 옮겨야 함
+</div>
 </body>
 </html>
