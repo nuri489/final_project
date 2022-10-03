@@ -33,6 +33,12 @@ $(document).ready(function(){
 		});//ajax end
 	}); //#tag end
 	
+	$('#salesform').on('submit',function(e){ //태그 (detail_num)등록되지 않은 경우 submit 막기
+		if($('#detail_num').val()==''){
+			e.preventDefault();
+			alert('상품명 태그를 선택하여주십시오.');
+		}
+	});
 	
 });//ready end
 </script>
@@ -92,7 +98,7 @@ button, input[type=submit]{
 <body>
 <div id="contents">
 <div id="form_name">판매폼</div>
-<form action="insertsales" enctype="multipart/form-data" method="post">
+<form action="insertsales" enctype="multipart/form-data" method="post" id="salesform">
 <table border=1 id="sales_table">
 	<tr><td class="header">제목</td><td colspan="3"><input type="text" placeholder="제목을 입력하여주세요.(제품명 포함)" size="50" name="product_title" required="required"></td></tr>
 	<tr>
