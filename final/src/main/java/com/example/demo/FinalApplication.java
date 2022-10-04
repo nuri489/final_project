@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+
 @ComponentScan
 @ComponentScan(basePackages = "final_project")
 @ComponentScan(basePackages = "product")
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = "securepayment")
 @ComponentScan(basePackages = "chatbot")
 @ComponentScan(basePackages = "member")
+
 @MapperScan(basePackages = "final_project")
 @MapperScan(basePackages = "product")
 @MapperScan(basePackages = "upload")

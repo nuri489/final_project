@@ -1,5 +1,7 @@
 package member;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -13,5 +15,9 @@ public interface MemberDAO {
 	// 임시 유저 고유 번호 호출
 	public String getUser_id(int user_num);
 	// 임시 유저 아이디 호출
-
+	
+	//회원정보
+	public List<MemberDTO> oneMember(String id);
+	//회원가입
+	public int insertMember(MemberDTO dto);
 }

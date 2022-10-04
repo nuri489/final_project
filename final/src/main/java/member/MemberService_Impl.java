@@ -1,5 +1,7 @@
 package member;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,23 @@ public class MemberService_Impl implements MemberService {
 	}
 	// 임시 유저 아이디 호출
 
-
-
-
+	//회원가입
+	@Override
+	public List<MemberDTO> onemember(String user_id){
+		return dao.oneMember(user_id);
+	}
+	
+	@Override
+	public int registerMember(MemberDTO dto) {
+		//dto.getUser_num() 조회해본다.
+		List<MemberDTO> list = dao.oneMember(dto.getUser_id());
+		//조회결과 있는지 확인한다
+		if(list == null || list.size() == 0) {
+			return dao.insertMember(dto);
+		}
+		else {
+			return 0;
+		}
+	}
+	
 }
