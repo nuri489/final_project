@@ -33,6 +33,12 @@ public class ProductServiceImpl implements ProductService{
 	public List<String> getforSale(HashMap<String, String> map) {
 		return productDAO.getforSale(map);
 	}
+
+	@Override
+	public List<ProductDTO> getProducts(ProductDTO dto) {
+		return productDAO.getProducts(dto);
+	}
+	
 	
 	
 	
