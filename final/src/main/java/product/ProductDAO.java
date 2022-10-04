@@ -15,4 +15,7 @@ public interface ProductDAO {
 	int getLastInsertNum();
 	List<String> getforSale(HashMap<String, String> map);
 	List<ProductDTO> getProducts(ProductDTO dto);
+	int likeProduct(ProductDTO dto);
+	int unlikeProduct(ProductDTO dto);
+	List<Integer> getLikeProduct(int user_num);
 }

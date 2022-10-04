@@ -38,6 +38,23 @@ public class ProductServiceImpl implements ProductService{
 	public List<ProductDTO> getProducts(ProductDTO dto) {
 		return productDAO.getProducts(dto);
 	}
+
+	@Override
+	public int likeProduct(ProductDTO dto) {
+		return productDAO.likeProduct(dto);
+	}
+	
+	@Override
+	public int unlikeProduct(ProductDTO dto) {
+		return productDAO.unlikeProduct(dto);
+	}
+
+	@Override
+	public List<Integer> getLikeProduct(int user_num) {
+		return productDAO.getLikeProduct(user_num);
+	}
+	
+	
 	
 	
 	

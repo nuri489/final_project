@@ -22,6 +22,7 @@ public class ProductDTO {
 	boolean product_status5;
 	
 	MultipartFile[] images;
+	String image_path;
 	
 	String billing_number;
 	
@@ -140,11 +141,17 @@ public class ProductDTO {
 		this.detail_num = detail_num;
 	}
 	
+	public String getImage_path() {
+		return image_path;
+	}
+	public void setImage_path(String image_path) {
+		this.image_path = image_path;
+	}
 	@Override
 	public String toString() {
-		return "제목: "+product_title+" 내용: "+product_contents+" 상태: "+product_status1+", "+""+product_status2+", "+product_status3+
+		return product_num+". 제목: "+product_title+" 내용: "+product_contents+" 상태: "+product_status1+", "+""+product_status2+", "+product_status3+
 				", "+product_status4+", "+product_status5+" 카테고리 번호: "+category_num+" 안전거래: "+safe_trade+" 경매전환: "+auction_check
-				+" 디테일넘버: "+detail_num+" 가격: "+product_price+" 이미지: "+images;
+				+" 디테일넘버: "+detail_num+" 가격: "+product_price+" 이미지: "+images+image_path;
 	}
 	
 	

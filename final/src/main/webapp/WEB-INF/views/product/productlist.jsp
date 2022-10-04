@@ -38,6 +38,36 @@ $(document).ready(function(){
 		}
 	}); //mouseover end
 	
+	//찜 버튼 클릭 시 작동 함수 
+	$('.likebtn').on('click',function(e){
+		var tg =  $(this).html();
+		// 찜 X 상태 -> 찜하고 버튼 색 바꿈 
+		if(tg == "🤍"){
+			$(this).html('❤️');
+			$(this).css('font-size', '18px');
+			$.ajax({
+				url:'likeclickajax',
+				data: {'product_num' : $(this).val()},
+				type:"get",
+				dataType:'json',
+				success:function(server){
+					alert(server.result);
+				}//success end
+			}); //ajax end	
+		}else{ // 이미 찜된 상태 -> 찜 취소  
+			$(this).html('🤍');
+			$(this).css('font-size', '18px');
+			$.ajax({
+				url:'unlikeclickajax',
+				data: {'product_num' : $(this).val()},
+				type:"get",
+				dataType:'json',
+				success:function(server){
+					//alert(server.result);
+				}//success end
+			}); //ajax end	
+		}
+	});
 	
 	/*   e.preventDefault();  
 	  $(this).css('background-color', 'gold');
@@ -46,6 +76,7 @@ $(document).ready(function(){
 });//ready end
 </script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap');
 .product_list, .section1{
 	position: relative;
 	display: flex;
@@ -175,7 +206,7 @@ a:hover{
 	right:1px;
 	background-color:transparent;
 	border: none;
-	
+	cursor: pointer;
 }
 .product_info{
 	text-align: center;
@@ -292,9 +323,30 @@ a:hover{
 						</div>					
 					</div> -->
 						<c:forEach items="${productlist }" var="p">
-							<div class="product_item"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;">
-						<div> <img alt="오류" src="/images/Proof(Collector’s Edition)(6c25a897-161d-47b0-833f-8f0003cd9b56)png"><span><button class="likebtn" style="color: red; font-size: 20px; ">♡</button></span></div>
-						<div class="product_info">
+							<div class="product_item">
+						<div> <c:if test="${not empty p.image_path }"><img alt="등록된 이미지 없음" src="/images/${p.image_path}"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;"></c:if>
+						<c:if test="${empty p.image_path }"><img alt="등록된 이미지 없음" src="/images/noimage.png"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;"></c:if>
+						<%
+							/* 세션아이디값이 있을 때만 찜할 수 있는 버튼 띄움 */
+							if(session.getAttribute("sessionUser_num") != null){%>
+							 <span><button class="likebtn" style="color: red; font-size: 20px; " value="${p.product_num}">🤍</button></span>
+								<%
+							}
+						%>
+						<c:set var="loop_flag" value="false" />
+						 <c:forEach items="${likeproduct}" var="l">
+						<c:if test="${not loop_flag }">
+							<c:if test="${p.product_num == l }">
+								<span><button class="likebtn" style="color: red; font-size: 20px; " value="${p.product_num}">❤️</button></span>
+								<c:set var="loop_flag" value="true" />
+							</c:if>
+							<%-- <c:if test="${p.product_num != l}">
+								<span><button class="likebtn" style="color: red; font-size: 20px; " value="${p.product_num}">🤍</button></span>
+							</c:if> --%>
+						</c:if>
+						</c:forEach>
+						</div>
+						<div class="product_info"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;">
 							<div class="product_title" style="font-weight: 700;margin-bottom: 5px;">${p.product_title }</div>
 							<div class="product_price" style="margin-bottom: 5px;">${p.product_price }원</div>
 							<%-- ${p.safe_trade} ${p.auction_check} --%>

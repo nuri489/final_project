@@ -2,9 +2,13 @@ package product;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import final_project.AuctionService;
 import upload.UploadDTO;
 import upload.UploadService;
 
@@ -29,6 +34,10 @@ public class ProductController {
 	@Autowired
 	@Qualifier("uploadservice")
 	UploadService uploadService;
+	
+	@Autowired
+	@Qualifier("auctionservice")
+	AuctionService auction_service;
 	
 	@RequestMapping("/getsalesform")
 	public String getSalesForm() {
@@ -85,20 +94,58 @@ public class ProductController {
 	}
 
 	@RequestMapping("/getproducts")
-	public ModelAndView getProducts(@RequestParam(value= "idol_num", defaultValue = "1") int idol_num, @RequestParam(value= "category_num", defaultValue = "0") int category_num){
-		System.out.println(idol_num+": "+category_num);
+	public ModelAndView getProducts(@RequestParam(value= "idol_num", defaultValue = "1") int idol_num, @RequestParam(value= "category_num", defaultValue = "0") int category_num, HttpServletRequest request){
+
+		ModelAndView mv = new ModelAndView();
+		HttpSession session = request.getSession();
+		if(session.getAttribute("sessionUser_num")!=null) { //로그인 된 상태 -> 찜한 목록을 가져와 버튼에 표시한다.
+			int user_num = (int) session.getAttribute("sessionUser_num");
+			if(user_num != 0) {
+			List<Integer> like_product = pdtService.getLikeProduct(user_num);
+			mv.addObject("likeproduct", like_product);
+			}
+		}
+		
 		// 기본은 방탄소년단의 모든 상품 보여줌 category_num = 0 이면 모든 상품
 		ProductDTO dto = new ProductDTO();
 		dto.setIdol_num(idol_num);
 		dto.setCategory_num(category_num);
 		//상품 리스트가지고 오기 
 		List<ProductDTO> productlist = pdtService.getProducts(dto);
-		for(int i=0;i<productlist.size();i++) {
-			System.out.println(productlist.get(i));
-		}
-		ModelAndView mv = new ModelAndView();
 		mv.setViewName("product/productlist");
 		mv.addObject("productlist", productlist);
 		return mv;
+	}
+	
+	@RequestMapping("/likeclickajax")
+	@ResponseBody
+	public String likeProduct(int product_num, HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+		int user_num = (int) session.getAttribute("sessionUser_num");
+		
+		ProductDTO dto = new ProductDTO();
+		dto.setUser_num(user_num);
+		dto.setProduct_num(product_num);
+		
+		int insert_result = pdtService.likeProduct(dto);
+		if(insert_result>0) return "{\"result\" : \"success\"}";
+		else return "{\"result\" : \"fail\"}";
+	}
+	
+	@RequestMapping("/unlikeclickajax")
+	@ResponseBody
+	public String unlikeProduct(int product_num, HttpServletRequest request) {
+
+		HttpSession session = request.getSession();
+		int user_num = (int) session.getAttribute("sessionUser_num");
+		
+		ProductDTO dto = new ProductDTO();
+		dto.setUser_num(user_num);
+		dto.setProduct_num(product_num);
+		
+		int insert_result = pdtService.unlikeProduct(dto);
+		if(insert_result>0) return "{\"result\" : \"success\"}";
+		else return "{\"result\" : \"fail\"}";
 	}
 }
