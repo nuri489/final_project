@@ -17,9 +17,9 @@
   	</select>
   	<insert id="insertSales" parameterType="productdto">
   		insert into product_info 
-  		(product_title, idol_num, user_num, product_contents, product_time, safe_trade, auction_check, product_status1,
+  		(product_title, idol_num, user_num, category_num,product_contents, product_time, safe_trade, auction_check, product_status1,
   		product_status2, product_status3, product_status4, product_status5, detail_num, product_price) 
-  		values (#{product_title}, #{idol_num}, #{user_num}, #{product_contents}, now(), #{safe_trade}, #{auction_check}, #{product_status1},
+  		values (#{product_title}, #{idol_num}, #{user_num}, #{category_num},#{product_contents}, now(), #{safe_trade}, #{auction_check}, #{product_status1},
   		#{product_status2}, #{product_status3}, #{product_status4}, #{product_status5}, #{detail_num}, #{product_price})
   	</insert>
 	<select id="getLastInsertNum" resultType="int">
@@ -30,5 +30,7 @@
 		join product_category pc on pi.category_num=pc.category_num join idol_category ic 
 		on pi.idol_num=ic.idol_num where pc.category_name= #{category_name} and ic.idol_name=#{idol_name}
 	</select>
-  	
+  	<select id="getProducts" parameterType="productdto" resultType="productdto">
+		select * from product_info where idol_num=#{idol_num} and category_num = #{category_num} order by product_time
+	</select>
   </mapper>

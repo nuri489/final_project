@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import upload.UploadDTO;
 import upload.UploadService;
@@ -44,13 +46,14 @@ public class ProductController {
 		int insert_result = pdtService.insertSales(dto);
 		String [] imgexp = {"jpg","jfif","png","jpeg"}; //업로드 가능한 이미지 확장자들
 		
-		if(dto.getImages().length!=0) {   //---파일이 있을 경우만 저장 
+		if(dto.getImages()[0].getSize() !=0) {   //---파일이 있을 경우만 저장 수정완료 
 			if(insert_result>0) { // 파일이 있고 게시물이 성공적으로 저장되었을 때 파일 저장
 				last_insert_pdt_num = pdtService.getLastInsertNum();
 				uploaddto.setProduct_num(last_insert_pdt_num); //마지막 저장된 테이블의 PK가져옴
 				
 				for(int i=0;i<dto.getImages().length;i++) {
 					String filename = dto.getImages()[i].getOriginalFilename();   //--- 파일명을 얻어옴. a.txt
+					System.out.println(filename);
 					String beforeext1 = filename.substring(0, filename.indexOf("."));  //a
 					String ext1 = filename.substring(filename.indexOf("."));  //.txt
 					ext1 = ext1.substring(1); //txt
@@ -81,5 +84,21 @@ public class ProductController {
 		return tag_result;
 	}
 
-	
+	@RequestMapping("/getproducts")
+	public ModelAndView getProducts(@RequestParam(value= "idol_num", defaultValue = "1") int idol_num, @RequestParam(value= "category_num", defaultValue = "0") int category_num){
+		System.out.println(idol_num+": "+category_num);
+		// 기본은 방탄소년단의 모든 상품 보여줌 category_num = 0 이면 모든 상품
+		ProductDTO dto = new ProductDTO();
+		dto.setIdol_num(idol_num);
+		dto.setCategory_num(category_num);
+		//상품 리스트가지고 오기 
+		List<ProductDTO> productlist = pdtService.getProducts(dto);
+		for(int i=0;i<productlist.size();i++) {
+			System.out.println(productlist.get(i));
+		}
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("product/productlist");
+		mv.addObject("productlist", productlist);
+		return mv;
+	}
 }
