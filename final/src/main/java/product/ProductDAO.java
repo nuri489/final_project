@@ -14,4 +14,5 @@ public interface ProductDAO {
 	int insertSales(ProductDTO dto);
 	int getLastInsertNum();
 	List<String> getforSale(HashMap<String, String> map);
+	List<ProductDTO> getProducts(ProductDTO dto);
 }
