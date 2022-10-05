@@ -3,6 +3,9 @@ package securepayment;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -37,20 +40,24 @@ public class SecurePaymentController {
 		//상품 하나 가져오는 모듈 써서 상품 정보 모델로 보내줄 것
 		//지금은 임시 상품 모델
 		ProductDTO dto = new ProductDTO();
-		dto.setProduct_price(10);
+		dto.setProduct_price(10000);
 		dto.setProduct_title("bts 스픽콘 부채");
 		String product_image = "/images/미쿠(bc74cb8d-1e76-4e60-851d-8b2ea06c1e7a).jpeg";
 		mv.addObject("productdto",dto);
-		mv.addObject("user_money", 900000);
+		mv.addObject("user_money", 90);
 		mv.addObject("image_path", product_image);
 		mv.setViewName("securepayment/securepaymentform");
 		return mv;
 	}
 	
 	@RequestMapping("/securepaymentprocess")
-	public String securePaymentProcess(SecurePaymentDTO dto) {
+	public String securePaymentProcess(SecurePaymentDTO dto, HttpServletRequest request) {
 		//user_num 세션 받아 처리할 것 지금은 임시설정
-		dto.setUser_num(2);
+		
+		HttpSession session = request.getSession();
+		int user_num = (int) session.getAttribute("sessionUser_num");
+			
+		dto.setUser_num(user_num);
 		System.out.println(dto);
 		int insert_result = securePaymetService.securePaymentProcess(dto);
 		if(insert_result>0) {
@@ -158,6 +165,9 @@ public class SecurePaymentController {
 		dto.setPay_price(pay_price);
 		dto.setUser_num(user_num);
 		int update_result = securePaymetService.depositToSeller(dto);
-		return "{\"result\" : \"success\"}";
+		if(update_result>0) {
+			return "{\"result\" : \"success\"}";
+		}
+		return "{\"result\" : \"fail\"}";
 	}
 }
