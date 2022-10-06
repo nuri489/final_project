@@ -99,6 +99,7 @@ public class ProductController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("product/productlist");
 		mv.addObject("productlist", productlist);
+
 		return mv;
 	}
 }

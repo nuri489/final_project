@@ -35,7 +35,7 @@ $(document).ready(function() {
 					// 이미 요청했다면 기존의 값과 리턴된 s 값이 같으므로..
 				}
 				else {
-					$("#request-val").html(s);
+					location.reload();
 				}
 			}
 		});
@@ -43,6 +43,36 @@ $(document).ready(function() {
 	// 경매 요청 및 횟수 확인 ajax
 	// product_num 값에 대하여 나중에 설정해야 함. 지금은 무조건 1로 줌
 	// 마찬가지로 user_num 값에 대해서도 
+	
+	$("#cancle-button").on('click',function() {
+		$.ajax({
+			url : 'cancle_request',
+			data : {'product_num': ${temp_dto.product_num}, 'user_num': "${sessionUser_num}" },
+			type : 'post',
+			dataType : 'text',
+			success : function(s) {
+				
+					if(s == 0) {
+						//alert("요청 기록이 존재하지 않습니다.");
+						$('#cancle-button').poshytip({
+							className: 'tip-yellowsimple',
+							showOn: 'focus',
+							alignTo: 'target',
+							alignX: 'center',
+							alignY: 'bottom',
+							offsetX: 0,
+							offsetY: 5,
+							showTimeout: 100
+						});
+
+					}
+					else {
+						alert("요청 취소 완료");
+						location.reload();
+					}
+				}
+			});
+		});
 	
 	if("${sessionUser_num}" != "") {
 		$("#login-button").attr('hidden',true);
@@ -64,7 +94,7 @@ $(document).ready(function() {
 	
 	$("#accept-button").on('click',function(){
 		
-		if(${request_num} < 1) {
+		if(${request_num} < 5) {
 			alert("경매 요청이 5회 이상이어야 경매로 변경 가능합니다");
 		}
 		else {
@@ -72,9 +102,6 @@ $(document).ready(function() {
 		}
 	});
 	// 경매로 바꾸기 버튼에 대한 기능
-	
-	
-	
 });
 </script>
 </head>

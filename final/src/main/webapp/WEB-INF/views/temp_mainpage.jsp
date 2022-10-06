@@ -29,6 +29,7 @@ $(document).ready(function() {
 	});
 	// 로그아웃 버튼에 대한 ajax
 
+
 });
 </script>
 </head>

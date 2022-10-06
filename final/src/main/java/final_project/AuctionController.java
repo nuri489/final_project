@@ -25,6 +25,10 @@ public class AuctionController {
 	@Qualifier("memberservice")
 	MemberService member_service;
 	
+	@Autowired
+	@Qualifier("auctionthread")
+	AuctionThread auctionthread;
+	
 	
 	@GetMapping("/temp_main")
 	public String Main() {
@@ -41,10 +45,18 @@ public class AuctionController {
 		int request_num = auction_service.request_num(product_num);
 		// auction_gauge 테이블에서 경매 요청 정보 가져옴
 		
-		mv.addObject("temp_dto",dto);
-		mv.addObject("request_num",request_num);
+		int check = auction_service.auctionChecking(product_num); // 경매 유무 확인
 		
-		mv.setViewName("AuctionPage2");
+		if(check == 1) {
+			mv.setViewName("temp_mainpage");
+		}
+		else {
+			mv.addObject("temp_dto",dto);
+			mv.addObject("request_num",request_num);
+			mv.setViewName("AuctionPage2");
+		}
+		// auction_check 값에 따라 일반 판매 페이지로 연결될지 말지 정함
+		
 		return mv;
 	}
 	// 임시 제품 상세 페이지. 제품에 대한 정보와 경매 요청 횟수를 모델로 넘김
@@ -70,6 +82,22 @@ public class AuctionController {
 	}
 	// 경매 요청 및 횟수 조회
 	
+	@ResponseBody
+	@PostMapping("/cancle_request")
+	public int cancleRequest(int product_num , int user_num) {
+		
+		int request2 = auction_service.request_num2(product_num , user_num);
+		// 로그인한 유저의 경매 요청에 대한 유무 확인. 0 또는 1
+		if(request2 == 0) {
+			return 0;
+		}
+		else {
+			auction_service.cancle_request(product_num, user_num);
+			int request = auction_service.request_num(product_num);
+			return request;
+		}
+	}
+	
 	
 	@GetMapping("/request_accepting")
 	public ModelAndView auctionAccepting(int product_num) {
@@ -93,23 +121,32 @@ public class AuctionController {
 	
 	@GetMapping("/request_accepted")
 	public String auctionAccepted(AuctionDTO dto) {
+
 		
 		int check = auction_service.auctionChecking(dto.product_num); // 경매 유무 확인
 
 		if(check == 0) {
 			auction_service.auctionCheck(dto.product_num); // auction_check 값 1로 바꿈
 			auction_service.requestAccept(dto); // auction_info 테이블에 insert
-			
+
 			AuctionDTO dto1 = auction_service.auction_info(dto.product_num);
+			// 왜 dto, dto1 따로 뒀지? final_price 가져오려고?
+			
 			int auction_num = dto1.auction_num;
 			int user_num = dto.user_num;
 			int bid_price = dto1.final_price;
 			auction_service.bid_request(auction_num , user_num , bid_price);
 			// auction_bid 테이블에 판매자의 user_num으로 첫번째 입찰 insert
+			
+			
 		}
 		// auction_info 테이블에 해당 제품에 대한 정보가 없을 시, insert 함
 		// 최초 경매로 바꿀 때, 판매자의 정보로 해당 경매에 대한 입찰 정보 입력.
 		// 즉, 최초 입찰자는 판매자 본인이며 입찰가는 원래 판매가와 동일함
+		
+		int time = Integer.parseInt(dto.end_time);
+		auctionthread = new AuctionThread(time , dto.product_num , dto.auction_method , auction_service);
+		auctionthread.start();
 		
 		return "temp_mainpage";
 	}
@@ -134,10 +171,15 @@ public class AuctionController {
 		// 경매 정보 dto1에 저장
 		
 		if(check == 1) {
+			
+			int much = auction_service.muchbid(dto1.auction_num) - 1;
+			// 입찰 수
+			
 			mv.addObject("dto1",dto1);
 			mv.addObject("dto2",dto2);
 			mv.addObject("user_id", user_id);
 			mv.addObject("detail_name",detail_name);
+			mv.addObject("much",much);
 			
 			mv.setViewName("AuctionPage");
 		}
@@ -194,7 +236,7 @@ public class AuctionController {
 				// 새로운 사람이 입찰을 한다면 환불을 해줘야 하는 사람이 아무도 없으므로
 				// last != first 일때만 last에게 환불해줌
 				
-				return 2;
+				return bid_price;
 			}
 		}
 		
@@ -264,7 +306,7 @@ public class AuctionController {
 	// 비공개 경매의 입찰과정
 	
 	@ResponseBody
-	@PostMapping("/my_bid")
+	@GetMapping("/my_bid")
 	public int mybid(int auction_num , int user_num) {
 		
 		int check = auction_service.checkbid(auction_num, user_num);
@@ -279,5 +321,6 @@ public class AuctionController {
 		return mybid;
 	}
 	// 내 제시가 호출
+
 
 }

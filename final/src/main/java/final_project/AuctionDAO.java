@@ -11,6 +11,8 @@ public interface AuctionDAO {
 
 	public int requestAuction(int product_num , int user_num);
 	// 경매 요청. auction_gauge 에 insert 함
+	public int cancleRequest(int product_num, int user_num);
+	// 경매 요청 취소
 	public int requestNumber(int product_num);
 	// 경매 요청 횟수. auction_gauge의 count 값 리턴
 	public int requestNumber2(int product_num, int user_num);
@@ -21,9 +23,13 @@ public interface AuctionDAO {
 	// 경매 유무 값. product_info의 auction_check 값 1로 바꿈
 	public int auctionChecking(int product_num);
 	// 경매 유무 값 확인. product_num을 통해 select 하여 auction_check 값이 1인지 아닌지 확인
+	public int getMuch_bid(int auction_num);
+	// 경매 입찰 수
 	
 	public AuctionDTO getAuction_info(int product_num);
 	// 경매 상세 정보 호출
+	public int getAuction_num(int product_num);
+	// 경매 고유 번호 호출
 	
 	public ProductDTO getProduct_info(int product_num);
 	// 임시 제품 상세 정보 호출
@@ -35,6 +41,8 @@ public interface AuctionDAO {
 	// 비공개 입찰에서 두 조건으로 count 값 리턴
 	public int getLast_bid(int auction_num);
 	// 최신 입찰자의 user_num 호출
+	public int getSecond_bid(int auction_num);
+	// 2순위 입찰가 호출
 	public int getFirst_bid(int auction_num);
 	// 판매자의 user_num 호출
 	
@@ -51,4 +59,7 @@ public interface AuctionDAO {
 	// 입찰자의 보유 머니 차감
 	public int refundUser_money(int final_price , int user_num);
 	// 입찰자의 보유 머니 환불
+	
+	public int insertPay_info(int user_num , int product_num, int pay_price);
+	// 경매 종료 후, payment_info에 insert
 }

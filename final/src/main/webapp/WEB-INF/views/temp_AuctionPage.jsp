@@ -21,6 +21,14 @@ $(document).ready(function() {
 			var really = confirm("경매로 변경하시겠습니까? 다시 일반 판매로 변경하실 수 없습니다.");
 			
 			if(really) {
+					
+				$.ajax({
+					url : 'time',
+					type : 'post',
+					data : {'time' : $("#auction-time").val(), 'product_num':${dto.product_num}, 'auction_method':$("#auction-method").val()},
+					dataType : 'text'
+				});
+				
 				$("#auction-form").attr('action','request_accepted').submit();
 			}
 			else {	
@@ -32,6 +40,7 @@ $(document).ready(function() {
 	$("#cancle-button").on('click',function(){
 		location.replace('temp_product?product_num=${dto.product_num}');
 	});
+	// 취소 버튼
 	
 	
 	/* 

@@ -15,12 +15,19 @@ public class AuctionService_Impl implements AuctionService {
 	public int auction_request(int product_num, int user_num) {
 		return dao.requestAuction(product_num,user_num);
 	}
+	// 경매 요청
+	
+	@Override
+	public int cancle_request(int product_num, int user_num) {
+		return dao.cancleRequest(product_num, user_num);
+	}
+	// 경매 요청 취소
 	
 	@Override
 	public int request_num(int product_num) {
 		return dao.requestNumber(product_num);
 	}
-	// 경매 요청 및 요청 횟수 계산
+	// 어떤 제품에 대한 요청 횟수
 	
 	@Override
 	public int request_num2(int product_num, int user_num) {
@@ -47,6 +54,12 @@ public class AuctionService_Impl implements AuctionService {
 		return dao.getAuction_info(product_num);
 	}
 	// 경매 정보 호출
+	
+	@Override
+	public int getAuction_num(int product_num) {
+		return dao.getAuction_num(product_num);
+	}
+	// 경매 고유번호 호출
 
 	@Override
 	public ProductDTO product_info(int product_num) {
@@ -72,6 +85,11 @@ public class AuctionService_Impl implements AuctionService {
 		return dao.getLast_bid(auction_num);
 	}
 	// 최신 입찰 유저의 user_num 호출
+	
+	@Override
+	public int secondbid(int auction_num) {
+		return dao.getSecond_bid(auction_num);
+	}
 	
 	@Override
 	public int firstbid(int auction_num) {
@@ -114,6 +132,19 @@ public class AuctionService_Impl implements AuctionService {
 		return dao.Check_bid(auction_num, user_num);
 	}
 	// 비공개 입찰시 입찰여부 검사
+
+	@Override
+	public int muchbid(int auction_num) {
+		return dao.getMuch_bid(auction_num);
+	}
+	// 어떤 경매의 입찰 수
+
+	@Override
+	public int insertpay(int user_num, int product_num, int final_price) {
+		return dao.insertPay_info(user_num, product_num, final_price);
+	}
+	// 경매 종료 후 결제정보 insert
+
 
 	
 	
