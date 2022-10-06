@@ -28,6 +28,7 @@ $(document).ready(function(){
 				$(".tagbtn").click(function(e){
 					$("#tag_result").html('<button class="tagbtn">'+$(this).attr('id')+'</button>');
 					$("#detail_num").attr("value",$(this).attr('value'));
+					$(".tagbtn").css("background-color","#ed6f69");
 				}); //#tagbtn end
 			}
 		});//ajax end
@@ -39,18 +40,25 @@ $(document).ready(function(){
 			alert('상품명 태그를 선택하여주십시오.');
 		}
 	});
+	$('#tagbtn').on('click',function(e){
+		e.preventDefault();
+	})
 	
 });//ready end
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap');
+button, input[type=submit]{
+	outline: 0;
+	border:none;
+}
 #contents{
 	position:relative;
 	display: flex;
 	flex-flow:column;
 	align-items: center;
 	justify-content: center;
-	border : 1px solid black;
+	/* border : 1px solid red; */
 	padding-top: 20px;
 	min-width:800px;
 	padding-bottom: 20px;
@@ -58,11 +66,21 @@ $(document).ready(function(){
 #contents #form_name{
 	font-size: 24px;
 	font-weight: 700;
+	color :  rgb(67, 91, 124,0.7);
+	margin-bottom: 20px;
+}
+#contents #contents_box{
+	background-color:rgb(208, 217, 232,0.2);
+	border:2px solid rgb(92, 117, 230,0.1);
+	border-radius: 8px;
+	padding:10px;
+	min-height:300px;
 }
 #sales_table{
-	min-height:300px;
-	padding : 10px;
+	padding : 20px;
+	background-color: :red;
 	border-collapse: collapse;
+	border-radius: 8px;
 }
 #sales_table th{
 	width: 50px;
@@ -72,43 +90,108 @@ $(document).ready(function(){
 	width: 110px;
 	height: 50px;
 }
+#sales_table input[type=text], input[type=number], textarea{
+	width:95%;
+	height: 30px;
+	border: none;
+	border-radius: 8px;
+	padding: 3px 5px 3px 5px;
+}
+#sales_table input[type=number]{
+	width:75%;
+	height: 30px;
+	border: none;
+	border-radius: 8px;
+	padding: 3px 5px 3px 5px;
+}
+#sales_table textarea{
+	height: 200px;
+	width: 600px;
+	padding: 15px;
+}
 button, input[type=submit]{
 	border-radius: 8px;
 	margin-left: 5px;
 	margin-bottom: 5px;
+	
 }
 
 #sales_table .header{
 	width: 100px;
 	text-align: center;
+	border : 2px solid rgb(92, 117, 230,0.3);
 }
 #sales_table .option{
 	background-color: orange;
 	width: 100px;
 }
 #submitbtn{
-	width: 80px;
-	height: 40px;
+	margin-top:20px;
+	width: 100px;
+	height: 35px;
 	background-color: #5C75E6;
 	color: white;
 	font-size: 17px;
+}
+#submitbtn:hover{
+	background-color: #68abfe;
+}
+#sales_table select{
+	height: 25px;
+	border : 2px solid rgb(92, 117, 230,0.3);
+	border-radius: 8px;
+}
+#sales_table input[type=checkbox]{
+	/* 체크박스 기본값 없애기 */	
+	 -webkit-appearance: none;
+     -moz-appearance: none;
+     appearance: none;
+    width:15px;
+    height:15px;
+    border-radius:3px;
+    outline: 0;
+	border : 2px solid rgb(92, 117, 230,0.3);
+	background-color:  #fff;
+}
+
+#sales_table input[type="checkbox"]:checked {
+  background-color:  rgb(92, 117, 230,0.3);
+  background-image:url("/serverimg/checkicon.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.data{
+	border : 2px solid rgb(92, 117, 230,0.3);
+	padding-left: 10px;
+}
+.tagbtn{
+	height: 20px;
+	outline: 0;
+	border:none;
+	background-color:#ffbda7;
+	color: #fff;
+	cursor: pointer;
+}
+.tagbtn:hover{
+background-color:#ed6f69;
 }
 </style>
 </head>
 <body>
 <div id="contents">
-<div id="form_name">판매폼</div>
+<div id="form_name">판매할 상품을 등록하세요!</div>
 <form action="insertsales" enctype="multipart/form-data" method="post" id="salesform">
-<table border=1 id="sales_table">
-	<tr><td class="header">제목</td><td colspan="3"><input type="text" placeholder="제목을 입력하여주세요.(제품명 포함)" size="50" name="product_title" required="required"></td></tr>
+<div id="contents_box">
+<table  id="sales_table">
+	<tr><td class="header">제목</td><td colspan="3" class="data"><input type="text" placeholder="제목을 입력하여주세요.(제품명 포함)" size="50" name="product_title" required="required"></td></tr>
 	<tr>
 		<td class="header">거래</td>
-		<td>
+		<td class="data">
 			<input type="checkbox" name="safe_trade" value="1"> 안전거래
 			<input type="checkbox" name="auction_check" value="1"> 경매전환
 		</td>
-		<td class="header">카테고리</td>
-		<td><select name="category_num" id="category_num">
+		<td class="header data">카테고리</td>
+		<td class="data"> <select name="category_num" id="category_num">
 				<option value="1">DVD</option>
 				<option value="2">콘서트굿즈</option>
 				<option value="3">앨범</option>
@@ -126,7 +209,7 @@ button, input[type=submit]{
 		</td>
 	</tr>
 	<tr><td class="header">상품 상태</td>
-		<td colspan="3">
+		<td colspan="3" class="data">
 		<select name="product_status4">
 				<option value="나쁨">나쁨</option>
 				<option value="보통">보통</option>
@@ -137,15 +220,16 @@ button, input[type=submit]{
 		<input type="checkbox" name="product_status3" value="1">단종
 		<input type="checkbox" name="product_status5" value="1"> 구성품 전부 포함</td>
 	</tr>
-	<tr><td class="header">가격</td><td><input type="number" name="product_price" value="" required="required"> 원</td>
-		<td colspan="2"><input type="file" name="images" multiple="multiple"> </td>
+	<tr><td class="header">가격</td><td class="data" style="width: 220px;"><input type="number" name="product_price" value="" required="required"> 원</td>
+		<td colspan="2" class="data"><input type="file" name="images" multiple="multiple"> </td>
 	</tr>
-	<tr><td class="header">상품 설명</td><td colspan="3"><textarea rows="8" cols="100" placeholder="판매할 제품의 설명을 입력하여주세요." name="product_contents" required="required"></textarea> </td></tr>
-	<tr><td class="header">상품명 태그</td><td colspan="1"><input type="text" id="tag" placeholder="판매할 물건명의 태그를 달아주세요." size="30"> </td><td colspan="3" id="tag_result"></td></tr>
-	<tr><td colspan="4" style="text-align: center;"><input type="submit" value="등록" id="submitbtn"> </td></tr>
+	<tr><td class="header">상품 설명</td><td colspan="3" class="data"><textarea rows="8" cols="100" placeholder="판매할 제품의 설명을 입력하여주세요. 상세할수록 좋습니다!" name="product_contents" required="required"></textarea> </td></tr>
+	<tr><td class="header">상품명 태그</td><td colspan="1" class="data"><input type="text" id="tag" placeholder="판매할 물건명의 태그를 달아주세요." size="30"> </td><td  class="data" colspan="3" id="tag_result"></td></tr>
+	<tr><td colspan="4" style="text-align: center;" ><input type="submit" value="등록" id="submitbtn"> </td></tr>
 	
 </table>
 	<input type="hidden" id="detail_num" name="detail_num" value="">
+</div>
 </form>
 </div>
 </body>
