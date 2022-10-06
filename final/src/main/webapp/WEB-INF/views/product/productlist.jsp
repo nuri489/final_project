@@ -9,7 +9,7 @@
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function(){
-	$('.idol_name_btn').on('mouseover', function(){
+	$('.idol_name_btn_e').on('mouseover', function(){
 		var idol =$(this).val();
 		if(idol=='bts'){
 			$('#product_category_list1').css('display','block');
@@ -84,6 +84,10 @@ $(document).ready(function(){
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap');
+button{
+transition: all 0.2s ;
+cursor: pointer;
+}
 .product_list, .section1{
 	position: relative;
 	display: flex;
@@ -147,6 +151,9 @@ a:hover{
 	color:#5C75E6;
 	font-size:24px;
 	background-color:#dde4ee;
+}
+.idol_name_btn:hover{
+	text-decoration: underline;
 }
 @keyframes fadeInUp {
         0% {
@@ -282,7 +289,10 @@ a:hover{
 		<div class="left">
 			<div class="category_list">
 				<div class="category_list_item">
-					<div class="idol_name" id="idol_name"><button class="idol_name_btn" value="bts">BTS</button></div>
+					<div class="idol_name" id="idol_name"><button class="idol_name_btn" onclick="location.href='getproducts';">ALL</button></div>
+				</div>	
+				<div class="category_list_item">
+					<div class="idol_name" id="idol_name"><button class="idol_name_btn idol_name_btn_e" value="bts" onclick="location.href='getproducts?idol_num=1';" >BTS</button></div>
 					<div class="product_category_list" id="product_category_list1" style="display:none;">
 						<div class="product_category_list_item1"><a href="getproducts?idol_num=1&category_num=1">DVD</a></div>
 						<div class="product_category_list_item1"><a href="getproducts?idol_num=1&category_num=2">콘서트 굿즈</a></div>
@@ -296,7 +306,7 @@ a:hover{
 					</div>	
 				</div>
 				<div class="category_list_item">
-					<div class="idol_name" id="idol_name" value="nct"><button class="idol_name_btn" value="nct">NCT</button></div>
+					<div class="idol_name" id="idol_name"><button class="idol_name_btn idol_name_btn_e" value="nct" onclick="location.href='getproducts?idol_num=2';">NCT</button></div>
 					<div class="product_category_list" id="product_category_list2" style="display:none;">
 						<div class="product_category_list_item1"><a href="getproducts?idol_num=2&category_num=1">DVD</a></div>
 						<div class="product_category_list_item1"><a href="getproducts?idol_num=2&category_num=2">콘서트 굿즈</a></div>

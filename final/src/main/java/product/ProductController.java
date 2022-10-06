@@ -94,7 +94,7 @@ public class ProductController {
 	}
 
 	@RequestMapping("/getproducts")
-	public ModelAndView getProducts(@RequestParam(value= "idol_num", defaultValue = "1") int idol_num, @RequestParam(value= "category_num", defaultValue = "0") int category_num, HttpServletRequest request){
+	public ModelAndView getProducts(@RequestParam(value= "idol_num", defaultValue = "0") int idol_num, @RequestParam(value= "category_num", defaultValue = "0") int category_num, HttpServletRequest request){
 
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession();
@@ -105,13 +105,21 @@ public class ProductController {
 			mv.addObject("likeproduct", like_product);
 			}
 		}
+		List<ProductDTO> productlist =null ;
+	
+		if(idol_num==0 && category_num ==0) { // 기본 전체 상품 보여주기 
+			productlist = pdtService.getAllProducts();
+		}else if(category_num==0) { //해당 아이돌의 전체 상품 보여주기
+			productlist = pdtService.getProductsIdol(idol_num);
+		}else {
+			ProductDTO dto = new ProductDTO();
+			dto.setIdol_num(idol_num);
+			dto.setCategory_num(category_num);
+			//상품 리스트가지고 오기 
+			productlist = pdtService.getProducts(dto);
+			
+		}
 		
-		// 기본은 방탄소년단의 모든 상품 보여줌 category_num = 0 이면 모든 상품
-		ProductDTO dto = new ProductDTO();
-		dto.setIdol_num(idol_num);
-		dto.setCategory_num(category_num);
-		//상품 리스트가지고 오기 
-		List<ProductDTO> productlist = pdtService.getProducts(dto);
 		mv.setViewName("product/productlist");
 		mv.addObject("productlist", productlist);
 		return mv;
