@@ -18,4 +18,6 @@ public interface ProductDAO {
 	int likeProduct(ProductDTO dto);
 	int unlikeProduct(ProductDTO dto);
 	List<Integer> getLikeProduct(int user_num);
+	List<ProductDTO> getAllProducts();
+	List<ProductDTO> getProductsIdol(int idol_num);
 }

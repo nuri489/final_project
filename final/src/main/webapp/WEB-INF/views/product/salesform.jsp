@@ -51,6 +51,8 @@ $(document).ready(function(){
 button, input[type=submit]{
 	outline: 0;
 	border:none;
+	transition: all 0.2s ;
+	border-radius: 8px;
 }
 #contents{
 	position:relative;
@@ -109,12 +111,12 @@ button, input[type=submit]{
 	width: 600px;
 	padding: 15px;
 }
-button, input[type=submit]{
+/* button, input[type=submit]{
 	border-radius: 8px;
 	margin-left: 5px;
 	margin-bottom: 5px;
 	
-}
+} */
 
 #sales_table .header{
 	width: 100px;
@@ -126,7 +128,6 @@ button, input[type=submit]{
 	width: 100px;
 }
 #submitbtn{
-	margin-top:20px;
 	width: 100px;
 	height: 35px;
 	background-color: #5C75E6;
@@ -134,7 +135,9 @@ button, input[type=submit]{
 	font-size: 17px;
 }
 #submitbtn:hover{
-	background-color: #68abfe;
+	
+  	background-color:#6682FF;
+  	box-shadow: 0px 0px 0px 5px rgba(192, 194, 250,0.7);
 }
 #sales_table select{
 	height: 25px;
@@ -168,6 +171,8 @@ button, input[type=submit]{
 	height: 20px;
 	outline: 0;
 	border:none;
+	margin-left: 5px;
+	margin-bottom: 5px;
 	background-color:#ffbda7;
 	color: #fff;
 	cursor: pointer;
@@ -225,7 +230,7 @@ background-color:#ed6f69;
 	</tr>
 	<tr><td class="header">상품 설명</td><td colspan="3" class="data"><textarea rows="8" cols="100" placeholder="판매할 제품의 설명을 입력하여주세요. 상세할수록 좋습니다!" name="product_contents" required="required"></textarea> </td></tr>
 	<tr><td class="header">상품명 태그</td><td colspan="1" class="data"><input type="text" id="tag" placeholder="판매할 물건명의 태그를 달아주세요." size="30"> </td><td  class="data" colspan="3" id="tag_result"></td></tr>
-	<tr><td colspan="4" style="text-align: center;" ><input type="submit" value="등록" id="submitbtn"> </td></tr>
+	<tr><td colspan="4" style="text-align: center;" ><div style="height: 40px; margin-top:20px;"><input type="submit" value="등록" id="submitbtn"></div> </td></tr>
 	
 </table>
 	<input type="hidden" id="detail_num" name="detail_num" value="">
