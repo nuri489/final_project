@@ -62,6 +62,14 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<ProductDTO> getthumbnail(int product_num) {
 		return productDAO.getThumbnail(product_num);
+
+	public List<ProductDTO> getAllProducts() {
+		return productDAO.getAllProducts();
+	}
+
+	@Override
+	public List<ProductDTO> getProductsIdol(int idol_num) {
+		return productDAO.getProductsIdol(idol_num);
 	}
 	
 	
