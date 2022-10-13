@@ -53,6 +53,16 @@ public class ProductServiceImpl implements ProductService{
 	public List<Integer> getLikeProduct(int user_num) {
 		return productDAO.getLikeProduct(user_num);
 	}
+
+	@Override
+	public List<ProductDTO> getBuyinglist(int buyer_num) {
+		return productDAO.getBuying_list(buyer_num);
+	}
+
+	@Override
+	public List<ProductDTO> getthumbnail(int product_num) {
+		return productDAO.getThumbnail(product_num);
+	}
 	
 	
 	

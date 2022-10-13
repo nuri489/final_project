@@ -60,6 +60,6 @@ public interface AuctionDAO {
 	public int refundUser_money(int final_price , int user_num);
 	// 입찰자의 보유 머니 환불
 	
-	public int insertPay_info(int user_num , int product_num, int pay_price);
-	// 경매 종료 후, payment_info에 insert
+	public int soldOut(int final_price , int user_num , int product_num);
+	// 최종 결제를 위해 product_info 테이블 update
 }

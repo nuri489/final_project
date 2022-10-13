@@ -149,4 +149,27 @@ public class ProductController {
 		if(insert_result>0) return "{\"result\" : \"success\"}";
 		else return "{\"result\" : \"fail\"}";
 	}
+	
+	@RequestMapping("/buyinglist")
+	public ModelAndView buyinglist(int buyer_num) {
+		
+		ModelAndView mv = new ModelAndView();
+		List<ProductDTO> buyinglist = pdtService.getBuyinglist(buyer_num);
+		List<ProductDTO> thumbnail = new ArrayList<>();
+		
+		for(ProductDTO dto : buyinglist) {
+			
+			thumbnail.addAll(pdtService.getthumbnail(dto.product_num));
+			// 썸네일 경로 값
+		}
+		
+		List<ProductDTO> joined = new ArrayList<>();
+		
+		mv.addObject("buyinglist",buyinglist);
+		mv.addObject("thumbnail",thumbnail);
+		
+		mv.setViewName("product/buyinglist");
+		
+		return mv;
+	}
 }

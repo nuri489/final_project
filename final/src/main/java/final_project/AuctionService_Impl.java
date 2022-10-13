@@ -140,11 +140,10 @@ public class AuctionService_Impl implements AuctionService {
 	// 어떤 경매의 입찰 수
 
 	@Override
-	public int insertpay(int user_num, int product_num, int final_price) {
-		return dao.insertPay_info(user_num, product_num, final_price);
+	public int soldout(int final_price, int user_num, int product_num) {
+		return dao.soldOut(final_price, user_num, product_num);
 	}
-	// 경매 종료 후 결제정보 insert
-
+	// 최종 결제를 위한 product_info 테이블 update
 
 	
 	

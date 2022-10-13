@@ -51,7 +51,7 @@ public interface AuctionService {
 	public int refundmoney(int final_price , int user_num);
 	// 입찰자의 보유 머니 환불
 	
-	public int insertpay(int user_num, int product_num, int final_price);
-	// 경매 종료 후 결제 정보 insert
+	public int soldout(int final_price , int user_num , int product_num);
+	// 최종 결제를 위한 product_info 테이블 update
 	
 }

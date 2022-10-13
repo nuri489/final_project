@@ -62,4 +62,14 @@
 	<select id="getLikeProduct" parameterType="int" resultType="int">
 		select product_num from like_info where user_num=#{user_num}
 	</select>
+	
+	<select id="getBuying_list" parameterType="int" resultType="productdto">
+		select * from product_info where buyer_num = #{buyer_num} and product_sell = 1
+	</select>
+	<!-- 구매목록 -->
+	
+	<select id="getThumbnail" parameterType="int" resultType="productdto">
+	 	select image_path from image where product_num = #{product_num} order by product_num asc limit 1
+	</select>
+	
   </mapper>

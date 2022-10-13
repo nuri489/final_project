@@ -14,12 +14,14 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = "securepayment")
 @ComponentScan(basePackages = "chatbot")
 @ComponentScan(basePackages = "member")
+@ComponentScan(basePackages = "WebSocketChatting")
 
 @MapperScan(basePackages = "final_project")
 @MapperScan(basePackages = "product")
 @MapperScan(basePackages = "upload")
 @MapperScan(basePackages = "member")
 @MapperScan(basePackages = "securepayment")
+@MapperScan(basePackages = "WebSocketChatting")
 public class FinalApplication {
 
 	public static void main(String[] args) {

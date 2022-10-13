@@ -9,6 +9,7 @@
 	<typeAlias type="product.ProductDTO" alias="productdto"/>
 	<typeAlias type="securepayment.SecurePaymentDTO" alias="securepaymentdto"/>
 	<typeAlias type="member.MemberDTO" alias="memberdto"/>
+	<typeAlias type="WebSocketChatting.ChattingDTO" alias="chattingdto"/>
 </typeAliases>
 </configuration>
 
