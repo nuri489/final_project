@@ -39,18 +39,28 @@ public class ProductController {
 	@Qualifier("auctionservice")
 	AuctionService auction_service;
 	
+	// 판매글 등록 폼 가져오기 
 	@RequestMapping("/getsalesform")
 	public String getSalesForm() {
 		
 		return "product/salesform";
 	}
 	
+	// 판매글 등록 프로세스 
 	@RequestMapping("/insertsales")
-	public String insertSales(ProductDTO dto) throws IOException {
+	public String insertSales(ProductDTO dto,HttpServletRequest request) throws IOException {
+		
+		
+			HttpSession session = request.getSession();
+			int user_num=0;
+			if(session.getAttribute("sessionUser_num")!=null) {
+				user_num = (int) session.getAttribute("sessionUser_num");
+				
+			}
 		String savePath="/Users/choiyoonseo/Documents/final_images/"; //이거 수정하세용~!! C://final_images/
 		
 		int last_insert_pdt_num = 0;
-		dto.setUser_num(1);
+		dto.setUser_num(user_num);
 		UploadDTO uploaddto = new UploadDTO();
 		int insert_result = pdtService.insertSales(dto);
 		String [] imgexp = {"jpg","jfif","png","jpeg"}; //업로드 가능한 이미지 확장자들
@@ -81,7 +91,7 @@ public class ProductController {
 			}
 		}
 		
-		return "product/salesform";
+		return "redirect:/getproducts";
 	}
 	
 	//상품판매글 등록시 디테일 태그 보여주기
@@ -93,6 +103,7 @@ public class ProductController {
 		return tag_result;
 	}
 
+	// 카테고리별 상품 보기 
 	@RequestMapping("/getproducts")
 	public ModelAndView getProducts(@RequestParam(value= "idol_num", defaultValue = "0") int idol_num, @RequestParam(value= "category_num", defaultValue = "0") int category_num, HttpServletRequest request){
 
@@ -125,6 +136,7 @@ public class ProductController {
 		return mv;
 	}
 	
+	// 찜하기 
 	@RequestMapping("/likeclickajax")
 	@ResponseBody
 	public String likeProduct(int product_num, HttpServletRequest request) {
@@ -141,6 +153,7 @@ public class ProductController {
 		else return "{\"result\" : \"fail\"}";
 	}
 	
+	// 찜 취소 
 	@RequestMapping("/unlikeclickajax")
 	@ResponseBody
 	public String unlikeProduct(int product_num, HttpServletRequest request) {
@@ -155,5 +168,45 @@ public class ProductController {
 		int insert_result = pdtService.unlikeProduct(dto);
 		if(insert_result>0) return "{\"result\" : \"success\"}";
 		else return "{\"result\" : \"fail\"}";
+	}
+	
+	// 시세확인 
+	@RequestMapping("/quote")
+	public ModelAndView getQuoteform(int detail_num,HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+//		List<ProductDTO> dto = pdtService.getQuote(detail_num);
+//		mv.addObject("quotelist", dto);
+		mv.setViewName("product/quote");
+		return mv;
+	}
+	
+	@RequestMapping("/quoteajax")
+	@ResponseBody
+	public List<ProductDTO> getQuote(int detail_num,HttpServletRequest request) {
+		List<ProductDTO> dto = pdtService.getQuote(detail_num);
+		return dto;
+	}
+	
+	@RequestMapping("/quotefilterajax")
+	@ResponseBody
+	public List<ProductDTO> getQuoteFilter(ProductDTO dto) {
+		//System.out.println("받아온거 ::"+dto.getProduct_status1()+dto.getProduct_status2()+dto.getProduct_status3()+dto.getProduct_status4()+dto.getProduct_status5());
+		List<ProductDTO> filterlist = pdtService.getQuoteFilter(dto);
+//		for(int i=0;i<filterlist.size();i++) {
+//			System.out.println("결과::: "+filterlist.get(i));
+//		}
+		return filterlist;
+	}
+	
+	@RequestMapping("/getSaleslist")
+	@ResponseBody
+	public List<ProductDTO> getSaleslist(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		List<ProductDTO> dto = null;
+		if(session.getAttribute("sessionUser_num")!=null) {
+			int user_num = (int) session.getAttribute("sessionUser_num");
+			dto = pdtService.getSaleslist(user_num);
+		}
+		return dto;
 	}
 }
