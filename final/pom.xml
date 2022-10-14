@@ -19,16 +19,7 @@
 	</properties>
 	<dependencies>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -40,15 +31,23 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
-			<version>2.6.2</version>
-
+			<version>2.7.2</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+	
 		<!-- for jsp -->
 		<dependency>
 	        <groupId>org.apache.tomcat.embed</groupId>
 	        <artifactId>tomcat-embed-jasper</artifactId>
 	        <scope>provided</scope>
 	    </dependency>
+	    
 		<!-- for jsp jstl -->
 	    <dependency>
 	        <groupId>javax.servlet</groupId>
@@ -56,11 +55,6 @@
 	    </dependency>
 		<!--for tomcat restart - starter에서 선택 가능-->
 
-	     <dependency>
-	         <groupId>org.springframework.boot</groupId>
-	         <artifactId>spring-boot-devtools</artifactId>
-	         <optional>true</optional>
-	     </dependency>
 	     <!-- mybatis 연동 부분 -->
        
         <dependency>

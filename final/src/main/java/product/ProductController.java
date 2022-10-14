@@ -122,6 +122,7 @@ public class ProductController {
 		
 		mv.setViewName("product/productlist");
 		mv.addObject("productlist", productlist);
+
 		return mv;
 	}
 	
@@ -155,5 +156,17 @@ public class ProductController {
 		int insert_result = pdtService.unlikeProduct(dto);
 		if(insert_result>0) return "{\"result\" : \"success\"}";
 		else return "{\"result\" : \"fail\"}";
+	}
+	
+	@RequestMapping("/buyinglist")
+	public ModelAndView buyinglist(int buyer_num) {
+		
+		ModelAndView mv = new ModelAndView();
+		List<ProductDTO> buyinglist = pdtService.getBuyinglist(buyer_num);
+		mv.addObject("buyinglist",buyinglist);
+		
+		mv.setViewName("product/buyinglist");
+		
+		return mv;
 	}
 }
