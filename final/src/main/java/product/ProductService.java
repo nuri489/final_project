@@ -17,7 +17,6 @@ public interface ProductService {
 
 	
 	List<ProductDTO> getBuyinglist(int buyer_num);
-	List<String> getthumbnail(int product_num);
 
 	List<ProductDTO> getAllProducts();
 	List<ProductDTO> getProductsIdol(int idol_num);

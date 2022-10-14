@@ -58,12 +58,6 @@ public class ProductServiceImpl implements ProductService{
 	public List<ProductDTO> getBuyinglist(int buyer_num) {
 		return productDAO.getBuying_list(buyer_num);
 	}
-
-	@Override
-	public List<String> getthumbnail(int product_num) {
-		return productDAO.getThumbnail(product_num);
-	}
-
 	
 	public List<ProductDTO> getAllProducts() {
 		return productDAO.getAllProducts();

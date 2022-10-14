@@ -16,6 +16,13 @@ input {
 	
 }
 
+.confirm-cancle {
+	border : solid;
+	margin: 10px;
+  	padding : 0px;
+  	width: 100%;
+}
+
 select {
 	border : none;
 	margin: 10px auto;
@@ -55,6 +62,15 @@ h1 {
   border-radius: 8px;
 }
 
+#button-div {
+	position: relative;
+  	margin: 0px;
+  	padding : 0px;
+  	width : 100%;
+  	display: flex;
+  	background-color: white;
+}
+
 table {
 	margin: 10px auto;
   	padding : 0px;
@@ -85,6 +101,10 @@ table , tr , td {
 	border-color : #5C75E6;
 	margin: 30px auto;
  	padding : 10px;
+}
+
+input:focus , select:focus {
+	outline: none;
 }
 
 .body2:hover {

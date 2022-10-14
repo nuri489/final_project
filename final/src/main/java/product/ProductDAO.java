@@ -21,8 +21,6 @@ public interface ProductDAO {
 	
 	List<ProductDTO> getBuying_list(int buyer_num);
 	// 구매목록과 구매목록에 표시될 리스트의 count
-	List<String> getThumbnail(int product_num);
-	// 대표 이미지 경로
 
 	List<ProductDTO> getAllProducts();
 	List<ProductDTO> getProductsIdol(int idol_num);

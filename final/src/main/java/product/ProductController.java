@@ -163,24 +163,6 @@ public class ProductController {
 		
 		ModelAndView mv = new ModelAndView();
 		List<ProductDTO> buyinglist = pdtService.getBuyinglist(buyer_num);
-		
-/*		
-		List<String> thumbnail = new ArrayList<>();
-		
-		
-		for(ProductDTO dto : buyinglist) {
-			thumbnail.addAll(pdtService.getthumbnail(dto.product_num));
-			// 썸네일 경로 값
-		}
-		
-		List<ProductDTO> join = new ArrayList<>();
-		
-		
-//		join.addAll(thumbnail);
-		mv.addObject("join",join);
-		mv.addObject("thumbnail",thumbnail);
-
-*/		
 		mv.addObject("buyinglist",buyinglist);
 		
 		mv.setViewName("product/buyinglist");

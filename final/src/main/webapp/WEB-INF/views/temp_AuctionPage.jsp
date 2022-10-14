@@ -103,26 +103,28 @@ $(document).ready(function() {
 		<td class="head">경매시간</td>
 		<td class="body2">
 			<select id="input-time" name="end_time">
-				<option value=24>24</option>
-				<option value=25>25</option>
-				<option value=26>26</option>
-				<option value=27>27</option>
-				<option value=28>28</option>
-				<option value=29>29</option>
-				<option value=30>30</option>
-				<option value=31>31</option>
-				<option value=32>32</option>
-				<option value=33>33</option>
-				<option value=34>34</option>
-				<option value=35>35</option>
-				<option value=36>36</option>
+				<option value=24>24 시간</option>
+				<option value=25>25 시간</option>
+				<option value=26>26 시간</option>
+				<option value=27>27 시간</option>
+				<option value=28>28 시간</option>
+				<option value=29>29 시간</option>
+				<option value=30>30 시간</option>
+				<option value=31>31 시간</option>
+				<option value=32>32 시간</option>
+				<option value=33>33 시간</option>
+				<option value=34>34 시간</option>
+				<option value=35>35 시간</option>
+				<option value=36>36 시간</option>
 			</select>
 		</td>
 		</tr>
 	</table><br>
-	<input type=button id="confirm-button" value="경매로 전환하기">
-	<input type=button id="cancle-button" value="취소">
-	<input type=number name="user_num" value="${dto.user_num}" hidden="true">
+	<div id="button-div">
+		<input type=button id="confirm-button" value="경매로 전환하기" class="confirm-cancle">
+		<input type=button id="cancle-button" value="취 소" class="confirm-cancle">
+		<input type=number name="user_num" value="${dto.user_num}" hidden="true">
+	</div>
 </form>
 	<div>
 	비공개* 경매는 비딩 방식으로 진행 됩니다.<br>
