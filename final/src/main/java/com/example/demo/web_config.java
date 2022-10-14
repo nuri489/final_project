@@ -11,6 +11,7 @@ public class web_config implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		
 		// 저는 맥이라 경로가 저런데 윈도우이신 분들은 수정하셔야할 것 같습니다. c://images/ 
+		registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/"); 
 		registry.addResourceHandler("/serverimg/**").addResourceLocations("classpath:/static/images/"); 
 		registry.addResourceHandler("/images/**").addResourceLocations("file:/Users/choiyoonseo/Documents/final_images/"); 
 		registry.addResourceHandler("/final/**").addResourceLocations("file:///"+NaverInform.path);

@@ -18,6 +18,13 @@ public interface ProductDAO {
 	int likeProduct(ProductDTO dto);
 	int unlikeProduct(ProductDTO dto);
 	List<Integer> getLikeProduct(int user_num);
+	List<ProductDTO> getQuote(int detail_num);
+	List<ProductDTO> getQuoteFilter(ProductDTO dto);
+	List<ProductDTO> getQuoteFilter_NoOption(ProductDTO dto);
+	List<ProductDTO> getQuoteFilter2(ProductDTO dto);
+	List<ProductDTO> getQuoteFilter2_NoOption(ProductDTO dto);
+	int getProductDetailNum(String detail_name);
+	List<ProductDTO> getSaleslist(int user_num);
 	
 	List<ProductDTO> getBuying_list(int buyer_num);
 	// 구매목록과 구매목록에 표시될 리스트의 count

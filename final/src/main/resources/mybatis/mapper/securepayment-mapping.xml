@@ -61,7 +61,7 @@
   		update payment_info set buyer_check= now() where user_num=#{user_num} and product_num = #{product_num}
   	</update>
   	<update id="updateProductSell" parameterType="int">
-  		update product_info set product_sell= true  where product_num = #{product_num}
+  		update product_info set product_sell= 1  where product_num = #{product_num}
   	</update>
   	<select id="getMyProduct" parameterType="int" resultMap="sellinglist">
   		select pi.product_num, pi.user_num, pmi.buyer_check, DATEDIFF(now(), seller_check) as elapsed_date, pay_price from product_info pi 
@@ -70,4 +70,16 @@
   	<update id="depositToSeller" parameterType="securepaymentdto">
   		update user_info set user_money= user_money + #{pay_price} where user_num=#{user_num}
   	</update>
+  	<!-- 결제 상태 업데이트 -->
+  	<update id="updateProductSell2" parameterType="int[]">
+  		update product_info set product_sell= #{num[0]}  where product_num = #{num[1]}
+  	</update>
+  	<!-- 유저 보유 머니 가져오기 -->
+  	<select id="getUserMoney" parameterType="int" resultType="int">
+  		select user_money from user_info where user_num=#{user_num}
+  	</select>
+  	<!-- 임시 하나의 상품 가져오기 -->
+  	<select id="getProductOne" parameterType="int" resultType="productdto">
+  		select * from product_info where product_num = #{product_num}
+  	</select>
   </mapper>

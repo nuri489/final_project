@@ -14,26 +14,17 @@ public class ProductDTO {
 	String product_time;
 	boolean safe_trade;
 	boolean auction_check;
-	boolean product_sell;
-	boolean product_status1;
-	boolean product_status2;
-	boolean product_status3;
+	int product_sell;
+	int product_status1;
+	int product_status2;
+	int product_status3;
 	String product_status4;
-	boolean product_status5;
-	int buyer_num;
-	
+	int product_status5;
 	
 	MultipartFile[] images;
 	String image_path;
 	
 	String billing_number;
-	
-	public int getBuyer_num() {
-		return buyer_num;
-	}
-	public void setBuyer_num(int buyer_num) {
-		this.buyer_num = buyer_num;
-	}
 	
 	public String getBilling_number() {
 		return billing_number;
@@ -107,22 +98,22 @@ public class ProductDTO {
 	public void setAuction_check(boolean auction_check) {
 		this.auction_check = auction_check;
 	}
-	public boolean isProduct_status1() {
+	public int getProduct_status1() {
 		return product_status1;
 	}
-	public void setProduct_status1(boolean product_status1) {
+	public void setProduct_status1(int product_status1) {
 		this.product_status1 = product_status1;
 	}
-	public boolean isProduct_status2() {
+	public int getProduct_status2() {
 		return product_status2;
 	}
-	public void setProduct_status2(boolean product_status2) {
+	public void setProduct_status2(int product_status2) {
 		this.product_status2 = product_status2;
 	}
-	public boolean isProduct_status3() {
+	public int getProduct_status3() {
 		return product_status3;
 	}
-	public void setProduct_status3(boolean product_status3) {
+	public void setProduct_status3(int product_status3) {
 		this.product_status3 = product_status3;
 	}
 	public String getProduct_status4() {
@@ -131,16 +122,16 @@ public class ProductDTO {
 	public void setProduct_status4(String product_status4) {
 		this.product_status4 = product_status4;
 	}
-	public boolean isProduct_status5() {
+	public int getProduct_status5() {
 		return product_status5;
 	}
-	public void setProduct_status5(boolean product_status5) {
+	public void setProduct_status5(int product_status5) {
 		this.product_status5 = product_status5;
 	}
-	public boolean isProduct_sell() {
+	public int isProduct_sell() {
 		return product_sell;
 	}
-	public void setProduct_sell(boolean product_sell) {
+	public void setProduct_sell(int product_sell) {
 		this.product_sell = product_sell;
 	}
 	public int getDetail_num() {
@@ -160,7 +151,7 @@ public class ProductDTO {
 	public String toString() {
 		return product_num+". 제목: "+product_title+" 내용: "+product_contents+" 상태: "+product_status1+", "+""+product_status2+", "+product_status3+
 				", "+product_status4+", "+product_status5+" 카테고리 번호: "+category_num+" 안전거래: "+safe_trade+" 경매전환: "+auction_check
-				+" 디테일넘버: "+detail_num+" 가격: "+product_price+" 이미지: "+images+image_path;
+				+" 디테일넘버: "+detail_num+" 가격: "+product_price+" 이미지: "+images+image_path+"날짜 "+product_time;
 	}
 	
 	
