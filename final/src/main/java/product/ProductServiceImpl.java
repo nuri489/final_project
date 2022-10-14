@@ -55,10 +55,6 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<ProductDTO> getBuyinglist(int buyer_num) {
-		return productDAO.getBuying_list(buyer_num);
-	}
-	
 	public List<ProductDTO> getAllProducts() {
 		return productDAO.getAllProducts();
 	}
@@ -67,7 +63,6 @@ public class ProductServiceImpl implements ProductService{
 	public List<ProductDTO> getProductsIdol(int idol_num) {
 		return productDAO.getProductsIdol(idol_num);
 	}
-
 	
 	
 	
