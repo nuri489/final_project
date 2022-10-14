@@ -162,6 +162,7 @@ public class ProductController {
 		else return "{\"result\" : \"fail\"}";
 	}
 	
+<<<<<<< HEAD
 	//[승희] 판매글 수정하기
 	@GetMapping("/updatesales")
 	ModelAndView updateBoard(int product_num) {
@@ -218,4 +219,17 @@ public class ProductController {
 		}
 		return "/temp_mainpage";
 	}
+=======
+	@RequestMapping("/buyinglist")
+	public ModelAndView buyinglist(int buyer_num) {
+		
+		ModelAndView mv = new ModelAndView();
+		List<ProductDTO> buyinglist = pdtService.getBuyinglist(buyer_num);
+		mv.addObject("buyinglist",buyinglist);
+		
+		mv.setViewName("product/buyinglist");
+		
+		return mv;
+	}
+>>>>>>> refs/remotes/final/master
 }

@@ -37,8 +37,8 @@ public class AuctionThread extends Thread {
 				AuctionDTO dto = auction_service.auction_info(product_num);
 				int pay_price = dto.final_price; // 최종 가격
 				
-				auction_service.insertpay(user_num, product_num, pay_price);
-				// payment_info에 insert
+				auction_service.soldout(pay_price, user_num, product_num);
+				// product_info update
 			}
 			else if(auction_method == 1) {
 				int auction_num = auction_service.getAuction_num(product_num); // auction_num
@@ -49,7 +49,7 @@ public class AuctionThread extends Thread {
 				
 				int pay_price = bid_unit + second; // 최종 가격
 				
-				auction_service.insertpay(user_num, product_num, pay_price);
+				auction_service.soldout(pay_price, user_num, product_num);
 			}
 
 		}

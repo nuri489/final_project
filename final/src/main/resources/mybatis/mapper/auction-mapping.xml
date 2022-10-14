@@ -45,9 +45,10 @@ select auction_num from auction_info where product_num = #{product_num}
 </select>
 <!-- auction_num만 호출 -->
 
-<insert id="insertPay_info" parameterType="int">
-insert into payment_info (user_num , product_num , pay_price , pay_time) values ( #{user_num} , #{product_num} , #{pay_price} , now())
-</insert>
+<update id="soldOut" parameterType="int">
+update product_info set product_price = #{final_price} and product_sell = 1 and buyer_num = #{user_num} where product_num = #{product_num}
+</update>
+<!--  -->
 
 <insert id="requestBid" parameterType="int">
 insert into auction_bid (auction_num , user_num , bid_price , bid_time) values ( #{auction_num} , #{user_num}, #{bid_price} , now())
