@@ -50,4 +50,10 @@ public class MemberService_Impl implements MemberService {
 		}
 	}
 	
+	//[승희] 판매글모아보기
+	@Override
+	public List<ProductDTO> getProductList(int user_num){
+		return dao.productList(user_num);
+	}
+	
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import product.ProductDTO;
+
 @Mapper
 @Repository("memberdao")
 public interface MemberDAO {
@@ -20,4 +22,6 @@ public interface MemberDAO {
 	public List<MemberDTO> oneMember(String id);
 	//회원가입
 	public int insertMember(MemberDTO dto);
+	//[승희] 판매글모아보기
+	public List<ProductDTO> productList(int user_num);
 }

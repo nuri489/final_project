@@ -29,6 +29,7 @@
   	<select id="getpdtDetailTags" parameterType="String" resultType="product.ProductDetailDTO">
   		select * from product_detail where detail_name like #{keyword}
   	</select>
+  	
   	<insert id="insertSales" parameterType="productdto">
   		insert into product_info 
   		(product_title, idol_num, user_num, category_num,product_contents, product_time, safe_trade, auction_check, product_status1,
@@ -36,14 +37,17 @@
   		values (#{product_title}, #{idol_num}, #{user_num}, #{category_num},#{product_contents}, now(), #{safe_trade}, #{auction_check}, #{product_status1},
   		#{product_status2}, #{product_status3}, #{product_status4}, #{product_status5}, #{detail_num}, #{product_price})
   	</insert>
+  	
 	<select id="getLastInsertNum" resultType="int">
 		select product_num from product_info order by product_num desc limit 0,1
 	</select>  	
+	
 	<select id="getforSale" parameterMap="getforsale" resultType="String">
 		select distinct(detail_name) from product_info pi join product_detail pd on pi.detail_num=pd.detail_num 
 		join product_category pc on pi.category_num=pc.category_num join idol_category ic 
 		on pi.idol_num=ic.idol_num where pc.category_name= #{category_name} and ic.idol_name=#{idol_name}
 	</select>
+
 	<!-- 카테고리 별 보기 -->
   	<select id="getProducts" parameterType="productdto" resultType="productdto">
 	  	select * from (select pi.product_num,product_title,idol_num,category_num,user_num,product_price,product_time,safe_trade,auction_check,
@@ -74,4 +78,29 @@
 		product_status1,product_status2,product_status3,product_status4,product_status5,product_sell,detail_num,image_path, rank() over (partition by i.product_num order by image_path desc) as rnk 
 		from product_info pi left join image i on pi.product_num=i.product_num) as rankrow where rankrow.rnk=1 and idol_num=#{idol_num} order by product_time desc; 
 	</select>
+	
+	<!-- 판매글 수정하기 -->
+	<select id="getDetail" parameterType="int" resultType="productdto">
+		select * from product_info where product_num = #{product_num}
+	</select>
+	
+	<update id="updateSales" parameterType="productdto">
+		UPDATE product_info
+		SET product_title = #{product_title },
+			idol_num = #{idol_num },
+			category_num = #{category_num },
+			<!-- detail_num = #{detail_num }, -->
+			product_contents = #{product_contents },
+			product_price = #{product_price },
+			product_time = now(),
+			safe_trade = #{safe_trade },
+			auction_check = #{auction_check },
+			product_status1 = #{product_status1 },
+			product_status2 = #{product_status2 },
+			product_status3 = #{product_status3 },
+			product_status4 = #{product_status4 },
+			product_status5 = #{product_status5 }
+		WHERE product_num = #{product_num} ;
+	</update>
+
   </mapper>

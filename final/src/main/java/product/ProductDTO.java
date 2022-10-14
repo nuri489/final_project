@@ -149,11 +149,9 @@ public class ProductDTO {
 	}
 	@Override
 	public String toString() {
-		return product_num+". 제목: "+product_title+" 내용: "+product_contents+" 상태: "+product_status1+", "+""+product_status2+", "+product_status3+
+		return product_num+". 제목: "+product_title+" 내용: "+product_contents+" 판매여부: "+product_sell+"+ 상태: "+product_status1+", "+""+product_status2+", "+product_status3+
 				", "+product_status4+", "+product_status5+" 카테고리 번호: "+category_num+" 안전거래: "+safe_trade+" 경매전환: "+auction_check
 				+" 디테일넘버: "+detail_num+" 가격: "+product_price+" 이미지: "+images+image_path;
 	}
-	
-	
 	
 }

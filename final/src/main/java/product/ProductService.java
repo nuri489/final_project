@@ -16,4 +16,8 @@ public interface ProductService {
 	List<Integer> getLikeProduct(int user_num);
 	List<ProductDTO> getAllProducts();
 	List<ProductDTO> getProductsIdol(int idol_num);
+	//수정폼
+	ProductDTO getDetail(int product_num);
+	//수정처리
+	void updateSales(ProductDTO dto);
 }

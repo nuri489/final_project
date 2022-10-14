@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface UploadDAO {
 
 	int insertFile(UploadDTO dto);
+	void deleteFile(int product_num);
 }

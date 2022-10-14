@@ -1,3 +1,6 @@
+
+<%@page import="product.ProductDTO"%>
+<%@page import="product.ProductDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
@@ -5,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>물건 판매 등록</title>
+<title>판매 물건 수정</title>
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function(){
@@ -34,10 +37,13 @@ $(document).ready(function(){
 		});//ajax end
 	}); //#tag end
 	
-	$('#salesform').on('submit',function(e){ //태그 (detail_num)등록되지 않은 경우 submit 막기
+	$('#updateform').on('submit',function(e){ //태그 (detail_num)등록되지 않은 경우 submit 막기
 		if($('#detail_num').val()==''){
 			e.preventDefault();
 			alert('상품명 태그를 선택하여주십시오.');
+		} else {
+			//수정 완료시 알림
+			alert('게시글이 수정되었습니다');
 		}
 	});
 	
@@ -185,58 +191,69 @@ background-color:#ed6f69;
 </head>
 <body>
 <div id="contents">
-<div id="form_name">판매할 상품을 등록하세요!</div>
-<form action="insertsales" enctype="multipart/form-data" method="post" id="salesform">
+<div id="form_name">상품 수정</div>
+
+<form action="updatesales" enctype="multipart/form-data" method="post" id="updateform">
 <div id="contents_box">
 <table  id="sales_table">
-	<tr><td class="header">제목</td><td colspan="3" class="data"><input type="text" placeholder="제목을 입력하여주세요.(제품명 포함)" size="50" name="product_title" required="required"></td></tr>
+	<tr><td class="header">제목</td><td colspan="3" class="data"><input type="text" placeholder="제목을 입력하여주세요.(제품명 포함)" size="50" name="product_title" value=${dto.product_title } required="required"></td></tr>
 	<tr>
 		<td class="header">거래</td>
 		<td class="data">
-			<input type="checkbox" name="safe_trade" value="1"> 안전거래
-			<input type="checkbox" name="auction_check" value="1"> 경매전환
+			<input type="checkbox" name="safe_trade" value="1" <c:if test="${dto.safe_trade == true }">checked</c:if> > 안전거래
+			<input type="checkbox" name="auction_check" value="1" <c:if test="${dto.auction_check == true }">checked</c:if> > 경매전환
 		</td>
 		<td class="header data">카테고리</td>
 		<td class="data"> <select name="category_num" id="category_num">
-				<option value="1">DVD</option>
-				<option value="2">콘서트굿즈</option>
-				<option value="3">앨범</option>
-				<option value="4">포스터</option>
-				<option value="5">포토북</option>
-				<option value="6">포토카드</option>
-				<option value="7">패션</option>
-				<option value="8">문구류</option>
-				<option value="9">기타</option>
+				<option value="1" <c:if test="${dto.category_num == 1}">selected</c:if> >DVD</option>
+				<option value="2" <c:if test="${dto.category_num == 2}">selected</c:if> >콘서트굿즈</option>
+				<option value="3" <c:if test="${dto.category_num == 3}">selected</c:if> >앨범</option>
+				<option value="4" <c:if test="${dto.category_num == 4}">selected</c:if> >포스터</option>
+				<option value="5" <c:if test="${dto.category_num == 5}">selected</c:if> >포토북</option>
+				<option value="6" <c:if test="${dto.category_num == 6}">selected</c:if> >포토카드</option>
+				<option value="7" <c:if test="${dto.category_num == 7}">selected</c:if> >패션</option>
+				<option value="8" <c:if test="${dto.category_num == 8}">selected</c:if> >문구류</option>
+				<option value="9" <c:if test="${dto.category_num == 9}">selected</c:if> >기타</option>
 			</select>
 			<select name="idol_num">
-				<option value="1">bts</option>
-				<option value="2">nct</option>
+				<option value="1"  <c:if test="${dto.idol_num == 1}">selected</c:if> >bts</option>
+				<option value="2" <c:if test="${dto.idol_num == 2}">selected</c:if> >nct</option>
 			</select>
 		</td>
 	</tr>
 	<tr><td class="header">상품 상태</td>
 		<td colspan="3" class="data">
 		<select name="product_status4">
-				<option value="나쁨">나쁨</option>
-				<option value="보통">보통</option>
-				<option value="좋음">좋음</option>
+				<option value="나쁨"  <c:if test="${dto.product_status4.equals(\"나쁨\")}">selected</c:if> >나쁨</option>
+				<option value="보통" <c:if test="${dto.product_status4.equals(\"보통\")}">selected</c:if> >보통</option>
+				<option value="좋음" <c:if test="${dto.product_status4.equals(\"좋음\")}">selected</c:if> >좋음</option>
 			</select>
-		<input type="checkbox" name="product_status1" value="1"> 개봉
-		<input type="checkbox" name="product_status2" value="1">공식
-		<input type="checkbox" name="product_status3" value="1">단종
-		<input type="checkbox" name="product_status5" value="1"> 구성품 전부 포함</td>
+		<input type="checkbox" name="product_status1" value="1" <c:if test="${dto.product_status1 == true }">checked</c:if> > 개봉
+		<input type="checkbox" name="product_status2" value="1" <c:if test="${dto.product_status2 == true }">checked</c:if> >공식
+		<input type="checkbox" name="product_status3" value="1" <c:if test="${dto.product_status3 == true }">checked</c:if> >단종
+		<input type="checkbox" name="product_status5" value="1" <c:if test="${dto.product_status5 == true }">checked</c:if> > 구성품 전부 포함</td>
 	</tr>
-	<tr><td class="header">가격</td><td class="data" style="width: 220px;"><input type="number" name="product_price" value="" required="required"> 원</td>
+	<tr><td class="header">가격</td><td class="data" style="width: 220px;"><input type="number" name="product_price" value=${dto.product_price } required="required"> 원</td>
 		<td colspan="2" class="data"><input type="file" name="images" multiple="multiple"> </td>
 	</tr>
-	<tr><td class="header">상품 설명</td><td colspan="3" class="data"><textarea rows="8" cols="100" placeholder="판매할 제품의 설명을 입력하여주세요. 상세할수록 좋습니다!" name="product_contents" required="required"></textarea> </td></tr>
-	<tr><td class="header">상품명 태그</td><td colspan="1" class="data"><input type="text" id="tag" placeholder="판매할 물건명의 태그를 달아주세요." size="30"> </td><td  class="data" colspan="3" id="tag_result"></td></tr>
-	<tr><td colspan="4" style="text-align: center;" ><div style="height: 40px; margin-top:20px;"><input type="submit" value="등록" id="submitbtn"></div> </td></tr>
+	<tr>
+		<td class="header">상품 설명</td>
+		<td colspan="3" class="data"><textarea rows="8" cols="100" placeholder="판매할 제품의 설명을 입력하여주세요. 상세할수록 좋습니다!" name="product_contents" required="required">${dto.product_contents }</textarea> </td>
+	</tr>
+	<tr>
+		<td class="header">상품명 태그</td>
+		<td colspan="1" class="data"><input type="text" id="tag" placeholder="판매할 물건명의 태그를 달아주세요." size="30"> </td>
+		<td class="data" colspan="3" id="tag_result" ></td>
+	</tr>
+	<tr>
+		<td colspan="4" style="text-align: center;" ><div style="height: 40px; margin-top:20px;"><input type="submit" value="수정" id="submitbtn"></div> </td>
+	</tr>
 	
 </table>
 	<input type="hidden" id="detail_num" name="detail_num" value="">
 </div>
 </form>
 </div>
+ 
 </body>
 </html>

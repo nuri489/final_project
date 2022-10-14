@@ -1,5 +1,7 @@
 package final_project;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,7 +39,7 @@ public class AuctionController {
 	}
 	// 임시 메인
 	
-	@GetMapping("/temp_product")
+	@GetMapping("/productdetail_normal")
 	public ModelAndView temp_product(int product_num) {
 		
 		ModelAndView mv = new ModelAndView();
@@ -44,6 +47,8 @@ public class AuctionController {
 		// product_info 테이블에서 제품 정보 가져옴
 		int request_num = auction_service.request_num(product_num);
 		// auction_gauge 테이블에서 경매 요청 정보 가져옴
+		List<String> imagepath = auction_service.imagepath(product_num);
+		//사진 경로 가져오기
 		
 		int check = auction_service.auctionChecking(product_num); // 경매 유무 확인
 		
@@ -57,6 +62,12 @@ public class AuctionController {
 		}
 		// auction_check 값에 따라 일반 판매 페이지로 연결될지 말지 정함
 		
+		mv.addObject("temp_dto",dto);
+		mv.addObject("request_num",request_num);
+		mv.addObject("imagepath",imagepath);
+		
+		mv.setViewName("auction/getdetail_normal");
+
 		return mv;
 	}
 	// 임시 제품 상세 페이지. 제품에 대한 정보와 경매 요청 횟수를 모델로 넘김
@@ -152,42 +163,49 @@ public class AuctionController {
 	}
 	// 경매로 전환
 	
-	@GetMapping("/auctionpage")
+	@GetMapping("/productdetail_auction")
 	public ModelAndView auctionpage(int product_num) {
 		
 		ModelAndView mv = new ModelAndView();
-
-		
 		auction_service.auctionCheck(product_num); // auction_check 값 1로 바꿈
 		int check = auction_service.auctionChecking(product_num); // 경매 유무 확인
 		
-		ProductDTO dto2 = auction_service.product_info(product_num); 
+		ProductDTO product_dto = auction_service.product_info(product_num); 
 		// 제품에 대한 상세 정보를 dto2에 저장
 		String user_id = member_service.user_id(auction_service.product_info(product_num).getUser_num());
 		// 상품 등록자 ID
 		String detail_name = auction_service.detail_name(auction_service.product_info(product_num).getDetail_num());
 		// 상품 상세 이름
-		AuctionDTO dto1 = auction_service.auction_info(product_num);
+		AuctionDTO auction_dto = auction_service.auction_info(product_num);
 		// 경매 정보 dto1에 저장
+		List<String> imagepath = auction_service.imagepath(product_num);
+		//사진 경로 가져오기
 		
 		if(check == 1) {
 			
-			int much = auction_service.muchbid(dto1.auction_num) - 1;
+			int much = auction_service.muchbid(auction_dto.auction_num) - 1;
 			// 입찰 수
 			
-			mv.addObject("dto1",dto1);
-			mv.addObject("dto2",dto2);
+			mv.addObject("auction_dto",auction_dto);
+			mv.addObject("product_dto",product_dto);
 			mv.addObject("user_id", user_id);
 			mv.addObject("detail_name",detail_name);
 			mv.addObject("much",much);
 			
 			mv.setViewName("AuctionPage");
+
+			mv.addObject("auction_dto",auction_dto);
+			mv.addObject("product_dto",product_dto);
+			mv.addObject("user_id", user_id);
+			mv.addObject("detail_name",detail_name);
+			mv.addObject("imagepath",imagepath);
+			mv.setViewName("auction/getdetail_auction");
+
 		}
 		else {
 			mv.setViewName("temp_mainpage");
 		}
 		// product_info의 경매유무 값에 따라 경매글인지 아닌지 구분하여 연결
-
 		return mv;
 	}
 	// 경매 판매글

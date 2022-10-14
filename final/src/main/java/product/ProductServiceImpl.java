@@ -63,11 +63,15 @@ public class ProductServiceImpl implements ProductService{
 	public List<ProductDTO> getProductsIdol(int idol_num) {
 		return productDAO.getProductsIdol(idol_num);
 	}
+	@Override
+	public ProductDTO getDetail(int product_num) {
+		return productDAO.getDetail(product_num);
+	}
 	
-	
-	
-	
-	
+	@Override
+	public void updateSales(ProductDTO dto) {
+		productDAO.updateSales(dto);
+	}
 	
 //	@Override
 //	public List<HashMap<Integer, String>> getpdtDetailTags(String keyword) {

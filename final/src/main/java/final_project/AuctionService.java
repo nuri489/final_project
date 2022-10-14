@@ -1,5 +1,7 @@
 package final_project;
 
+import java.util.List;
+
 import product.ProductDTO;
 
 public interface AuctionService {
@@ -54,4 +56,7 @@ public interface AuctionService {
 	public int insertpay(int user_num, int product_num, int final_price);
 	// 경매 종료 후 결제 정보 insert
 	
+	//[승희] img_path 가져오기
+	public List<String> imagepath(int product_num);
+
 }

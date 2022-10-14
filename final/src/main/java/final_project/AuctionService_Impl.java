@@ -1,5 +1,7 @@
 package final_project;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -145,17 +147,8 @@ public class AuctionService_Impl implements AuctionService {
 	}
 	// 경매 종료 후 결제정보 insert
 
-
-	
-	
-
-
-
-
-
-
-
-
-	
+	public List<String> imagepath(int product_num) {
+		return dao.getImage_path(product_num);
+	}
 
 }

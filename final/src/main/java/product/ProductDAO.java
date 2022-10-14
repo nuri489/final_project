@@ -14,10 +14,14 @@ public interface ProductDAO {
 	int insertSales(ProductDTO dto);
 	int getLastInsertNum();
 	List<String> getforSale(HashMap<String, String> map);
+
 	List<ProductDTO> getProducts(ProductDTO dto);
 	int likeProduct(ProductDTO dto);
 	int unlikeProduct(ProductDTO dto);
 	List<Integer> getLikeProduct(int user_num);
 	List<ProductDTO> getAllProducts();
 	List<ProductDTO> getProductsIdol(int idol_num);
+	
+	ProductDTO getDetail(int product_num);
+	void updateSales(ProductDTO dto);
 }
