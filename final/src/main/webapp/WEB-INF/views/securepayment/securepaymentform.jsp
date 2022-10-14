@@ -33,28 +33,25 @@ $(document).ready(function(){
 		  result+='원';
 		  $(this).html(result);
 	});
-    
-	const popup = $('#popup_t');
-    $('#openpop_t').on('click',function(e){
+    $('#openpop').on('click',function(e){
     	e.preventDefault();
     	
-    		$('#popup_t').css('display','');
+    		$('#popup').css('display','');
     		//$(this).val('true');
     		popup.classList.remove('hide');
-    		popup.removeClass('hide');
-    		popup.addClass('has-filter');
-    		if (popup.hasClass('has-filter')) {
-    		  	popup.removeClass('has-filter');
+    		popup.classList.add('has-filter');
+    		if (hasFilter) {
+    		  	popup.classList.add('has-filter');
     		  } else {
-    		  	popup.removeClass('has-filter');
+    		  	popup.classList.remove('has-filter');
     		  }
     		
     	
     });
-    $('#closepopupbtn_t').on('click',function(e){
+    $('#closepopupbtn').on('click',function(e){
     	e.preventDefault();
-    	popup.removeClass('has-filter');
-		popup.addClass('hide');
+    	popup.classList.remove('has-filter');
+    	popup.classList.add('hide');
     });
     
  
@@ -70,9 +67,7 @@ $(document).ready(function(){
 button, input[type=submit]{
 	outline: 0;
 	border:none;
-	transition: all 0.2s ;
 }
-
 #securepaymentform{
 	position:relative;
 	display:flex;
@@ -90,7 +85,7 @@ button, input[type=submit]{
 	background-color: #f5f5f5;
 }
 .formitem{
-	width: 100% ;
+	width: 650px;
 	margin-bottom:15px;
 }
 .formitem_table{
@@ -162,7 +157,7 @@ input[type="checkbox"]:checked {
   background-repeat: no-repeat;
 }
 /* 팝업창  */
-#popup_t {
+#popup {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -175,29 +170,29 @@ input[type="checkbox"]:checked {
   z-index: 1;
 }
 
-#popup_t.hide {
+#popup.hide {
   display: none;
 }
 
-#popup_t.has-filter {
+#popup.has-filter {
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
 
-#popup_t .content {
+#popup .content {
 	width:450px;
  	 padding: 20px;
  	 background: #fff;
  	 border-radius: 5px;
  	 box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
 }
-#popup_t .termstitle{
+#popup .termstitle{
 	font-weight: 700;
 	font-size: 18px;
 	margin-bottom: 15px;
 	
 }
-#popup_t .termscontent{
+#popup .termscontent{
 	margin-bottom: 45px;
 	color: #6f7792;
 }
@@ -209,27 +204,26 @@ input[type="checkbox"]:checked {
 #popupbtnarea{
 	height: 50px;
 }
-#closepopupbtn_t{
+#closepopupbtn{
  	width: 120px;
  	height: 35px;
  	border-radius: 8px;
 	background-color: #5C75E6;
 	color: white;
 }
-#openpop_t{
+#openpop{
 	border: none;
 	text-decoration-line: underline;
 	cursor :pointer;
 	outline: none;
 	background-color: #f5f5f5;
 }
-#openpop_t:hover{
+#openpop:hover{
 	color: #5C75E6;
 }
 </style>
 </head>
 <body>
-<jsp:include page="../template/header.jsp" flush="true"/>
 <div id="securepaymentform">
 <div id="securepaymentinnerform">
 <div class="formitem">
@@ -262,7 +256,7 @@ input[type="checkbox"]:checked {
 			</colgroup>
 			<tbody>
 				<tr>
-					<th style="text-align: center;">결제금액</th>
+					<th>결제금액</th>
 					<td class="tablecol2">상품 금액</td>
 					<td class="tablecol2 price">${productdto.product_price }원</td>
 				</tr>
@@ -303,10 +297,10 @@ input[type="checkbox"]:checked {
 			</colgroup>
 			<tbody>
 				<tr>
-					<th style="text-align: center;"><input type="checkbox" name="" id="termscheck"> </th>
+					<th><input type="checkbox" name="" id="termscheck"> </th>
 					<td class="tablecol2" style="padding-top: 10px;">
 						<span style="font-weight: 700;">개인정보 제 3자 제공동의와 결제 대행 서비스 이용약관에 동의합니다.</span><br>
-						<button id="openpop_t" value="false">자세히보기</button>
+						<button id="openpop" value="false">자세히보기</button>
 						<div style="width: 400px; margin: 10px 0 10px 0;">
 						<span style="color: #7f869d; font-size: 14px;">
 							모든 상품들에 대하여, ㅇㅇ마켓은 통신판매중개자로서 중고거래마켓의 거래 당사자가 아니며,
@@ -320,10 +314,10 @@ input[type="checkbox"]:checked {
 	</div>
 	<div class="formitem" style="text-align: center;">
 		<input type="hidden" value="${productdto.product_price}" name="pay_price">
-		<input type="hidden" value="${param.product_num }" name="product_num">
+		<input type="hidden" value="1" name="product_num">
 		<input type="submit" id="paysubmitbtn" value="결제하기"> 
 	</div>
-	<div id="popup_t" style="display: none;" >
+	<div id="popup" style="display: none;" >
 		<div class="content" style="overflow-y: scroll; height:550px;">
 	    	<p style="font-size: 16px; font-weight: 700;"> 안전페이 이용약관</p>
 	    	<div>
@@ -438,7 +432,7 @@ input[type="checkbox"]:checked {
 					1. 회사는 회사가 제공하는 서비스의 원활한 진행 및 회원간 안전한 서비스 이용이 이루어지도록 하기 위하여 일정한 경우 회원자격을 정지할 수 있습니다. 회원자격이 정지된 회원은 회사가 제공하는 서비스의 이용이 제한됩니다.<br>		    	  
 		    	</div>
 	    	</div> <!-- inner -->
-		    <div id="popupbtnarea" style="text-align: center;"><button id="closepopupbtn_t">확인하였습니다</button></div>
+		    <div id="popupbtnarea" style="text-align: center;"><button id="closepopupbtn" onclick="closePopup()">확인하였습니다</button></div>
  	 </div>
 	</div>
 </form>
