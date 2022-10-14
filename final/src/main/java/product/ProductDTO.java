@@ -20,20 +20,11 @@ public class ProductDTO {
 	boolean product_status3;
 	String product_status4;
 	boolean product_status5;
-	int buyer_num;
-	
 	
 	MultipartFile[] images;
 	String image_path;
 	
 	String billing_number;
-	
-	public int getBuyer_num() {
-		return buyer_num;
-	}
-	public void setBuyer_num(int buyer_num) {
-		this.buyer_num = buyer_num;
-	}
 	
 	public String getBilling_number() {
 		return billing_number;

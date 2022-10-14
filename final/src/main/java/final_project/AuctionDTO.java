@@ -10,12 +10,6 @@ public class AuctionDTO {
 	int user_num;
 	String start_time , end_time;
 	
-	public String getEnd_time() {
-		return end_time;
-	}
-	public void setEnd_time(String end_time) {
-		this.end_time = end_time;
-	}
 	public int getUser_num() {
 		return user_num;
 	}
@@ -59,7 +53,11 @@ public class AuctionDTO {
 	public void setStart_time(String start_time) {
 		this.start_time = start_time;
 	}
-	
-
+	public String getEnd_time() {
+		return end_time;
+	}
+	public void setEnd_time(String end_time) {
+		this.end_time = end_time;
+	}
 	
 }

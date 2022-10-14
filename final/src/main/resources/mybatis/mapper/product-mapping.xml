@@ -62,17 +62,6 @@
 	<select id="getLikeProduct" parameterType="int" resultType="int">
 		select product_num from like_info where user_num=#{user_num}
 	</select>
-
-	
-	<select id="getBuying_list" parameterType="int" resultType="productdto">
-		select * from (select pi.product_num,product_title,user_num,product_price,product_time,safe_trade,auction_check,product_sell,detail_num,image_path,
-		rank() over (partition by i.product_num order by image_path) as rnk 
-		from product_info pi left join image i on pi.product_num=i.product_num
-		where buyer_num = #{buyer_num}) as rankrow where rankrow.rnk=1 order by product_time desc;
-	</select>
-	<!-- 구매목록 -->
-	
-
 	<!-- 전체글 가져오기 -->
 	<select id="getAllProducts" resultType="productdto">
 		select * from (select pi.product_num,product_title,idol_num,category_num,user_num,product_price,product_time,safe_trade,auction_check,
@@ -85,5 +74,4 @@
 		product_status1,product_status2,product_status3,product_status4,product_status5,product_sell,detail_num,image_path, rank() over (partition by i.product_num order by image_path desc) as rnk 
 		from product_info pi left join image i on pi.product_num=i.product_num) as rankrow where rankrow.rnk=1 and idol_num=#{idol_num} order by product_time desc; 
 	</select>
-
   </mapper>
