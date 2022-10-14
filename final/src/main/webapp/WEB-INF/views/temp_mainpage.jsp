@@ -41,7 +41,8 @@ $(document).ready(function() {
 board/list.jsp 참조. 지금은 그냥 1 값을 직접 줌
 
  --%>
- <a href="auctionpage?product_num=1">경매 판매</a>
+ <a href="auctionpage?product_num=1">경매 판매</a><br>
+ <a href="buyinglist?buyer_num=${sessionUser_num}">구매 목록(로그인 해야됨)</a>
 <hr>
 <div id="login">
 <a href="loginform"><input type="button" id="login-button" value="로그인"></a>

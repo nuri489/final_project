@@ -6,24 +6,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel='stylesheet' type='text/css' href='./css/buyinglist.css'>
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
+
 
 });
 </script>
 </head>
 <body>
-<h1>구매목록</h1>
-<table id="table1">
-
-</table>
-<h2>${buyinglist}</h1><hr>
-<c:forEach items="${buyinglist}" var="dto1" varStatus="status">
-	<c:forEach items="${thumbnail}" var="dto2" varStatus="status">
-	${dto1.product_title}<br>
-	${dto2.image_path }<br>
-	</c:forEach>
+<h1>구매목록</h1><hr>
+<table border="1">
+<c:forEach items="${buyinglist}" var="dto" varStatus="status">
+<tr><td><img alt="썸네일" src="${dto.image_path}"></td><td>${dto.product_title}</td></tr>
 </c:forEach>
+</table>
+<script src='./js/buyinglist.js'></script>
 </body>
 </html>

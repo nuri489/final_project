@@ -60,10 +60,11 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<ProductDTO> getthumbnail(int product_num) {
+	public List<String> getthumbnail(int product_num) {
 		return productDAO.getThumbnail(product_num);
 	}
 
+	
 	public List<ProductDTO> getAllProducts() {
 		return productDAO.getAllProducts();
 	}
@@ -72,6 +73,7 @@ public class ProductServiceImpl implements ProductService{
 	public List<ProductDTO> getProductsIdol(int idol_num) {
 		return productDAO.getProductsIdol(idol_num);
 	}
+
 	
 	
 	

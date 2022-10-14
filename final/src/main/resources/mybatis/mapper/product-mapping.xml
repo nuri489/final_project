@@ -65,13 +65,17 @@
 
 	
 	<select id="getBuying_list" parameterType="int" resultType="productdto">
-		select * from product_info where buyer_num = #{buyer_num} and product_sell = 1
+		select * from (select pi.product_num,product_title,user_num,product_price,product_time,safe_trade,auction_check,product_sell,detail_num,image_path,
+		rank() over (partition by i.product_num order by image_path) as rnk 
+		from product_info pi left join image i on pi.product_num=i.product_num
+		where buyer_num = #{buyer_num}) as rankrow where rankrow.rnk=1 order by product_time desc;
 	</select>
 	<!-- 구매목록 -->
 	
-	<select id="getThumbnail" parameterType="int" resultType="productdto">
+	<select id="getThumbnail" parameterType="int" resultType="String">
 	 	select image_path from image where product_num = #{product_num} order by product_num asc limit 1
 	</select>
+	<!-- 썸네일 가져오기 -->
 	
 
 	<!-- 전체글 가져오기 -->
