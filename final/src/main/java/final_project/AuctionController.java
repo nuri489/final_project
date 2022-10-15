@@ -36,7 +36,7 @@ public class AuctionController {
 	}
 	// 임시 메인
 	
-	@GetMapping("/temp_product")
+	@GetMapping("/productdetail")
 	public ModelAndView temp_product(int product_num) {
 		
 		ModelAndView mv = new ModelAndView();
@@ -49,12 +49,15 @@ public class AuctionController {
 		
 		if(check == 1) {
 			mv.setViewName("temp_mainpage");
+			//mv.setViewName("product/getdetail_normal");
 		}
 		else {
 			mv.addObject("temp_dto",dto);
 			mv.addObject("request_num",request_num);
+			//mv.setViewName("product/getdetail_auction");
 			mv.setViewName("AuctionPage2");
 		}
+		mv.addObject("product_dto", dto);
 		// auction_check 값에 따라 일반 판매 페이지로 연결될지 말지 정함
 		
 		return mv;
@@ -185,6 +188,7 @@ public class AuctionController {
 		}
 		else {
 			mv.setViewName("temp_mainpage");
+			
 		}
 		// product_info의 경매유무 값에 따라 경매글인지 아닌지 구분하여 연결
 

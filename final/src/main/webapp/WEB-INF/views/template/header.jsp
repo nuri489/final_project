@@ -346,7 +346,7 @@ textarea{
         <div class="top_inner">
             <ul class="top_list">
                 <li class="top_item"><a href="/my" class="top_link">마이페이지</a></li>
-                <li class="top_item ml-15"><a href="/login" class="top_link">로그인</a></li>
+                <li class="top_item ml-15"><a href="loginform" class="top_link">로그인</a></li>
             </ul>
         </div>
     </div>
