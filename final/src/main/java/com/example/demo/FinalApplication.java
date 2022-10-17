@@ -15,6 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = "chatbot")
 @ComponentScan(basePackages = "member")
 @ComponentScan(basePackages = "WebSocketChatting")
+@ComponentScan(basePackages = "review")
 
 @MapperScan(basePackages = "final_project")
 @MapperScan(basePackages = "product")
@@ -22,6 +23,7 @@ import org.springframework.context.annotation.ComponentScan;
 @MapperScan(basePackages = "member")
 @MapperScan(basePackages = "securepayment")
 @MapperScan(basePackages = "WebSocketChatting")
+@MapperScan(basePackages = "review")
 public class FinalApplication {
 
 	public static void main(String[] args) {

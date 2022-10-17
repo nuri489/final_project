@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @ServerEndpoint(value="/chat")
-public class WebSocketService {
+public class WebSocketService2 {
 	
 	private static Set<Session> clients = Collections.synchronizedSet(new HashSet<Session>());
 	// 클라이언트의 세션 정보를 저장하기 위한 설정?

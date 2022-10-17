@@ -167,7 +167,9 @@ $(document).ready(function() {
 					alert("현재가격보다 높은 가격을 제시해야 합니다");
 				}
 				else {
-					if( $("#bid-price").val()%${dto1.bid_unit} == 0 ) {
+					//여기 오류나서 임시로 수정했습니다! bid_unit 8000원일 때 else문만 들어가는 오류였습니다.
+					//alert($('#bid-price').val()%${dto1.bid_unit/2});
+					if( $("#bid-price").val()%${dto1.bid_unit/2} == 0 ) {
 						
 						var really = confirm("입찰하시겠습니까? 입찰은 취소하실 수 없습니다");
 							

@@ -43,7 +43,9 @@ public class ChattingService_Impl implements ChattingService {
 	public void createFile(int roomNumber) throws IOException {
 		
 		String fileName = roomNumber+".json";
-		String pathName = NaverInform.path + fileName;
+		// 윤서 - 따로 yspath 쓰겠습니다. 
+		//String pathName = NaverInform.path + fileName;
+		String pathName = NaverInform.yspath + fileName;
 		
 		File txtFile = new File(pathName);
 		txtFile.createNewFile();

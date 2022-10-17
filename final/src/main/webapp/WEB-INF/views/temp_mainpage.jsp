@@ -35,7 +35,7 @@ $(document).ready(function() {
 </head>
 <body>
 경매 확인용 메인 페이지<br>
-<a href="temp_product?product_num=1">일반 판매</a>
+<a href="productdetail?product_num=1">일반 판매</a>
 <%-- 
 ?product_num = ${product_num} 이라고 적어야 함.
 board/list.jsp 참조. 지금은 그냥 1 값을 직접 줌
