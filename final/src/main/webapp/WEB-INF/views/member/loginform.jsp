@@ -26,7 +26,8 @@ $(document).ready(function() {
 				success : function(s) { 
 					
 					if(s==1) {
-						window.location.href = ref;
+						//window.location.href = ref;
+						window.location.href = '/getproducts';
 					}
 					else {
 						alert("아이디 또는 비밀번호가 옳지 않습니다.");
@@ -46,7 +47,7 @@ $(document).ready(function() {
 	
 	$("#logo-img").on('click',function(){
 		
-		window.location.href = "/temp_main"
+		window.location.href = "/getproducts"
 	});
 	
 
@@ -57,7 +58,7 @@ $(document).ready(function() {
 	<div id="main-div">
 		<div id="second-div">
 			<div id="div1">
-			<img alt="" src="/final/logo2.png" id="logo-img">
+			<img alt="" src="/serverimg/logo2.png" id="logo-img">
 			</div>
 			<div id="div2">
 			<input type=text id="id" placeholder="아이디" class="input" onfocus="this.placeholder=''" onblur="this.placeholder='아이디'">

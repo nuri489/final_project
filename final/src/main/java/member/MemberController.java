@@ -1,7 +1,6 @@
 package member;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import final_project.AuctionService;
 import product.ProductDTO;
-import product.ProductService;
 
 @Controller
 public class MemberController {
@@ -30,6 +28,7 @@ public class MemberController {
 	@Autowired
 	@Qualifier("memberservice")
 	MemberService member_service;
+	
 	
 	@GetMapping("/loginform")
 	public String login() {
@@ -46,7 +45,6 @@ public class MemberController {
 			HttpSession session = request.getSession();
 			int user_num = member_service.user_num(id);
 			session.setAttribute("sessionUser_num", user_num);
-			session.setAttribute("sessionUser_id", id);
 			return 1;
 		}
 		// 해당 아이디와 비밀번호가 맞는 계정이 있다면 로그인 성공
@@ -88,26 +86,26 @@ public class MemberController {
 	}
 	
 	//[승희] 본인 판매글 모아보기
-	@RequestMapping("/sellproductlist")
-	@ResponseBody
-	public ModelAndView sellproductlist(HttpServletRequest request){
-		ModelAndView mv = new ModelAndView();
-		ProductDTO dto = new ProductDTO();
-		
-		HttpSession session = request.getSession();
-		int user_num = Integer.parseInt(String.valueOf(session.getAttribute("sessionUser_num")));
-		String user_id = String.valueOf(session.getAttribute("sessionUser_id"));
-		
-		List<ProductDTO> productlist = member_service.getProductList(user_num);
-		
-		if(user_id != null) {
-			mv.addObject("sellproductlist", productlist);
-			mv.setViewName("member/sellproductlist");
+		@RequestMapping("/sellproductlist")
+		@ResponseBody
+		public ModelAndView sellproductlist(HttpServletRequest request){
+			ModelAndView mv = new ModelAndView();
+			ProductDTO dto = new ProductDTO();
+			
+			HttpSession session = request.getSession();
+			int user_num = Integer.parseInt(String.valueOf(session.getAttribute("sessionUser_num")));
+			String user_id = String.valueOf(session.getAttribute("sessionUser_id"));
+			
+			List<ProductDTO> productlist = member_service.getProductList(user_num);
+			
+			if(user_id != null) {
+				mv.addObject("sellproductlist", productlist);
+				mv.setViewName("member/sellproductlist");
+			}
+			else {
+				mv.setViewName("temp_mainpage");
+			}
+			return mv;
 		}
-		else {
-			mv.setViewName("temp_mainpage");
-		}
-		return mv;
-	}
 	
 }

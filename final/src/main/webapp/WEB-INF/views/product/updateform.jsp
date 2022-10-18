@@ -193,7 +193,7 @@ background-color:#ed6f69;
 <div id="contents">
 <div id="form_name">상품 수정</div>
 
-<form action="updatesales" enctype="multipart/form-data" method="post" id="updateform">
+<form action="updatesales" enctype="multipart/form-data" method="post" id="updatesales">
 <div id="contents_box">
 <table  id="sales_table">
 	<tr><td class="header">제목</td><td colspan="3" class="data"><input type="text" placeholder="제목을 입력하여주세요.(제품명 포함)" size="50" name="product_title" value=${dto.product_title } required="required"></td></tr>
@@ -228,10 +228,10 @@ background-color:#ed6f69;
 				<option value="보통" <c:if test="${dto.product_status4.equals(\"보통\")}">selected</c:if> >보통</option>
 				<option value="좋음" <c:if test="${dto.product_status4.equals(\"좋음\")}">selected</c:if> >좋음</option>
 			</select>
-		<input type="checkbox" name="product_status1" value="1" <c:if test="${dto.product_status1 == true }">checked</c:if> > 개봉
-		<input type="checkbox" name="product_status2" value="1" <c:if test="${dto.product_status2 == true }">checked</c:if> >공식
-		<input type="checkbox" name="product_status3" value="1" <c:if test="${dto.product_status3 == true }">checked</c:if> >단종
-		<input type="checkbox" name="product_status5" value="1" <c:if test="${dto.product_status5 == true }">checked</c:if> > 구성품 전부 포함</td>
+		<input type="checkbox" name="product_status1" value="1" <c:if test="${dto.product_status1 == 1 }">checked</c:if> > 개봉
+		<input type="checkbox" name="product_status2" value="1" <c:if test="${dto.product_status2 == 1 }">checked</c:if> >공식
+		<input type="checkbox" name="product_status3" value="1" <c:if test="${dto.product_status3 == 1 }">checked</c:if> >단종
+		<input type="checkbox" name="product_status5" value="1" <c:if test="${dto.product_status5 == 1 }">checked</c:if> > 구성품 전부 포함</td>
 	</tr>
 	<tr><td class="header">가격</td><td class="data" style="width: 220px;"><input type="number" name="product_price" value=${dto.product_price } required="required"> 원</td>
 		<td colspan="2" class="data"><input type="file" name="images" multiple="multiple"> </td>

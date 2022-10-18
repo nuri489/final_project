@@ -38,7 +38,10 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		String rN = (String) obj.get("roomNumber");
 		
 		JSONParser parser = new JSONParser();
-		JSONArray array = (JSONArray) parser.parse(new FileReader(NaverInform.path+rN+".json"));
+		
+		// 윤서 - 저는 따로 NaverInform.yspath로 만들겠습니다!
+		//JSONArray array = (JSONArray) parser.parse(new FileReader(NaverInform.path+rN+".json"));
+		JSONArray array = (JSONArray) parser.parse(new FileReader(NaverInform.yspath+rN+".json"));
 		array.add(obj);
 		
 		// json 파일을 읽어오고, parser로 JSONArray 형태로 파싱함
@@ -49,7 +52,9 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		// 읽어오고서 array 형태로 변환을 하고서 추가하는 것
 		
         try {
-            FileWriter fileWriter = new FileWriter(NaverInform.path+rN+".json");
+        	//윤서 path 수정
+        	 FileWriter fileWriter = new FileWriter(NaverInform.yspath+rN+".json");
+            //FileWriter fileWriter = new FileWriter(NaverInform.path+rN+".json");
             fileWriter.write(array.toJSONString());
             fileWriter.flush();
             fileWriter.close();

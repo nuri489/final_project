@@ -344,8 +344,8 @@ a:hover{
 							<div class="product_item">
 							<!-- src=""부분 경로 본인에 맞춰서 작성해야합니다! -->
 						<div>
-						<c:if test="${p.product_sell == true }"><img alt="등록된 이미지 없음" src="resources/images/soldout.png"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;"></c:if>
-						<c:if test="${p.product_sell == false }">
+						<c:if test="${p.product_sell == 1 }"><img alt="등록된 이미지 없음" src="resources/images/soldout.png"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;"></c:if>
+						<c:if test="${p.product_sell == 0 }">
 							<c:if test="${not empty p.image_path }"><img alt="등록된 이미지 없음" src="resources/images/${p.image_path}"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;"></c:if>
 							<c:if test="${empty p.image_path }"><img alt="등록된 이미지 없음" src="/serverimg/noimage.png"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;"></c:if>
 						</c:if>
@@ -361,16 +361,16 @@ a:hover{
 								<c:if test="${p.auction_check==true}"><span class="auction_type">경매</span></c:if>
 								</div>
 								<div class="bottom">
-									<c:if test="${p.product_status1==true}"><span class="product_status product_status1">미개봉</span></c:if>
-									<c:if test="${p.product_status1==false}"><span class="product_status product_status1">개봉</span></c:if>
-									<c:if test="${p.product_status2==true}"><span class="product_status product_status2">공식</span></c:if>
-									<c:if test="${p.product_status2==false}"><span class="product_status product_status2">공식</span></c:if>
-									<c:if test="${p.product_status3==true}"><span class="product_status product_status3">단종</span></c:if>
+									<c:if test="${p.product_status1==0}"><span class="product_status product_status1">미개봉</span></c:if>
+									<c:if test="${p.product_status1==1}"><span class="product_status product_status1">개봉</span></c:if>
+									<c:if test="${p.product_status2==0}"><span class="product_status product_status2">공식</span></c:if>
+									<c:if test="${p.product_status2==1}"><span class="product_status product_status2">공식</span></c:if>
+									<c:if test="${p.product_status3==0}"><span class="product_status product_status3">단종</span></c:if>
 									<c:if test="${p.product_status4=='좋음'}"><span class="product_status product_status4">상태좋음</span></c:if>
 									<c:if test="${p.product_status4=='보통'}"><span class="product_status product_status4">상태보통</span></c:if>
 									<c:if test="${p.product_status4=='나쁨'}"><span class="product_status product_status4">상태나쁨</span></c:if>
-									<c:if test="${p.product_status5==true}"><span class="product_status product_status5">구성품포함</span></c:if>
-									<c:if test="${p.product_status5==false}"><span class="product_status product_status5">구성품미포함</span></c:if>
+									<c:if test="${p.product_status5==0}"><span class="product_status product_status5">구성품포함</span></c:if>
+									<c:if test="${p.product_status5==1}"><span class="product_status product_status5">구성품미포함</span></c:if>
 								</div>
 										<!-- 1. 미개봉/개봉
 										2. 공식/비공식

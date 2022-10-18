@@ -65,6 +65,22 @@ public class SecurePaymentServiceImpl implements SecurePaymentService {
 	public int depositToSeller(SecurePaymentDTO dto) {
 		return securePaymentDAO.depositToSeller(dto);
 	}
+
+	@Override
+	public int updateProductSell2(int[] num) {
+		return securePaymentDAO.updateProductSell2(num);
+	}
+
+	@Override
+	public int getUserMoney(int user_num) {
+		return securePaymentDAO.getUserMoney(user_num);
+	}
+
+	@Override
+	public ProductDTO getProductOne(int product_num) {
+		return securePaymentDAO.getProductOne(product_num);
+	}
+	
 	
 	
 }

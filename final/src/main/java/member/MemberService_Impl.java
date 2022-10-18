@@ -55,5 +55,4 @@ public class MemberService_Impl implements MemberService {
 	public List<ProductDTO> getProductList(int user_num){
 		return dao.productList(user_num);
 	}
-	
 }

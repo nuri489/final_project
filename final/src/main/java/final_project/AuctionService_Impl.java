@@ -145,26 +145,11 @@ public class AuctionService_Impl implements AuctionService {
 	public int soldout(int final_price, int user_num, int product_num) {
 		return dao.soldOut(final_price, user_num, product_num);
 	}
-<<<<<<< HEAD
-	// 경매 종료 후 결제정보 insert
+	// 최종 결제를 위한 product_info 테이블 update
 
+	//[승희] 이미지 파일 가져오기
 	public List<String> imagepath(int product_num) {
 		return dao.getImage_path(product_num);
 	}
-=======
-	// 최종 결제를 위한 product_info 테이블 update
-
-	
-	
-
-
-
-
-
-
-
-
-	
->>>>>>> refs/remotes/final/master
 
 }
