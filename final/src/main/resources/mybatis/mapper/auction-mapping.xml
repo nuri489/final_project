@@ -125,6 +125,11 @@ select detail_name from product_detail where detail_num = #{detail_num}
 </select>
 <!-- 제품 상세 이름 호출 -->
 
+<!-- [승희] img_path 가져오기 -->
+<select id="getImage_path" parameterType="int" resultType="String">
+	select image_path from image where product_num = #{product_num}
+</select>
+
 </mapper>
 
 

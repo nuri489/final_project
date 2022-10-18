@@ -128,7 +128,7 @@ public class ProductDTO {
 	public void setProduct_status5(int product_status5) {
 		this.product_status5 = product_status5;
 	}
-	public int isProduct_sell() {
+	public int getProduct_sell() {
 		return product_sell;
 	}
 	public void setProduct_sell(int product_sell) {

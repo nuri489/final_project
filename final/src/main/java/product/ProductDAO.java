@@ -31,5 +31,8 @@ public interface ProductDAO {
 
 	List<ProductDTO> getAllProducts();
 	List<ProductDTO> getProductsIdol(int idol_num);
+	
+	ProductDTO getDetail(int product_num);
+	void updateSales(ProductDTO dto);
 
 }

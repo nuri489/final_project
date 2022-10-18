@@ -13,7 +13,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -213,5 +215,63 @@ public class ProductController {
 		mv.setViewName("product/buyinglist");
 		
 		return mv;
+	}
+	
+
+	//[승희] 판매글 수정하기
+	@GetMapping("/updatesales")
+	ModelAndView updateBoard(int product_num) {
+		//product_num 글 조회 - ProductDTO - 뷰 폼 보여주자
+		ProductDTO dto = pdtService.getDetail(product_num);
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("dto", dto);
+		mv.setViewName("product/updateform");
+		return mv;
+	}
+
+	@PostMapping("/updatesales")
+	String updateBoard(ProductDTO dto)throws IOException {
+		//글 내용 수정
+		pdtService.updateSales(dto);
+		//기존에 있던 사진 삭제
+		uploadService.deleteFile(dto.product_num);
+		//사진 다시 등록
+		UploadDTO uploaddto = new UploadDTO();
+		
+		//사진 등록 경로 : 본인에 맞게 수정
+		String savePath="C:\\Users\\LEE\\Desktop\\final_project\\final\\src\\main\\webapp\\resources\\images\\";
+		String [] imgexp = {"jpg","jfif","png","jpeg"}; //업로드 가능한 이미지 확장자들
+		int last_insert_pdt_num = 0;
+
+		if(dto.getImages()[0].getSize() !=0) {   //—파일이 있을 경우만 저장 수정완료 
+
+			//if(update_result>0) { // 파일이 있고 게시물이 성공적으로 저장되었을 때 파일 저장
+				last_insert_pdt_num = pdtService.getLastInsertNum();
+				uploaddto.setProduct_num(last_insert_pdt_num); //마지막 저장된 테이블의 PK가져옴
+				
+				for(int i=0;i<dto.getImages().length;i++) {
+
+					String filename = dto.getImages()[i].getOriginalFilename();   //--- 파일명을 얻어옴. a.txt
+
+					System.out.println(filename);
+					String beforeext1 = filename.substring(0, filename.indexOf("."));  //a
+					String ext1 = filename.substring(filename.indexOf("."));  //.txt
+					ext1 = ext1.substring(1); //txt
+					
+					//확장자가 이미지일때만 난수 붙여 파일 저장후 DB에 기록
+					for(int j=0;j<imgexp.length;j++) {
+						if(imgexp[j].equals(ext1)) {
+							String newname1 = beforeext1 +"(" +UUID.randomUUID().toString() +")"+ ext1;
+							uploaddto.setImage_path(newname1);
+							File servefile1 = new File(savePath+newname1);
+							dto.getImages()[i].transferTo(servefile1); 
+							uploadService.insertFile(uploaddto);
+						} //if end
+					} //inner end
+				} //outer end
+			//}
+		}
+		return "/temp_mainpage";
 	}
 }

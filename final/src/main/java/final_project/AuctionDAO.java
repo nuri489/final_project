@@ -1,5 +1,7 @@
 package final_project;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -62,4 +64,7 @@ public interface AuctionDAO {
 	
 	public int soldOut(int final_price , int user_num , int product_num);
 	// 최종 결제를 위해 product_info 테이블 update
+	
+	//[승희] product_num에 따라 imgpath 가져오기
+	public List<String> getImage_path(int product_num);
 }

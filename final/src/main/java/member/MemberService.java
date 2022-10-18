@@ -2,6 +2,8 @@ package member;
 
 import java.util.List;
 
+import product.ProductDTO;
+
 public interface MemberService {
 
 	public int login(String user_id , String user_password);
@@ -15,5 +17,6 @@ public interface MemberService {
 	public List<MemberDTO> onemember(String user_id);
 	//회원가입
 	public int registerMember(MemberDTO dto);
-	
+	//[승희] 판매글모아보기
+	public List<ProductDTO> getProductList(int user_num);
 }

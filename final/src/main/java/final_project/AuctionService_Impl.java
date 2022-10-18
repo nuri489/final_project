@@ -1,5 +1,7 @@
 package final_project;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -145,16 +147,9 @@ public class AuctionService_Impl implements AuctionService {
 	}
 	// 최종 결제를 위한 product_info 테이블 update
 
-	
-	
-
-
-
-
-
-
-
-
-	
+	//[승희] 이미지 파일 가져오기
+	public List<String> imagepath(int product_num) {
+		return dao.getImage_path(product_num);
+	}
 
 }
