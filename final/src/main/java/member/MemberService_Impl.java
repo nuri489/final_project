@@ -65,6 +65,7 @@ public class MemberService_Impl implements MemberService {
 	}
 	
 	
+	
 	/**
 	 * 회원 찜목록
 	 */
