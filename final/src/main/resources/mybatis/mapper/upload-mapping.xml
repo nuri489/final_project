@@ -7,5 +7,9 @@
   		insert into image (product_num,image_path) values (#{product_num}, #{image_path})
   	</insert>
 
+  	<delete id="deleteFile" parameterType="int">
+  		DELETE FROM image
+		WHERE product_num = #{product_num}
+  	</delete>
   	
   </mapper>

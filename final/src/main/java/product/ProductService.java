@@ -27,4 +27,8 @@ public interface ProductService {
 	List<ProductDTO> getProductsIdol(int idol_num);
 	
 	String getimagepath(int product_num);
+	//수정폼
+	ProductDTO getDetail(int product_num);
+	//수정처리
+	void updateSales(ProductDTO dto);
 }

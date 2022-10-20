@@ -173,8 +173,8 @@ $(document).ready(function(){
 	position:relative;
 	display:flex;
 	flex-flow:column;
-	align-content:flex-start;
 	flex-wrap:wrap;
+	align-content:flex-start;
 	/* text-align:left; */
 	/* padding:2px 5px 2px 5px; */
 	/* min-height: 25px; */

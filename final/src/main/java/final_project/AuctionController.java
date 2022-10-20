@@ -52,6 +52,8 @@ public class AuctionController {
 		// product_info 테이블에서 제품 정보 가져옴
 		int request_num = auction_service.request_num(product_num);
 		// auction_gauge 테이블에서 경매 요청 정보 가져옴
+		List<String> imagepath = auction_service.imagepath(product_num);
+		//사진 경로 가져오기
 		
 		int check = auction_service.auctionChecking(product_num); 
 		// 경매 유무 확인
@@ -76,7 +78,7 @@ public class AuctionController {
 			mv.addObject("temp_dto",dto);
 			mv.addObject("request_num",request_num);
 			//mv.setViewName("product/getdetail_auction");
-			mv.setViewName("AuctionPage2");
+			mv.setViewName("auction/getdetail_normal");
 		}
 		// auction_check 값에 따라 일반 판매 페이지로 연결될지 말지 정함
 		
@@ -192,6 +194,8 @@ public class AuctionController {
 		// 상품 상세 이름
 		AuctionDTO dto1 = auction_service.auction_info(product_num);
 		// 경매 정보 dto1에 저장
+		List<String> imagepath = auction_service.imagepath(product_num);
+		//사진 경로 가져오기
 		
 		if(check == 1) {
 			
@@ -204,7 +208,7 @@ public class AuctionController {
 			mv.addObject("detail_name",detail_name);
 			mv.addObject("much",much);
 			
-			mv.setViewName("AuctionPage");
+			mv.setViewName("auction/getdetail_auction");
 		}
 		else {
 			mv.setViewName("temp_mainpage");

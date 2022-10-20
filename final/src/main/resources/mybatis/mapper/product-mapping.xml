@@ -137,6 +137,28 @@
 	<select id="getImage_path" parameterType="int" resultType="String">
 		select image_path from product_info as p left outer join image as i on p.product_num = i.product_num where p.product_num = #{product_num} limit 1;
 	</select>
-
+	<!-- 판매글 수정하기 -->
+	<select id="getDetail" parameterType="int" resultType="productdto">
+		select * from product_info where product_num = #{product_num}
+	</select>
+	
+	<update id="updateSales" parameterType="productdto">
+		UPDATE product_info
+		SET product_title = #{product_title },
+			idol_num = #{idol_num },
+			category_num = #{category_num },
+			<!-- detail_num = #{detail_num }, -->
+			product_contents = #{product_contents },
+			product_price = #{product_price },
+			product_time = now(),
+			safe_trade = #{safe_trade },
+			auction_check = #{auction_check },
+			product_status1 = #{product_status1 },
+			product_status2 = #{product_status2 },
+			product_status3 = #{product_status3 },
+			product_status4 = #{product_status4 },
+			product_status5 = #{product_status5 }
+		WHERE product_num = #{product_num} ;
+	</update>
 
   </mapper>

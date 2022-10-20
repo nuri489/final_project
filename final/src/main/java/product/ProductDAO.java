@@ -33,5 +33,7 @@ public interface ProductDAO {
 	List<ProductDTO> getProductsIdol(int idol_num);
 	
 	String getImage_path(int product_num);
+	ProductDTO getDetail(int product_num);
+	void updateSales(ProductDTO dto);
 
 }

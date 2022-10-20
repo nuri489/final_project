@@ -16,5 +16,8 @@ public class UploadServiceImpl implements UploadService{
 		return uploadDAO.insertFile(dto);
 	}
 
-	
+	@Override
+	public void deleteFile(int product_num) {
+		uploadDAO.deleteFile(product_num);
+	}
 }

@@ -112,11 +112,14 @@ public class ProductServiceImpl implements ProductService{
 		return productDAO.getImage_path(product_num);
 	}
 
+	public ProductDTO getDetail(int product_num) {
+		return productDAO.getDetail(product_num);
+	}
 	
-	
-	
-	
-	
+	@Override
+	public void updateSales(ProductDTO dto) {
+		productDAO.updateSales(dto);
+	}
 	
 //	@Override
 //	public List<HashMap<Integer, String>> getpdtDetailTags(String keyword) {
