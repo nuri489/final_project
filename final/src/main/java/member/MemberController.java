@@ -9,13 +9,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import final_project.AuctionService;
+import likeinfo.LikeInfoDTO;
 import product.ProductDTO;
 
 @Controller
@@ -107,5 +110,37 @@ public class MemberController {
 			}
 			return mv;
 		}
+		/**
+		 * 마이페이지 
+		 * @param user_num 유저식별자
+		 */
+		@GetMapping("/my/{user_num}")
+		public String getMemberMyPage(@PathVariable int user_num, Model model) {
+			MemberDTO dto = member_service.getUser(user_num);
+			model.addAttribute("user", dto);
+			return "member/mypage";
+		}
+		
+		/**
+		 * 찜목록
+		 * TODO: 현재 likeinfo-mapping.xml 에러남 확인 후 뿌려줘야함
+		 * @param user_num 유저 식별자
+		 */
+		@GetMapping("/wish/{user_num}")
+		public String getMemberWishList(@PathVariable int user_num, Model model) {
+			List<LikeInfoDTO> dtos = member_service.getWishList(user_num);
+			return "member/wishlist";
+		}
+		
+		
+		
+		
+		/* 회원정보 수정
+		@ResponseBody
+		@PutMapping("/update")
+		public int userupdate() {
+			
+		} */
+
 	
 }

@@ -2,6 +2,7 @@ package member;
 
 import java.util.List;
 
+import likeinfo.LikeInfoDTO;
 import product.ProductDTO;
 
 public interface MemberService {
@@ -19,4 +20,9 @@ public interface MemberService {
 	public int registerMember(MemberDTO dto);
 	//[승희] 판매글모아보기
 	public List<ProductDTO> getProductList(int user_num);
+	
+	tipublic MemberDTO getUser(int user_num);
+	
+    public List<LikeInfoDTO> getWishList(int user_num);
+	
 }

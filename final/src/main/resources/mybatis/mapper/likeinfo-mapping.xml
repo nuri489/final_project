@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="likeInfo.LikeInfoDAO">
+
+	<resultMap type="ProductDTO" id="product">
+		<result column="product_title" property="product_title"/>
+		<result column="product_contents" property="product_contents"/>
+		<result column="product_price" property="product_price"/>
+		<result column="product_time" property="product_time"/>
+	</resultMap>
+
+	<resultMap type="LikeInfoDTO" id="likeInfo">
+		<id column="user_num" property="user_num"/>
+		<id column="product_num" property="product_num"/>
+	</resultMap>
+
+	<select id="selectMemberWishList" resultMap="likeInfo">
+		select * from like_info
+	</select>
+
+</mapper>
