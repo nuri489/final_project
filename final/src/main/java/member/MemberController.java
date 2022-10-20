@@ -134,7 +134,6 @@ public class MemberController {
 		
 		
 		
-		
 		/* 회원정보 수정
 		@ResponseBody
 		@PutMapping("/update")

@@ -64,6 +64,7 @@ public class MemberService_Impl implements MemberService {
 		return dao.selectMyPage(user_num);
 	}
 	
+	
 	/**
 	 * 회원 찜목록
 	 */

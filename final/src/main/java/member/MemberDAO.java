@@ -30,4 +30,5 @@ public interface MemberDAO {
 	 */
 	public MemberDTO selectMyPage(int user_num);
 	
+	
 }
