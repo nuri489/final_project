@@ -6,6 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel='stylesheet' type='text/css' href='./css/AuctionPage2.css'>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -70,22 +74,22 @@ $(document).ready(function() {
 		// 경매 요청 및 취소 버튼에 대한 ajax	
 	}
 	
-	if("${temp_dto.user_num}" != "${sessionUser_num}") { 
+	if("${temp_dto.user_num}" != "${sessionUser_num}") {
 	// 구매자 로그인
+		$("#list-button").css('display','none');
 		
-		$("#accept-button").css("display","none");
 	}
 	else { 
 	// 판매자 로그인
 	
-		$("#chatting-form1").attr('hidden',true);
-		$("#chatting-form2").removeAttr('hidden');
+		$("#chatting-form1").css('display','none');
+		$("#accept-button").removeAttr('hidden');
 		$("#request-button").css("display","none");
 		$("#cancle-button").css("display","none");
-		
+
 		$.ajax({
 			url : 'roomchecking',
-			data : {'seller_num':${sessionUser_num} , 'product_num':${temp_dto.product_num}},
+			data : {'seller_num':"${sessionUser_num}" , 'product_num':${temp_dto.product_num}},
 			type : 'post',
 			dataType : 'text',
 			success : function(s) {
@@ -99,8 +103,7 @@ $(document).ready(function() {
 			}
 		});
 		// 채팅 목록에 대한 ajax
-		
-		
+			
 	}
 	// 경매로 바꾸기 버튼에 대한 표시
 		
@@ -133,6 +136,12 @@ $(document).ready(function() {
 		}
 	});
 	// 경매로 바꾸기 버튼에 대한 기능
+	
+	
+	
+	
+	
+	
 });
 </script>
 </head>
@@ -158,12 +167,36 @@ $(document).ready(function() {
 	<input type=hidden name="product_num" value="${temp_dto.product_num}">
 	<input type=submit id="chatting-button1" value="판매자와 채팅하기"><br>
 </form>
-<form action="chatting_list" method="post" id="chatting-form2" hidden="true">
-	<input type=hidden name="seller_num" value="${sessionUser_num}">
-	<input type=hidden name="product_num" value="${temp_dto.product_num}">
-	<input type=submit id="chatting-button2" value="채팅목록"><br>
-</form>
-<input type=button id="accept-button" value="경매로 바꾸기"><br>
+
+			
+<div id="list-div">
+	<a href="#list-modal" rel="modal:open"><input type=button id="list-button" value="채팅목록"></a>
+	<div id="list-modal" class="modal">
+		<h1>채 팅 목 록</h1><hr id="chat-hr1">
+		  <table id="list-table">
+			<c:forEach items="${chattinglist}" var="dto" varStatus="status">
+			<tr>
+			<td class="buyer-name">
+			<form action="chatting2" method="post" id="list-form">
+			<input type=hidden value="${dto.product_num}" name="product_num">
+			<input type=hidden value="${dto.buyer_num}" name="buyer_num">
+			<input type=hidden value="${dto.buyer_name}" name="buyer_name">
+			<input type=hidden value="${dto.seller_num}" name="seller_num">
+			<input type=hidden value="${dto.roomNumber}" name="roomNumber" id="roomNumber">
+			<input type=submit value="${dto.buyer_name}" id="go-chat">
+			</form>
+			</td>
+			<td>
+			<div id="chat">${dto.last_chat}</div>
+			</td>
+			
+			</tr>
+			</c:forEach>
+			</table>
+	</div>
+</div>
+
+<input type=button id="accept-button" value="경매로 바꾸기" hidden="true"><br>
 게시글 id와 sessionID가 같은 유저한테만 보임. 경매 요청 값이 5 이상이면 활성화(색상을 바꾼던가 해서?)
 <hr>
 <div id="login">

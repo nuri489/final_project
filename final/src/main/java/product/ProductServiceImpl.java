@@ -107,6 +107,11 @@ public class ProductServiceImpl implements ProductService{
 		return productDAO.getProductsIdol(idol_num);
 	}
 
+	@Override
+	public String getimagepath(int product_num) {
+		return productDAO.getImage_path(product_num);
+	}
+
 	
 	
 	

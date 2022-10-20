@@ -5,6 +5,7 @@ public class ChattingDTO {
 	int buyer_num , seller_num , roomNumber , product_num;
 	String buyer_name;
 	String fileName;
+	String last_chat;
 	
 	public String getFileName() {
 		return fileName;
@@ -44,6 +45,14 @@ public class ChattingDTO {
 
 	public void setSeller_num(int seller_num) {
 		this.seller_num = seller_num;
+	}
+
+	public String getLast_chat() {
+		return last_chat;
+	}
+
+	public void setLast_chat(String last_chat) {
+		this.last_chat = last_chat;
 	}
 
 	public int getRoomNumber() {

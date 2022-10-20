@@ -25,4 +25,6 @@ public interface ProductService {
 
 	List<ProductDTO> getAllProducts();
 	List<ProductDTO> getProductsIdol(int idol_num);
+	
+	String getimagepath(int product_num);
 }

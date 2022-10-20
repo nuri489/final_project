@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel='stylesheet' type='text/css' href='./css/temp_AuctionPage.css'>
+<link rel='stylesheet' type='text/css' href='/css/temp_AuctionPage.css?after'>
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -49,7 +49,11 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<h1>경매 설정 페이지</h1>
+<div id="main-form">
+<img alt="" src="/final/logo2.png">
+</div>
+<h1>경매 설정</h1>
+<hr class="hr">
 <div id="form">
 <form id="auction-form" method="get">
 	<table border="1">
@@ -73,7 +77,7 @@ $(document).ready(function() {
 		<td class="body"><input type="text" name="final_price" value="${dto.product_price}" readonly style="border:none"></td>
 		</tr>
 		<tr>
-		<td class="head">입찰단위</td>
+		<td class="head">입찰단위*</td>
 		<td class="body2">
 			<select id="bid_unit" name="bid_unit">
 				<option value="1000">1,000원</option>
@@ -90,7 +94,7 @@ $(document).ready(function() {
 		</td>
 		</tr>
 		<tr>
-		<td class="head">입찰방식</td>
+		<td class="head">입찰방식*</td>
 		<td class="body2">
 			<select id="auction-method" name="auction_method">
 				<option value=0>공개</option>
@@ -100,7 +104,7 @@ $(document).ready(function() {
 		</tr>
 		
 		<tr>
-		<td class="head">경매시간</td>
+		<td class="head">경매시간*</td>
 		<td class="body2">
 			<select id="input-time" name="end_time">
 				<option value=24>24 시간</option>
@@ -122,16 +126,10 @@ $(document).ready(function() {
 	</table><br>
 	<div id="button-div">
 		<input type=button id="confirm-button" value="경매로 전환하기" class="confirm-cancle">
-		<input type=button id="cancle-button" value="취 소" class="confirm-cancle">
+		<input type=button id="cancle-button" value="취	소" class="confirm-cancle">
 		<input type=number name="user_num" value="${dto.user_num}" hidden="true">
 	</div>
 </form>
-	<div>
-	비공개* 경매는 비딩 방식으로 진행 됩니다.<br>
-	가장 높은 금액을 제시한 입찰자가 낙찰되며, 최종 낙찰가는 2순위 입찰자가 제시한 금액 + 판매자가 설정한 입찰단위 금액입니다.
-	단, 최종 낙찰가는 1순위 입찰자가 제시한 금액보다 커질 수 없습니다. 경매가 종료되고 제시 금액과 최종 금액의 차액만큼 자동으로 환불처리가 됩니다.
-	예) 1순위는 5만원, 2순위는 4만원을 제시하였고 입찰단위가 3천원이라면 1순위 제시자는 4만3천원을 지불해야 합니다. 1순위가 입찰을 하며 차감된 5만원 중, 7천원은 자동 환불됩니다.
-	</div>
 </div>
 </body>
 </html>

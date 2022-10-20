@@ -13,4 +13,6 @@ public interface ChattingService {
 	
 	public void createFile(int roomNumber) throws IOException;
 	
+	public int lastchat(String last_chat , String rN);
+	
 }

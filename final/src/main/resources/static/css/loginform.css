@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
   
 body {
-  background-color : white;
+  background-color : rgb(255, 255, 255);
   font-family: 'Nanum Gothic', sans-serif;
 }
 
@@ -76,6 +76,13 @@ input::-webkit-input-placeholder {
 	margin-bottom: 30px;
 	cursor: pointer;
 	font-weight: bold;
+	transition: 0.2s;
+}
+
+#main-div #second-div #login-button:hover {
+	background-color: #4662e2;
+	transform: scale(1.05);
+	font-weight: bold;
 }
 
 #main-div #second-div input:hover {
@@ -88,9 +95,6 @@ input::-webkit-input-placeholder {
 }
 
 
-#main-div #second-div #login-button:hover {
-	background-color: #506df2;
-}
 
 
 li {

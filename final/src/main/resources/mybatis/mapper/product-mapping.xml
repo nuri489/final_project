@@ -134,6 +134,9 @@
 	</select>
 	<!-- 구매목록 -->
 	
+	<select id="getImage_path" parameterType="int" resultType="String">
+		select image_path from product_info as p left outer join image as i on p.product_num = i.product_num where p.product_num = #{product_num} limit 1;
+	</select>
 
 
   </mapper>

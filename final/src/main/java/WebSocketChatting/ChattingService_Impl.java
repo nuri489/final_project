@@ -3,6 +3,9 @@ package WebSocketChatting;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,18 +46,27 @@ public class ChattingService_Impl implements ChattingService {
 	public void createFile(int roomNumber) throws IOException {
 		
 		String fileName = roomNumber+".json";
-		// 윤서 - 따로 yspath 쓰겠습니다. 
-		//String pathName = NaverInform.path + fileName;
-		String pathName = NaverInform.yspath + fileName;
+		String pathName = NaverInform.path + fileName;
+		//String pathName = NaverInform.yspath + fileName;
 		
 		File txtFile = new File(pathName);
 		txtFile.createNewFile();
 		
+		Calendar time1 = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+
+		String time2 = sdf.format(time1.getTime());
+		
 		FileWriter file = new FileWriter(txtFile , true);
-		file.write("[{\"msg\":\"안전거래 수칙을 지켜주세요\",\"roomNumber\":"+roomNumber+",\"type\":\"message\",\"sessionUser_num\":\"0\",\"userName\":\"SYSTEM\"}]");
+		file.write("[{\"msg\":안전거래 규칙을 지켜주세요!\"\",\"roomNumber\":"+roomNumber+",\"type\":\"message\",\"sessionUser_num\":\"0\",\"userName\":\"SYSTEM\",\"time\":\""+time2+"\"}]");
 		file.flush();
 		file.close();
 		
+	}
+
+	@Override
+	public int lastchat(String last_chat , String rN) {
+		return chatdao.updateLast_chat(last_chat , rN);
 	}
 
 	

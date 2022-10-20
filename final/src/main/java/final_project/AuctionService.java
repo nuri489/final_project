@@ -54,4 +54,7 @@ public interface AuctionService {
 	public int soldout(int final_price , int user_num , int product_num);
 	// 최종 결제를 위한 product_info 테이블 update
 	
+	public int getBuyer_num(int product_num);
+	// 구매자 번호 호출
+	
 }

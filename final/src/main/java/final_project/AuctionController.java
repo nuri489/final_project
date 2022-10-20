@@ -1,5 +1,7 @@
 package final_project;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import WebSocketChatting.ChattingDTO;
+import WebSocketChatting.ChattingService;
 import member.MemberService;
 import product.ProductDTO;
 
@@ -24,6 +28,10 @@ public class AuctionController {
 	@Autowired
 	@Qualifier("memberservice")
 	MemberService member_service;
+	
+	@Autowired
+	@Qualifier("chattingservice")
+	ChattingService chatting_service;
 	
 	@Autowired
 	@Qualifier("auctionthread")
@@ -45,19 +53,31 @@ public class AuctionController {
 		int request_num = auction_service.request_num(product_num);
 		// auction_gauge 테이블에서 경매 요청 정보 가져옴
 		
-		int check = auction_service.auctionChecking(product_num); // 경매 유무 확인
+		int check = auction_service.auctionChecking(product_num); 
+		// 경매 유무 확인
+		
+		int buyer_num = auction_service.getBuyer_num(product_num);
+		// 구매자 번호
+		
+		int seller_num = dto.getUser_num();
+		// 판매자 번호
+		
+		List<ChattingDTO> chattinglist = chatting_service.chattinglist(seller_num, product_num);
+		// 채팅 리스트
+		
 		
 		if(check == 1) {
 			mv.setViewName("temp_mainpage");
 			//mv.setViewName("product/getdetail_normal");
 		}
 		else {
+			mv.addObject("buyer_num",buyer_num);
+			mv.addObject("chattinglist",chattinglist);
 			mv.addObject("temp_dto",dto);
 			mv.addObject("request_num",request_num);
 			//mv.setViewName("product/getdetail_auction");
 			mv.setViewName("AuctionPage2");
 		}
-		mv.addObject("product_dto", dto);
 		// auction_check 값에 따라 일반 판매 페이지로 연결될지 말지 정함
 		
 		return mv;

@@ -6,11 +6,45 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel='stylesheet' type='text/css' href='./css/loginform.css'>
+<link rel='stylesheet' type='text/css' href='./css/loginform.css?after'>
 <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
+	
+	document.addEventListener("keypress", function(e){
+		if(e.keyCode == 13){ //enter press
+			
+			var ref = document.referrer;
+			
+			if($("#password").val() != "") {
+				
+				$.ajax({
+					url : 'login',
+					data : {'id':$("#id").val() , 'password':$("#password").val()},
+					type : 'post',
+					dataType : 'text',
+					success : function(s) { 
+						
+						if(s==1) {
+							window.location.href = ref;
+						//	window.location.href = '/getproducts';
+						}
+						else {
+							alert("아이디 또는 비밀번호가 옳지 않습니다.");
+							$("#password").focus();
+						}
+						
+					}
+				});
+			}
+			else {
+				$("#password").focus();
+				
+			}
+			
+		}
+	});
 	
 	$("#login-button").on('click',function(e){
 	
@@ -26,8 +60,8 @@ $(document).ready(function() {
 				success : function(s) { 
 					
 					if(s==1) {
-						//window.location.href = ref;
-						window.location.href = '/getproducts';
+						window.location.href = ref;
+					//	window.location.href = '/getproducts';
 					}
 					else {
 						alert("아이디 또는 비밀번호가 옳지 않습니다.");
@@ -49,7 +83,7 @@ $(document).ready(function() {
 		
 		window.location.href = "/getproducts"
 	});
-	
+		
 
 });
 </script>

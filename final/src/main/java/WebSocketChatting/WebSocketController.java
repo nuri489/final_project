@@ -3,7 +3,9 @@ package WebSocketChatting;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +17,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +29,7 @@ import ch.qos.logback.core.pattern.parser.Parser;
 import final_project.AuctionService;
 import member.MemberService;
 import product.ProductDTO;
+import product.ProductService;
 
 @Controller
 public class WebSocketController {
@@ -42,10 +46,15 @@ public class WebSocketController {
 	@Qualifier("auctionservice")
 	AuctionService auction_service;
 	
+	@Autowired
+	@Qualifier("productservice")
+	ProductService product_service;
+	
 	List<ChattingDTO> roomList = new ArrayList<ChattingDTO>();
 	static int roomNumber = 0;
 	
-	@RequestMapping("/chatting1")
+	@ResponseBody
+	@PostMapping("/chatting1")
 	public ModelAndView chat1(int buyer_num , int seller_num , int product_num) throws IOException {
 		ModelAndView mv = new ModelAndView();
 		
@@ -86,8 +95,15 @@ public class WebSocketController {
 
 		}
 		
+		Calendar time1 = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("a KK:mm");
+		String time2 = sdf.format(time1.getTime());
+		
 		ProductDTO pdto = auction_service.product_info(product_num);
 		mv.addObject("dto",pdto);
+		
+		String image = product_service.getimagepath(product_num);
+		mv.addObject("image",image);
 		
 		mv.addObject("buyer_num",buyer_num);
 		mv.addObject("buyer_name",buyer_name);
@@ -97,7 +113,10 @@ public class WebSocketController {
 		
 		mv.addObject("roomNumber",roomNumber);
 		
+		mv.addObject("time", time2);
+		
 		mv.setViewName("WebSocketChatting/chatting");
+		
 		return mv;
 	}
 	// 구매자의 채팅방 입장
@@ -109,6 +128,7 @@ public class WebSocketController {
 		int check = chatting_service.countlog2(seller_num, product_num);
 		return check;
 	}
+	// 해당 상품에 대한 채팅방이 존재하는지 검사
 	
 
 	@RequestMapping("/chatting_list")
@@ -117,6 +137,12 @@ public class WebSocketController {
 		
 		List<ChattingDTO> chattinglist = chatting_service.chattinglist(seller_num, product_num);
 	
+		
+		ProductDTO dto = auction_service.product_info(product_num);
+		int buyer_num = auction_service.getBuyer_num(product_num);
+		
+		mv.addObject("dto",dto);
+		mv.addObject("buyer_num",buyer_num);
 		mv.addObject("chattinglist",chattinglist);
 		mv.addObject("seller_num",seller_num);
 		mv.addObject("product_num",product_num);
@@ -126,11 +152,30 @@ public class WebSocketController {
 	}
 	// 해당 상품에 대한 채팅 목록이 있는 room.jsp로 이동
 	
+	
+	/*
+	 * 1. 상품정보(temp_dto)
+	 * 2. 구매자 번호
+	 * 3. 채팅 리스트
+	 * 4. 판매자 번호(temp_dto에 있음)
+	 * 5. 
+	 * 
+	 */
+	
+	
 	@RequestMapping("/chatting2")
 	public ModelAndView chat2(int product_num , int buyer_num , String buyer_name , int seller_num , int roomNumber ) {
 	
 		ModelAndView mv = new ModelAndView();
 		String seller_name = member_service.user_id(seller_num);
+		
+		Calendar time1 = Calendar.getInstance();
+		
+		SimpleDateFormat sdf1 = new SimpleDateFormat("a KK:mm");
+		String time2 = sdf1.format(time1.getTime());
+		
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy년 MM월 dd일");
+		String time3 = sdf2.format(time1.getTime());
 		
 		ProductDTO pdto = auction_service.product_info(product_num);
 		mv.addObject("dto",pdto);
@@ -142,6 +187,9 @@ public class WebSocketController {
 		mv.addObject("seller_name",seller_name);
 		
 		mv.addObject("roomNumber",roomNumber);
+		
+		mv.addObject("time",time2);
+		mv.addObject("time2",time3);
 		
 		mv.setViewName("WebSocketChatting/chatting");
 		return mv;
