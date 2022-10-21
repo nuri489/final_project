@@ -48,6 +48,4 @@ public class MemberDTO {
 		this.user_password = user_password;
 	}
 	
-	
-
 }
