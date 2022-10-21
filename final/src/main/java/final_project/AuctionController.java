@@ -182,7 +182,6 @@ public class AuctionController {
 		
 		ModelAndView mv = new ModelAndView();
 
-		
 		auction_service.auctionCheck(product_num); // auction_check 값 1로 바꿈
 		int check = auction_service.auctionChecking(product_num); // 경매 유무 확인
 		
@@ -198,7 +197,6 @@ public class AuctionController {
 		//사진 경로 가져오기
 		
 		if(check == 1) {
-			
 			int much = auction_service.muchbid(dto1.auction_num) - 1;
 			// 입찰 수
 			

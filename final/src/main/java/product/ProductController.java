@@ -277,18 +277,15 @@ public class ProductController {
 	
 	//[승희] 메인페이지 검색 토글
 	@RequestMapping("/search")
-//	@ResponseBody
 	public ModelAndView searchSimple(@RequestParam(value="search_select",required =true)String search_select ,  @RequestParam(value="keyword" , required = true) String keyword){
 		ModelAndView mv = new ModelAndView();
 		ProductDTO dto = new ProductDTO();
-		System.out.println(search_select+" : "+keyword);
 		if(search_select.equals("product_title")) {
 			dto.setProduct_title(keyword);
 		}else if(search_select.equals("product_contents")) {
 			dto.setProduct_contents(keyword);
 		}
 		List<ProductDTO> product_list = pdtService.searchSimple(dto);
-		System.out.println(dto);
 		mv.setViewName("product/simplesearchresult");
 		mv.addObject("search_result", product_list);
 		return mv;
