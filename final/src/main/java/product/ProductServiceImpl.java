@@ -125,6 +125,8 @@ public class ProductServiceImpl implements ProductService{
 //	public List<HashMap<Integer, String>> getpdtDetailTags(String keyword) {
 //		return productDAO.getpdtDetailTags(keyword);
 //	}
-
-	
+	@Override
+	public List<ProductDTO> searchSimple(ProductDTO dto) { //메인페이지 검색
+		return productDAO.searchSimple(dto);
+	}
 }

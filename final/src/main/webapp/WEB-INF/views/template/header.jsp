@@ -358,8 +358,16 @@ textarea{
             <div class="gnb_area">
                 <div class="search_area">
                     <div class="search">
-                        <input type="text" placeholder="" title="검색창" class="input_search show_placeholder_on_focus">
-                    </div>
+						<form action="search" method="get">
+						<select id="search_select"  name="search_select">
+							<option value="product_title">제목</option>
+							<option value="product_contents">내용</option>
+						</select>
+							<input type="text" placeholder="검색어 입력" name="keyword" title="검색창" class="input_search show_placeholder_on_focus">
+							<button type="submit">검색</button>
+						</form>
+							<!-- <button type="submit" id="search_detail_btn">상세검색</button> 추후 추가 고려중-->
+                	</div>
                 </div>
             
                 <nav class="gnb">

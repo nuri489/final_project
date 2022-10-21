@@ -160,5 +160,19 @@
 			product_status5 = #{product_status5 }
 		WHERE product_num = #{product_num} ;
 	</update>
-
+	
+	<!-- 상품검색 -->
+	<select id="searchSimple" resultType="productdto" parameterType="productdto">
+		select * from product_info where
+		<choose>
+			<when test="product_title != null">
+				product_title like concat('%',#{product_title},'%')
+			</when>
+			<when test="product_contents != null">
+				product_contents like concat('%',#{product_contents},'%')
+			</when>
+		</choose>
+		<!-- order by regdate -->
+	</select>
+	
   </mapper>
