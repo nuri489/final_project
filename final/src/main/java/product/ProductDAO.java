@@ -35,5 +35,6 @@ public interface ProductDAO {
 	String getImage_path(int product_num);
 	ProductDTO getDetail(int product_num);
 	void updateSales(ProductDTO dto);
-
+	//검색결과
+	List<ProductDTO> searchSimple(ProductDTO dto);
 }

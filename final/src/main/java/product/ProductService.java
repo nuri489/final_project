@@ -31,4 +31,6 @@ public interface ProductService {
 	ProductDTO getDetail(int product_num);
 	//수정처리
 	void updateSales(ProductDTO dto);
+	//검색
+	List<ProductDTO> searchSimple(ProductDTO dto);
 }
