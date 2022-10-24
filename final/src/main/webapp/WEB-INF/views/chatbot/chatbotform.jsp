@@ -7,10 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="js/jquery-3.6.0.min.js"></script>
-
 <script>
 $(document).ready(function(){
-	$('#input_message').focus();
 	var now = new Date();
 	var date = now.getFullYear()+"."+(now.getMonth()+1)+"."+now.getDate()+" "+now.getHours()+":"+now.getMinutes()+":"+now.getSeconds();
 	$.ajax({
@@ -28,7 +26,6 @@ $(document).ready(function(){
 	}); //ajax end	
 	
 	$('#sendbtn').on('click',function(event){
-		event.preventDefault();
 		var now = new Date();
 		var date = now.getFullYear()+"."+(now.getMonth()+1)+"."+now.getDate()+" "+now.getHours()+":"+now.getMinutes()+":"+now.getSeconds();
 		$.ajax({
@@ -45,34 +42,14 @@ $(document).ready(function(){
 				//시세 확인할래 질문받을 시
 				if(input_msg.includes('시세확인')||input_msg.includes('시세 확인')||input_msg.includes('시세')){
 					result_msg = '';
-					var avg=0;
 					$.ajax({
 						url:'quotecheck',
 						data: {'detail_name' : input_msg},
 						type:"get",
 						dataType:'json',
 						success:function(server){
-							if(server.length!=0){
-								for(var i=0;i<server.length;i++){
-									var s = server[i].product_time.substring(5)+'일';
-									avg= avg + Number(server[i].product_price);
-									s = s.replace('-', '/');
-									if(s[0]=='0'){
-										s = s.substring(1);
-									}
-									result_msg+=s+' : '+ Number(server[i].product_price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+'원<br>';
-								}
-								avg/=server.length;
-								avg = parseInt(avg);
-								avg = avg.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-								result_msg += '<br> 최근 한 달간 판매 가격 평균은 <br>▶ ︎'+avg+'︎원 입니다.';
-								
-							}else{
-								result_msg = '시세가 형성되지 않은 상품입니다.';
-							}
-							
-							/* result_msg = '해당 물품의 현재 시세는 ';
-							result_msg+=server+'원 입니다.'; */
+							result_msg = '해당 물품의 현재 시세는 ';
+							result_msg+=server+'원 입니다.';
 							//var welcome_msg = server.bubbles[0].data.description;
 							//welcome_msg = welcome_msg.replace(/\n/gi, '<br>');
 				 			$('#chatbot_message').append("<div class='msg_box'><div id='sender'><div id='sender_text'>"+result_msg+"</div><div class='msg_time'>"+date+"</div></div></div>");
@@ -98,7 +75,6 @@ $(document).ready(function(){
 							for(let i=0;i<server.length;i++){
 								forsale_msg+=(i+1)+". "+server[i]+"<br>";
 							}
-							forsale_msg+= "<br> 👉 위의 목록 중 현재 시세를 확인하고 싶으신 상품이 있다면 <br>- 『[상품 이름] 시세』  <br>-  『[상품 이름] 시세확인』 <br><br> 을 입력하여 주세요.";
 							$('#chatbot_message').append("<div class='msg_box'><div id='sender'><div id='sender_text'>"+forsale_msg+"</div><div class='msg_time'>"+date+"</div></div></div>");
 						}//success end
 					}); //ajax end	
@@ -173,8 +149,8 @@ $(document).ready(function(){
 	position:relative;
 	display:flex;
 	flex-flow:column;
-	flex-wrap:wrap;
 	align-content:flex-start;
+	flex-wrap:wrap;
 	/* text-align:left; */
 	/* padding:2px 5px 2px 5px; */
 	/* min-height: 25px; */
@@ -239,7 +215,6 @@ $(document).ready(function(){
 	border:none;
 }
 #chatbot_input_box #sendbtn{
-	transition: all 0.2s ;
 	margin:2px 4px 0 0;
 	width: 50px;
 	height: 35px;
@@ -250,7 +225,7 @@ $(document).ready(function(){
 }
 #chatbot_input_box #sendbtn:hover{
 	cursor:pointer;
-	background-color:  #6682FF;
+	background-color:  #6973db;
 }
 @keyframes fadeInUp {
         0% {
@@ -295,7 +270,6 @@ $(document).ready(function(){
 }
 </style>
 <body>
-<jsp:include page="../template/header.jsp" flush="true"/>
 <div id="chatbot_contents">
 	<div id="chatbot_title" style="margin-bottom: 20px;">간단한 질문은 챗봇을 통해 해결해보세요! </div>
 	<div id="chatbot_item1">
@@ -310,15 +284,12 @@ $(document).ready(function(){
 
 		</div>
 		<div id="chatbot_input_box">
-		<form>
 			<input id="input_message" type="text" name="input_message">
 			<button id="sendbtn" value="input_message">전송</button>
-		<!-- 	<input type="button" value="전송"> -->
-		</form>
 		</div>
 	</div>
 	</div>
+	
 </div>
 </body>
-	
 </html>
