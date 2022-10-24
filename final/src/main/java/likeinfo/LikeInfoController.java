@@ -2,11 +2,19 @@ package likeinfo;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+@Controller
 public class LikeInfoController {
+	
+	@Autowired
+	@Qualifier("likeinfoservice")
+	LikeInfoService likeinfoservice;
 
 	/**
 	 * 찜목록
@@ -15,7 +23,9 @@ public class LikeInfoController {
 	 */
 	@GetMapping("/wish/{user_num}")
 	public String getMemberWishList(@PathVariable int user_num, Model model) {
-		List<LikeInfoDTO> dtos = member_service.getWishList(user_num);
-		return "member/wishlist";
+		List<LikeInfoDTO> dtos = likeinfoservice.getWishList(user_num);
+		model.addAttribute("dtos", dtos);
+		return "likeinfo/wishlist";
 	}
+	
 }

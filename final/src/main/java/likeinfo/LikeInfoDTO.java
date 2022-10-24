@@ -8,6 +8,9 @@ public class LikeInfoDTO {
 	String product_contents;
 	int product_price;
 	String product_time;
+	String idol_num;
+	int category_num;
+	String category_name;
 	
 	public int getUser_num() {
 		return user_num;
@@ -45,7 +48,25 @@ public class LikeInfoDTO {
 	public void setProduct_time(String product_time) {
 		this.product_time = product_time;
 	}
-
+	public String getIdol_num() {
+		return idol_num;
+	}
+	public void setIdol_num(String idol_num) {
+		this.idol_num = idol_num;
+	}
+	public int getCategory_num() {
+		return category_num;
+	}
+	public void setCategory_num(int category_num) {
+		this.category_num = category_num;
+	}
+	public String getCategory_name() {
+		return category_name;
+	}
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}
+	
 	
 	
 }

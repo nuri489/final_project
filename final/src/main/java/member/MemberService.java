@@ -23,6 +23,4 @@ public interface MemberService {
 	// 마이페이지
 	public MemberDTO getUser(int user_num);
 	
-    public List<LikeInfoDTO> getWishList(int user_num);
-	
 }

@@ -46,7 +46,7 @@ public class AuctionController {
 		// product_info 테이블에서 제품 정보 가져옴
 		int request_num = auction_service.request_num(product_num);
 		// auction_gauge 테이블에서 경매 요청 정보 가져옴
-		List<String> imagepath = auction_service.imagepath(product_num);
+		//List<String> imagepath = auction_service.imagepath(product_num);
 		//사진 경로 가져오기
 		
 		int check = auction_service.auctionChecking(product_num); // 경매 유무 확인
@@ -176,7 +176,7 @@ public class AuctionController {
 		// 상품 상세 이름
 		AuctionDTO dto1 = auction_service.auction_info(product_num);
 		// 경매 정보 dto1에 저장
-		List<String> imagepath = auction_service.imagepath(product_num);
+		//List<String> imagepath = auction_service.imagepath(product_num);
 		//사진 경로 가져오기
 		
 		if(check == 1) {
