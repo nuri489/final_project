@@ -44,7 +44,7 @@ $(document).ready(function(){
 		// 찜 X 상태 -> 찜하고 버튼 색 바꿈 
 		if(tg == "🤍"){
 			$(this).html('❤️');
-			$(this).css('font-size', '20px');
+			$(this).css('font-size', '18px');
 			$.ajax({
 				url:'likeclickajax',
 				data: {'product_num' : $(this).val()},
@@ -56,7 +56,7 @@ $(document).ready(function(){
 			}); //ajax end	
 		}else{ // 이미 찜된 상태 -> 찜 취소  
 			$(this).html('🤍');
-			$(this).css('font-size', '20px');
+			$(this).css('font-size', '18px');
 			$.ajax({
 				url:'unlikeclickajax',
 				data: {'product_num' : $(this).val()},
@@ -80,11 +80,10 @@ $(document).ready(function(){
 	  $(this).css('background-color', 'gold');
 	   $('.a').not($(this)).css('background-color', '#fff'); */
 	
-	
-	   
 });//ready end
 </script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap');
 button{
 transition: all 0.2s ;
 cursor: pointer;
@@ -124,13 +123,12 @@ cursor: pointer;
 }
 .category_list_item{
 	margin-bottom: 5px;
-	/* border:1px solid #eaeef5; */
+	border:1px solid #eaeef5;
 	 border-radius: 4px;
 /* 	background-color: pink; */
 }
 #product_category_list1, #product_category_list2{
-	border:2px solid #dde4ee;
-	border-top:none;
+	border:1px solid #dde4ee;
 	padding:10px;
 }
 .idol_name_btn{
@@ -152,35 +150,8 @@ a:hover{
 .idol_name{
 	color:#5C75E6;
 	font-size:24px;
-	background: linear-gradient(145deg,#a1c4fd, #dde4ee);
-	border-radius: 8px 0 0 0;
+	background-color:#dde4ee;
 }
-
-.idol_name:hover{
-    background: linear-gradient(88deg, #8eb9ff, #eaeef5, #8eb9ff);
-    background-size: 800% 800%;
-
-    -webkit-animation: blink2 5s ease infinite;
-    -moz-animation: blink2 5s ease infinite;
-    animation: blink2 5s ease infinite;
-}
-
-@-webkit-keyframes blink2 {
-    0%{background-position:0% 84%}
-    50%{background-position:100% 17%}
-    100%{background-position:0% 84%}
-}
-@-moz-keyframes blink2 {
-    0%{background-position:0% 84%}
-    50%{background-position:100% 17%}
-    100%{background-position:0% 84%}
-}
-@keyframes blink2 {
-    0%{background-position:0% 84%}
-    50%{background-position:100% 17%}
-    100%{background-position:0% 84%}
-}
-
 .idol_name_btn:hover{
 	text-decoration: underline;
 }
@@ -217,7 +188,6 @@ a:hover{
 	border-radius: 0 0 8px 8px;
 	padding:20px 20px 20px 20px;
 }
-
 .product_item{
 	position:relative;
 	display:flex;
@@ -246,36 +216,13 @@ a:hover{
 }
 .likebtn{
 	position: absolute;
-	z-index: 0.5;
+	z-index: 100;
 	top:3px;
 	right:1px;
 	background-color:transparent;
 	border: none;
-	cursor: pointer; 
-	font-size: 20px;
+	cursor: pointer;
 }
-.likebtn:hover{
-	/* transform : scale(1.5); */
-	animation: .8s beat infinite;
-}
-
-@keyframes beat {
-  0% {
-    transform: scale(1);
-  }
-  25% {
-    transform: scale(1.3);
-  }
-  40% {
-    transform: scale(1.1);
-  }
-  60% {
-    transform: scale(1.3);
-  }
-  100% {
-    transform: scale(1);
-  }
- }
 .product_info{
 	text-align: center;
 }
@@ -337,14 +284,12 @@ a:hover{
 </style>
 </head>
 <body>
-<jsp:include page="../template/header.jsp" flush="true"/>
-<br>
 <main class="product_list">
 	<section class="section1">
 		<div class="left">
 			<div class="category_list">
 				<div class="category_list_item">
-					<div class="idol_name" id="idol_name"><button class="idol_name_btn" id="heart" onclick="location.href='getproducts';">ALL</button></div>
+					<div class="idol_name" id="idol_name"><button class="idol_name_btn" onclick="location.href='getproducts';">ALL</button></div>
 				</div>	
 				<div class="category_list_item">
 					<div class="idol_name" id="idol_name"><button class="idol_name_btn idol_name_btn_e" value="bts" onclick="location.href='getproducts?idol_num=1';" >BTS</button></div>
@@ -411,7 +356,7 @@ a:hover{
 						 <c:forEach items="${likeproduct}" var="l">
 						<c:if test="${not loop_flag }">
 							<c:if test="${p.product_num == l }">
-								<span class="likebtnarea"><button class="likebtn" style="color: red; font-size: 20px; " value="${p.product_num}">❤️</button></span>
+								<span><button class="likebtn" style="color: red; font-size: 20px; " value="${p.product_num}">❤️</button></span>
 								<c:set var="loop_flag" value="true" />
 							</c:if>
 							<%-- <c:if test="${p.product_num != l}">
@@ -421,7 +366,7 @@ a:hover{
 						</c:forEach>
 						</div>
 						<div class="product_info"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;">
-							<div class="product_title" style="font-weight: 700;margin-bottom: 5px;"><a>${p.product_title }</a></div>
+							<div class="product_title" style="font-weight: 700;margin-bottom: 5px;">${p.product_title }</div>
 							<div class="product_price price" style="margin-bottom: 5px;">${p.product_price }원</div>
 							<%-- ${p.safe_trade} ${p.auction_check} --%>
 							<div class="product_option">
@@ -430,16 +375,16 @@ a:hover{
 								<c:if test="${p.auction_check==true}"><span class="auction_type">경매</span></c:if>
 								</div>
 								<div class="bottom">
-									<c:if test="${p.product_status1==1}"><span class="product_status product_status1">미개봉</span></c:if>
-									<c:if test="${p.product_status1==0}"><span class="product_status product_status1">개봉</span></c:if>
-									<c:if test="${p.product_status2==1}"><span class="product_status product_status2">공식</span></c:if>
-									<c:if test="${p.product_status2==0}"><span class="product_status product_status2">공식</span></c:if>
-									<c:if test="${p.product_status3==1}"><span class="product_status product_status3">단종</span></c:if>
+									<c:if test="${p.product_status1==true}"><span class="product_status product_status1">미개봉</span></c:if>
+									<c:if test="${p.product_status1==false}"><span class="product_status product_status1">개봉</span></c:if>
+									<c:if test="${p.product_status2==true}"><span class="product_status product_status2">공식</span></c:if>
+									<c:if test="${p.product_status2==false}"><span class="product_status product_status2">공식</span></c:if>
+									<c:if test="${p.product_status3==true}"><span class="product_status product_status3">단종</span></c:if>
 									<c:if test="${p.product_status4=='좋음'}"><span class="product_status product_status4">상태좋음</span></c:if>
 									<c:if test="${p.product_status4=='보통'}"><span class="product_status product_status4">상태보통</span></c:if>
 									<c:if test="${p.product_status4=='나쁨'}"><span class="product_status product_status4">상태나쁨</span></c:if>
-									<c:if test="${p.product_status5==1}"><span class="product_status product_status5">구성품포함</span></c:if>
-									<c:if test="${p.product_status5==0}"><span class="product_status product_status5">구성품미포함</span></c:if>
+									<c:if test="${p.product_status5==true}"><span class="product_status product_status5">구성품포함</span></c:if>
+									<c:if test="${p.product_status5==false}"><span class="product_status product_status5">구성품미포함</span></c:if>
 								</div>
 										<!-- 1. 미개봉/개봉
 										2. 공식/비공식

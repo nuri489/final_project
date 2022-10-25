@@ -2,14 +2,9 @@ package final_project;
 
 import java.util.List;
 
-import product.ProductDTO;
-
 public interface AuctionService {
 
 	public int auction_request(int product_num , int user_num);
-	public int cancle_request(int product_num, int user_num);
-	// 경매 요청 및 요청 취소
-	
 	public int request_num(int product_num);
 	public int request_num2(int product_num, int user_num);
 	
@@ -19,9 +14,12 @@ public interface AuctionService {
 	public int auctionChecking(int product_num);
 	
 	public AuctionDTO auction_info(int product_num);
-	public int getAuction_num(int product_num);
+	public temp_ProductDTO product_info(int product_num);
 	
-	public ProductDTO product_info(int product_num);
+	public int user_num(String user_id);
+	// 임시 유저 고유 번호 호출
+	public String user_id(int user_num);
+	// 임시 유저 아이디 호출
 	
 	public String detail_name(int detail_num);
 	// detail_name 호출
@@ -31,13 +29,8 @@ public interface AuctionService {
 	
 	public int checkbid(int auction_num , int user_num);
 	// 비공개 입찰에서 입찰여부 조회
-	public int muchbid(int auction_num);
-	// 경매 입찰 수
-	
 	public int lastbid(int auction_num);
 	// 최신 입찰자 user_num 호출
-	public int secondbid(int auction_num);
-	// 2순위 입찰가
 	public int firstbid(int auction_num);
 	// 판매자의 user_num 호출
 	
@@ -53,6 +46,7 @@ public interface AuctionService {
 	public int refundmoney(int final_price , int user_num);
 	// 입찰자의 보유 머니 환불
 	
+
 	public int soldout(int final_price , int user_num , int product_num);
 	// 최종 결제를 위한 product_info 테이블 update
 	
