@@ -61,6 +61,7 @@ public class MemberService_Impl implements MemberService {
 		return dao.productList(user_num);
 	}
 
+	
 	@Override
 	public MemberDTO getUser(int user_num) {
 		return dao.selectMyPage(user_num);

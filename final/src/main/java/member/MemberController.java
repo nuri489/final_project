@@ -110,10 +110,8 @@ public class MemberController {
 			}
 			return mv;
 		}
-		/**
-		 * 마이페이지 
-		 * @param user_num 유저식별자
-		 */
+		
+/*		
 		@GetMapping("/my/{user_num}")
 		public String getMemberMyPage(@PathVariable int user_num, Model model) {
 			MemberDTO dto = member_service.getUser(user_num);
@@ -125,14 +123,7 @@ public class MemberController {
 		public String getMemberWishList(@PathVariable int user_num, Model model) {
 			List<LikeInfoDTO> dtos = member_service.getWishList(user_num);
 			return "member/wishlist";
-		}	
+		}
+*/
 		
-		/* 회원정보 수정
-		@ResponseBody
-		@PutMapping("/update")
-		public int userupdate() {
-			
-		} */
-
-	
 }
