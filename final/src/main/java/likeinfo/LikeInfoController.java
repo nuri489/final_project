@@ -13,6 +13,10 @@ import member.MemberService;
 
 @Controller
 public class LikeInfoController {
+	
+	@Autowired
+	@Qualifier("likeinfoservice")
+	LikeInfoService likeinfoservice;
 
 	
 	@Autowired
@@ -28,9 +32,11 @@ public class LikeInfoController {
 /*	
 	@GetMapping("/wish/{user_num}")
 	public String getMemberWishList(@PathVariable int user_num, Model model) {
-		List<LikeInfoDTO> dtos = member_service.getWishList(user_num);
-		return "member/wishlist";
+		List<LikeInfoDTO> dtos = likeinfoservice.getWishList(user_num);
+		model.addAttribute("dtos", dtos);
+		return "likeinfo/wishlist";
 	}
+
 */
 	
 }

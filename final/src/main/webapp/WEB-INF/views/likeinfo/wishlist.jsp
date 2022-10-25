@@ -9,9 +9,17 @@
 <meta charset="UTF-8">
 <title>찜목록</title>
 </head>
-<body>
+<body> 
+<!-- 
+	
+	<p> 찜목록 </p>
+
+
+}
+%>}
+	 -->
 	<h3>찜목록</h3>
-	<div>상품명</div>
+	<div>상품명 : </div>
 	<div>상품내용</div>
 	<div>가격</div>
 	<div>작성시간</div>
