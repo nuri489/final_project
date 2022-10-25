@@ -30,4 +30,7 @@ public interface MemberDAO {
 	 */
 	public MemberDTO selectMyPage(int user_num);
 	
+	public int countMy_id(String user_email);
+	public String getMy_id(String user_email);
+	// 아이디 찾기를 위한 아이디 호출
 }

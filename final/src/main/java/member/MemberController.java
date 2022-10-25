@@ -1,8 +1,10 @@
 package member;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -109,6 +111,28 @@ public class MemberController {
 				mv.setViewName("temp_mainpage");
 			}
 			return mv;
+		}
+		
+		@GetMapping("getmyid")
+		public String getmyid() {
+			return "member/getmyid";
+		}
+		
+		@ResponseBody
+		@PostMapping("getMyID")
+		public int searchingID(String user_email) throws Exception {
+			
+			int check = member_service.countmyid(user_email);
+			
+			if(check != 0) {
+				String user_id = member_service.getmyid(user_email);
+				member_service.createMessage(user_email, user_id);
+				
+				return 1;
+			}
+			else {
+				return 0;
+			}
 		}
 		
 /*		

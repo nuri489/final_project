@@ -293,7 +293,7 @@ public class AuctionController {
 		if(check != 0) {
 			mybid = auction_service.mybid(auction_num, user_num);
 		}
-		// 입찰을 한 기록이 있으면 예전 입찰가 호출
+		// 입찰을 한 기록이 있으면 해당 유저에 대한 마지막 입찰가 호출
 		
 		if(check >= 1) {
 			if(bid_price > mybid) {				

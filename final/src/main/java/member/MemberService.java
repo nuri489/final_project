@@ -1,6 +1,10 @@
 package member;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 import likeinfo.LikeInfoDTO;
 import product.ProductDTO;
@@ -24,5 +28,13 @@ public interface MemberService {
 	public MemberDTO getUser(int user_num);
 
     public List<LikeInfoDTO> getWishList(int user_num);
-
+    
+    public String getmyid(String user_email);
+    public int countmyid(String user_email);
+    
+    
+    MimeMessage createMessage(String text , String user_id) throws MessagingException, UnsupportedEncodingException;
+	// 내용 작성
+	String createKey();
+	// 랜덤 인증 코드 생성
 }

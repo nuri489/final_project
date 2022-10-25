@@ -106,7 +106,7 @@ update user_info set user_money = user_money + #{final_price} where user_num = #
 <!-- 입찰자의 보유 머니 환불 -->
 
 <select id="getProduct_info" parameterType="int" resultType="productdto"> 
-select product_title, product_num , user_num , detail_num , product_price , product_time , product_contents from product_info where product_num = #{product_num}
+select * from product_info where product_num = #{product_num}
 </select>
 <!-- 임시 제품 상세 정보 호출 -->
 

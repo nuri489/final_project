@@ -106,6 +106,14 @@
 		    <version>20220320</version>
 		</dependency>
 		
+	<!-- 이메일 전송을 위한 디펜더시 -->
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-mail</artifactId>
+	    <version>2.2.6.RELEASE</version>
+	</dependency>
+		
+		
 	</dependencies>
 
 	<build>

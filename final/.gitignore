@@ -35,3 +35,6 @@ build/
 ### VS Code ###
 .vscode/
 /.metadata/
+
+#Email
+src/main/java/member/MailConfig.java

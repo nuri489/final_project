@@ -45,11 +45,11 @@ $(document).ready(function() {
 	    if(diff < 0) {
 	    	clearInterval(x);
 	    	$("#time").html("경매 종료");
+	    	$("#bid-button").css("display","none");
 	    }
+	   
 	});
 	// 경매 남은 시간
-	
-    
 	
 	$("#logout-button").on('click',function(e){
 		
@@ -228,24 +228,24 @@ $(document).ready(function() {
 		}
 	
 	if(${dto2.product_status1} == 0) {
-		$("#statu1").html("미개봉");
+		$("#statu1").html("개봉여부 : 미개봉");
 	}
 	else {
-		$("#statu1").html("개봉");
+		$("#statu1").html("개봉여부 : 개봉");
 	}
 	
 	if(${dto2.product_status2} == 0) {
-		$("#statu2").html("비공식");
+		$("#statu2").html("공식여부 : 비공식");
 	}
 	else {
-		$("#statu2").html("공식");
+		$("#statu2").html("공식여부 : 공식");
 	}
 	
 	if(${dto2.product_status3} == 0) {
-		$("#statu3").html("비단종");
+		$("#statu3").html("단종여부 : 비단종");
 	}
 	else {
-		$("#statu3").html("단종");
+		$("#statu3").html("단종여부 : 단종");
 	}
 	if(${dto2.product_status5} == 0) {
 		$("#statu5").html("구성품 포함");
@@ -256,10 +256,10 @@ $(document).ready(function() {
 	// 상품 상태
 	
 	if("${dto2.safe_trade}" == 0) {
-		$("#safe-trade").html("X");
+		$("#safe-trade").html("불가능");
 	}
 	else {
-		$("#safe-trade").html("O");
+		$("#safe-trade").html("가능");
 	}
 	
 	
@@ -319,7 +319,7 @@ $(document).ready(function() {
 				<tr><td id="statu1"></td></tr>
 				<tr><td id="statu2"></td></tr>
 				<tr><td id="statu3"></td></tr>
-				<tr><td id="statu4">${dto2.product_status4}</td></tr>
+				<tr><td id="statu4">상태 : ${dto2.product_status4}</td></tr>
 				<tr><td id="statu5"></td></tr>
 			</table>
 		</td></tr>

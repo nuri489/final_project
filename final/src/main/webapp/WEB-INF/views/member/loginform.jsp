@@ -106,9 +106,9 @@ $(document).ready(function() {
 		</div>
 		<div id="third-div">
 		<ul>
-		<li><a href="">아이디 찾기</a></li>
+		<li><a href="getmyid">아이디 찾기</a></li>
 		<li><a href="">비밀번호 찾기</a></li>
-		<li><a href="">회원가입</a></li>
+		<li><a href="memberjoin">회원가입</a></li>
 		</ul>
 		</div>
 	</div>
