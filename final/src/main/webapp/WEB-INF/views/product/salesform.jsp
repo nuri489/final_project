@@ -183,6 +183,7 @@ background-color:#ed6f69;
 </style>
 </head>
 <body>
+<jsp:include page="../template/header.jsp" flush="true"/>
 <div id="contents">
 <div id="form_name">판매할 상품을 등록하세요!</div>
 <form action="insertsales" enctype="multipart/form-data" method="post" id="salesform">
