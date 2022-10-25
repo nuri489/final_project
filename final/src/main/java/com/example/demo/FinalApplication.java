@@ -26,6 +26,7 @@ import org.springframework.context.annotation.ComponentScan;
 @MapperScan(basePackages = "WebSocketChatting")
 @MapperScan(basePackages = "review")
 @MapperScan(basePackages = "likeinfo")
+
 public class FinalApplication {
 
 	public static void main(String[] args) {

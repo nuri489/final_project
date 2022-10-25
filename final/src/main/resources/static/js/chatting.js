@@ -1,25 +1,41 @@
 	var ws;
 	
 	$(document).ready(function() {
-		var userName = $("#userName").val();
+//		var userName = $("#buyer_name").val();
 		wsOpen();
 		$.ajax({
-			url : 'http://localhost:8092/final/'+$("#roomNumber").val()+'.json',
+			url : '/final/'+$("#roomNumber").val()+'.json',
 			dataType : 'json',
 			success : function(e) {
 				
 				for(var i=0; i<e.length; i++) {
 					
+					
 					if($("#sessionUser_num").val() == e[i]["sessionUser_num"]) {
-						$("#chating").append("<p class='me'>나 :" + e[i]["msg"] + "</p>");
-						}
+						$(".div1").append("<div class='div2'><div class='me'><div class='chat'>"+e[i]["msg"]+"</div></div><div class='my-time'>"+e[i]["time"]+"</div></div>");
+					}
+					else if (e[i]["userName"] == "SYSTEM") {
+						$(".div1").append("<div class='system' id='system-msg'>채팅 시작 날짜 : "+e[i]["time"]+"</div>");
+					}
 					else {
-						$("#chating").append("<p class='others'>" + e[i]["userName"] + " :" + e[i]["msg"] + "</p>");
+						$(".div1").append("<div class='div2'><div class='you'><div class='chat'>"+e[i]["msg"]+"</div></div><div class='your-time'>"+e[i]["time"]+"</div></div>");
 					}
 					
 				}
+				
+				$(".div1").scrollTop($('.div1')[0].scrollHeight);
 			}
-		});		
+		});
+		
+		if($("#buyer_num").val() == $("#sessionUser_num").val()) {
+			$("#title").html("<a href='aa' class='a'>"+$("#seller_name").val()+"<span class='tooltip'>닉네임을 클릭하여 상대방의 정보를 확인하세요!</span></a> 님과의 채팅");
+		}
+		// 구매자 입장
+		else {
+			$("#title").html("<a href='aa'>>"+$("#buyer_name").val()+"<</a> 님과의 채팅");
+		}
+		// 판매자 입장
+		
 	});
 	
 	function wsOpen(){
@@ -47,16 +63,19 @@
 				else if(d.type == "message"){
 					
 					if(d.sessionId == $("#sessionId").val()){
-						$("#chating").append("<p class='me'>나 :" + d.msg + "</p>");	
+						$(".div1").append("<div class='div2'><div class='me'><div class='chat'>"+d.msg+"</div></div><div class='my-time'>"+d.time+"</div></div>");
 					}
 					else{
-						$("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
+						$(".div1").append("<div class='div2'><div class='you'><div class='chat'>"+d.msg+"</div></div><div class='your-time'>"+d.time+"</div></div>");
 					}
 						
 				}
 				else{
 					console.warn("unknown type!")
 				}
+				
+				$(".div1").scrollTop($('.div1')[0].scrollHeight);
+
 			}
 		}
 
@@ -68,15 +87,18 @@
 	}
 
 	function send() {
-		
-		var option ={
+
+		var option = {
 			type: "message",
 			roomNumber: $("#roomNumber").val(),
 			sessionUser_num : $("#sessionUser_num").val(),
 			userName : $("#userName").val(),
-			msg : $("#chatting").val()
+			msg : $("#chatting").val(),
+			time : $("#time").val()
 		}
-		ws.send(JSON.stringify(option))
+		
+		ws.send(JSON.stringify(option));
+		
 		$('#chatting').val("");
 		
 	}

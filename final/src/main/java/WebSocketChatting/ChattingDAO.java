@@ -21,5 +21,6 @@ public interface ChattingDAO {
 	public int getCount_log2(int seller_num , int product_num);
 	// 판매자의 채팅 목록의 갯수
 	
+	public int updateLast_chat(String last_chat , String rN);
 
 }

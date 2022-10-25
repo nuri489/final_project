@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel='stylesheet' type='text/css' href='./css/room.css'>
+
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -15,7 +16,8 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<h1>채팅목록</h1><hr>
+<h1>채팅목록</h1>
+
 <table border="2">
 <tr>
 <c:forEach items="${chattinglist}" var="dto" varStatus="status">

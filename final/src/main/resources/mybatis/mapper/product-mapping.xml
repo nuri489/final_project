@@ -134,6 +134,9 @@
 	</select>
 	<!-- 구매목록 -->
 	
+	<select id="getImage_path" parameterType="int" resultType="String">
+		select image_path from product_info as p left outer join image as i on p.product_num = i.product_num where p.product_num = #{product_num} limit 1;
+	</select>
 	<!-- 판매글 수정하기 -->
 	<select id="getDetail" parameterType="int" resultType="productdto">
 		select * from product_info where product_num = #{product_num}
@@ -157,5 +160,19 @@
 			product_status5 = #{product_status5 }
 		WHERE product_num = #{product_num} ;
 	</update>
-
+	
+	<!-- 상품검색 -->
+	<select id="searchSimple" resultType="productdto" parameterType="productdto">
+		select * from product_info where
+		<choose>
+			<when test="product_title != null">
+				product_title like concat('%',#{product_title},'%')
+			</when>
+			<when test="product_contents != null">
+				product_contents like concat('%',#{product_contents},'%')
+			</when>
+		</choose>
+		<!-- order by regdate -->
+	</select>
+	
   </mapper>

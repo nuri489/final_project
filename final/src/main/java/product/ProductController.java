@@ -274,4 +274,20 @@ public class ProductController {
 		}
 		return "/temp_mainpage";
 	}
+	
+	//[승희] 메인페이지 검색 토글
+	@RequestMapping("/search")
+	public ModelAndView searchSimple(@RequestParam(value="search_select",required =true)String search_select ,  @RequestParam(value="keyword" , required = true) String keyword){
+		ModelAndView mv = new ModelAndView();
+		ProductDTO dto = new ProductDTO();
+		if(search_select.equals("product_title")) {
+			dto.setProduct_title(keyword);
+		}else if(search_select.equals("product_contents")) {
+			dto.setProduct_contents(keyword);
+		}
+		List<ProductDTO> product_list = pdtService.searchSimple(dto);
+		mv.setViewName("product/simplesearchresult");
+		mv.addObject("search_result", product_list);
+		return mv;
+	}
 }

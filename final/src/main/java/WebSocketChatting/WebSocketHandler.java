@@ -15,6 +15,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -29,19 +31,24 @@ public class WebSocketHandler extends TextWebSocketHandler {
 	List<HashMap<String, Object>> rls = new ArrayList<>(); 
 	//웹소켓 세션을 담아둘 리스트 ---roomListSessions
 	
+	@Autowired
+	@Qualifier("chattingservice")
+	ChattingService chatting_service;
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException, ParseException {
 		//메시지 발송
 		String msg = message.getPayload();
 		JSONObject obj = jsonToObjectParser(msg);
+		String last_chat = (String) obj.get("msg");
 		String rN = (String) obj.get("roomNumber");
 		
 		JSONParser parser = new JSONParser();
 		
 		// 윤서 - 저는 따로 NaverInform.yspath로 만들겠습니다!
-		//JSONArray array = (JSONArray) parser.parse(new FileReader(NaverInform.path+rN+".json"));
-		JSONArray array = (JSONArray) parser.parse(new FileReader(NaverInform.yspath+rN+".json"));
+		JSONArray array = (JSONArray) parser.parse(new FileReader(NaverInform.path+rN+".json"));
+//		JSONArray array = (JSONArray) parser.parse(new FileReader(NaverInform.yspath+rN+".json"));
 		array.add(obj);
 		
 		// json 파일을 읽어오고, parser로 JSONArray 형태로 파싱함
@@ -51,10 +58,13 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		// 즉, 기존에 존재하던 json 파일에 단순히 추가하는게 아니라
 		// 읽어오고서 array 형태로 변환을 하고서 추가하는 것
 		
+		chatting_service.lastchat(last_chat , rN);
+		
+		
         try {
         	//윤서 path 수정
-        	 FileWriter fileWriter = new FileWriter(NaverInform.yspath+rN+".json");
-            //FileWriter fileWriter = new FileWriter(NaverInform.path+rN+".json");
+        	// FileWriter fileWriter = new FileWriter(NaverInform.yspath+rN+".json");
+            FileWriter fileWriter = new FileWriter(NaverInform.path+rN+".json");
             fileWriter.write(array.toJSONString());
             fileWriter.flush();
             fileWriter.close();
@@ -98,7 +108,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		super.afterConnectionEstablished(session);
 		boolean flag = false;
 		String url = session.getUri().toString();
-		System.out.println(url);
+		
 		String roomNumber = url.split("/chating/")[1];
 		int idx = rls.size(); //방의 사이즈를 조사한다.
 		if(rls.size() > 0) {

@@ -19,4 +19,8 @@ select * from chatting_info where seller_num = #{seller_num} and product_num = #
 select count(*) from chatting_info where seller_num = #{seller_num} and product_num = #{product_num}
 </select>
 
+<update id="updateLast_chat" parameterType="String">
+update chatting_info set last_chat = #{last_chat} where roomNumber = #{rN}
+</update>
+
 </mapper>

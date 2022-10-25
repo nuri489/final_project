@@ -147,6 +147,10 @@ public class AuctionService_Impl implements AuctionService {
 	}
 	// 최종 결제를 위한 product_info 테이블 update
 
+	@Override
+	public int getBuyer_num(int product_num) {
+		return dao.getBuyer_num(product_num);
+	}
 	//[승희] 이미지 파일 가져오기
 	public List<String> imagepath(int product_num) {
 		return dao.getImage_path(product_num);

@@ -108,6 +108,10 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
+	public String getimagepath(int product_num) {
+		return productDAO.getImage_path(product_num);
+	}
+
 	public ProductDTO getDetail(int product_num) {
 		return productDAO.getDetail(product_num);
 	}
@@ -121,6 +125,8 @@ public class ProductServiceImpl implements ProductService{
 //	public List<HashMap<Integer, String>> getpdtDetailTags(String keyword) {
 //		return productDAO.getpdtDetailTags(keyword);
 //	}
-
-	
+	@Override
+	public List<ProductDTO> searchSimple(ProductDTO dto) { //메인페이지 검색
+		return productDAO.searchSimple(dto);
+	}
 }

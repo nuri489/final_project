@@ -63,5 +63,11 @@ public class MemberService_Impl implements MemberService {
 	public MemberDTO getUser(int user_num) {
 		return dao.selectMyPage(user_num);
 	}
+
+	@Override
+	public List<LikeInfoDTO> getWishList(int user_num) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
