@@ -10,49 +10,51 @@
 <script>
 $(document).ready(function() {
 	
-$("#login-button").on('click',function(e){
-		
-		$.ajax({
-			url : 'login',
-			data : {'id':$("#id").val()},
-			type : 'post',
-			dataType : 'text',
-			success : function(s) { 
-				$("#user_num").html(s);
-				
-			}
-		});
-	});
-	// 로그인 버튼에 대한 ajax
+	if("${sessionUser_num}" != "") {
+		$("#login-button").attr('hidden',true);
+		$("#logout-button").removeAttr("hidden");
+	}
+	// 로그인 및 로그아웃 버튼에 대한 표시
 	
 	$("#logout-button").on('click',function(e){
-	
+		
 		$.ajax({
 			url : 'logout',
 			type : 'post',
 			dataType : 'text',
 			success : function(s) { 
-				$("#user_num").html(s);
+				location.reload();
 			}
 		});
 	});
 	// 로그아웃 버튼에 대한 ajax
+
+
 });
 </script>
 </head>
 <body>
 경매 확인용 메인 페이지<br>
-<a href="temp_product?product_num=1">일반 판매</a>
-<%-- 
-?product_num = ${product_num} 이라고 적어야 함.
-board/list.jsp 참조. 지금은 그냥 1 값을 직접 줌
-
- --%>
- <a href="auctionpage?product_num=1">경매 판매</a>
+<a href="productdetail?product_num=1">일반 판매</a>
+ <a href="auctionpage?product_num=1">경매 판매</a><br>
+ <a href="sellproductlist">판매글모아보기</a>
+ <a href="buyinglist?buyer_num=${sessionUser_num}">구매 목록(로그인 해야됨)</a>
 <hr>
-아이디 입력 : <input type="text" id="id"><br>
-<input type="button" id="login-button" value="로그인">
-<input type="button" id="logout-button" value="로그아웃"><br>
-로그인한 사람의 user_num : <div id="user_num">${sessionUser_num}</div><hr>
+<div id="login">
+<a href="loginform"><input type="button" id="login-button" value="로그인"></a>
+<a href="logout"><input type="button" id="logout-button" value="로그아웃" hidden="true"></a><br>
+로그인한 사람의 user_num : ${sessionUser_num} // 버튼 위치 옮겨야 함
+</div>
+<div class="menu">
+<form action="search" method="get">
+<select id="search_select"  name="search_select">
+	<option value="product_title">제목</option>
+	<option value="product_contents">내용</option>
+</select>
+	<input type="text" placeholder="검색어 입력" name="keyword">
+	<button type="submit">검색</button>
+</form>
+	<!-- <button type="submit" id="search_detail_btn">상세검색</button> 추후 추가 고려중-->
+</div>
 </body>
 </html>

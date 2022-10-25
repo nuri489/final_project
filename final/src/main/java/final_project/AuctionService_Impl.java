@@ -1,7 +1,11 @@
 package final_project;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import product.ProductDTO;
 
 @Service("auctionservice")
 public class AuctionService_Impl implements AuctionService {
@@ -13,12 +17,19 @@ public class AuctionService_Impl implements AuctionService {
 	public int auction_request(int product_num, int user_num) {
 		return dao.requestAuction(product_num,user_num);
 	}
+	// 경매 요청
+	
+	@Override
+	public int cancle_request(int product_num, int user_num) {
+		return dao.cancleRequest(product_num, user_num);
+	}
+	// 경매 요청 취소
 	
 	@Override
 	public int request_num(int product_num) {
 		return dao.requestNumber(product_num);
 	}
-	// 경매 요청 및 요청 횟수 계산
+	// 어떤 제품에 대한 요청 횟수
 	
 	@Override
 	public int request_num2(int product_num, int user_num) {
@@ -45,25 +56,19 @@ public class AuctionService_Impl implements AuctionService {
 		return dao.getAuction_info(product_num);
 	}
 	// 경매 정보 호출
+	
+	@Override
+	public int getAuction_num(int product_num) {
+		return dao.getAuction_num(product_num);
+	}
+	// 경매 고유번호 호출
 
 	@Override
-	public temp_ProductDTO product_info(int product_num) {
+	public ProductDTO product_info(int product_num) {
 		
 		return dao.getProduct_info(product_num);
 	}
 	// 임시 제품 정보
-
-	@Override
-	public int user_num(String user_id) {
-		return dao.getUser_num(user_id);
-	}
-	// 임시 유저 고유 번호 확인
-
-	@Override
-	public String user_id(int user_num) {
-		return dao.getUser_id(user_num);
-	}
-	// 임시 유저 아이디 호출
 
 	@Override
 	public String detail_name(int detail_num) {
@@ -82,6 +87,11 @@ public class AuctionService_Impl implements AuctionService {
 		return dao.getLast_bid(auction_num);
 	}
 	// 최신 입찰 유저의 user_num 호출
+	
+	@Override
+	public int secondbid(int auction_num) {
+		return dao.getSecond_bid(auction_num);
+	}
 	
 	@Override
 	public int firstbid(int auction_num) {
@@ -125,16 +135,25 @@ public class AuctionService_Impl implements AuctionService {
 	}
 	// 비공개 입찰시 입찰여부 검사
 
-	
-	
+	@Override
+	public int muchbid(int auction_num) {
+		return dao.getMuch_bid(auction_num);
+	}
+	// 어떤 경매의 입찰 수
 
+	@Override
+	public int soldout(int final_price, int user_num, int product_num) {
+		return dao.soldOut(final_price, user_num, product_num);
+	}
+	// 최종 결제를 위한 product_info 테이블 update
 
-
-
-
-
-
-
-	
+	@Override
+	public int getBuyer_num(int product_num) {
+		return dao.getBuyer_num(product_num);
+	}
+	//[승희] 이미지 파일 가져오기
+	public List<String> imagepath(int product_num) {
+		return dao.getImage_path(product_num);
+	}
 
 }

@@ -16,4 +16,8 @@ public interface SecurePaymentService  {
 	int updateProductSell(int product_num);
 	List<Map<String,String>> getMyProduct(int user_num);
 	int depositToSeller(SecurePaymentDTO dto);
+	int updateProductSell2(int[] num);
+
+	int getUserMoney(int user_num);
+	ProductDTO getProductOne(int product_num);
 }
