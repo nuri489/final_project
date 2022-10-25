@@ -134,6 +134,10 @@ select ifnull(buyer_num,user_num) from product_info where product_num = #{produc
 	select image_path from image where product_num = #{product_num}
 </select>
 
+<select id="muchImages" parameterType="int" resultType="int">
+select count(*) from image where product_num = #{product_num}
+</select>
+
 </mapper>
 
 

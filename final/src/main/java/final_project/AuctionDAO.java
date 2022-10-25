@@ -70,4 +70,6 @@ public interface AuctionDAO {
 	// 구매자 번호 호출
 	//[승희] product_num에 따라 imgpath 가져오기
 	public List<String> getImage_path(int product_num);
+	
+	public int muchImages(int product_num);
 }

@@ -156,4 +156,9 @@ public class AuctionService_Impl implements AuctionService {
 		return dao.getImage_path(product_num);
 	}
 
+	@Override
+	public int muchimages(int product_num) {
+		return dao.muchImages(product_num);
+	}
+
 }

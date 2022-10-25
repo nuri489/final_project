@@ -24,7 +24,6 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-
 <input type="hidden" id="sessionUser_num" value="${sessionUser_num}">
 <input type="hidden" id="roomNumber" value="${roomNumber}">
 <input type="hidden" id="buyer_num" value="${buyer_num}">
@@ -33,13 +32,13 @@ $(document).ready(function() {
 <input type="hidden" id="seller_name" value="${seller_name}">
 <input type="hidden" id="time" value="${time}">
 <input type="hidden" id="time2" value="${time2}">
-<div id="top-line">상단바</div>
+<jsp:include page="../template/header.jsp" flush="true"/>
 <div id="info-table">
 	<table>
 	<tr>
 	<td colspan="3" class="title"><div class="title" id="title"></div></td></tr>
 	<tr>
-	<td colspan="2"><img alt="" src="/final/${image}" onerror="this.src=null; this.src='/final/none.png'"></td>
+	<td colspan="2"><img id="thumbnail" alt="" src="/final/${image}" onerror="this.src=null; this.src='/serverimg/none.png'"></td>
 	<td rowspan="6">
 		<div id="container" class="container">	
 			<div class="div1"></div>

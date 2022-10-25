@@ -329,8 +329,8 @@ button{
 		<!-- 이미지 슬라이드 부분 -->
 		<div id="slideShow">
 			<ul class="slides">
-		      	<c:forEach var="image" items="${imagepath}" >
-					<li><img src="resources/images/${image }" alt="사진" width="400px" height="300px"/></li>
+		      	<c:forEach var="image" items="${images}" >
+					<li><img src="/final/${image}" alt="사진" width="400px" height="300px"/></li>
 				</c:forEach>
 		    </ul>  
 		 	<p class="controller">

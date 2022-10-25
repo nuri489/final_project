@@ -35,9 +35,9 @@ public class AuctionThread extends Thread {
 				int auction_num = auction_service.getAuction_num(product_num);
 				int user_num = auction_service.lastbid(auction_num); // 1순위 입찰자의 user_num
 				AuctionDTO dto = auction_service.auction_info(product_num);
-				int pay_price = dto.final_price; // 최종 가격
+				int final_price = dto.final_price; // 최종 가격
 				
-				auction_service.soldout(pay_price, user_num, product_num);
+				auction_service.soldout(final_price, user_num, product_num);
 				// product_info update
 			}
 			else if(auction_method == 1) {
@@ -47,9 +47,9 @@ public class AuctionThread extends Thread {
 				AuctionDTO dto = auction_service.auction_info(product_num);
 				int bid_unit = dto.bid_unit; // 1호가
 				
-				int pay_price = bid_unit + second; // 최종 가격
+				int final_price = bid_unit + second; // 최종 가격
 				
-				auction_service.soldout(pay_price, user_num, product_num);
+				auction_service.soldout(final_price, user_num, product_num);
 			}
 
 		}
