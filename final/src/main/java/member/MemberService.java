@@ -22,7 +22,7 @@ public interface MemberService {
 	public List<ProductDTO> getProductList(int user_num);
 	// 마이페이지
 	public MemberDTO getUser(int user_num);
-	
+
     public List<LikeInfoDTO> getWishList(int user_num);
-	
+
 }

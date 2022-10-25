@@ -77,9 +77,9 @@ public class AuctionController {
 			mv.addObject("chattinglist",chattinglist);
 			mv.addObject("temp_dto",dto);
 			mv.addObject("request_num",request_num);
-			//mv.setViewName("product/getdetail_auction");
 //			mv.setViewName("auction/getdetail_normal");
 			mv.setViewName("auction/AuctionPage2");
+			mv.setViewName("auction/getdetail_normal");
 		}
 		// auction_check 값에 따라 일반 판매 페이지로 연결될지 말지 정함
 		
@@ -183,7 +183,6 @@ public class AuctionController {
 		
 		ModelAndView mv = new ModelAndView();
 
-		
 		auction_service.auctionCheck(product_num); // auction_check 값 1로 바꿈
 		int check = auction_service.auctionChecking(product_num); // 경매 유무 확인
 		
@@ -199,7 +198,10 @@ public class AuctionController {
 		//사진 경로 가져오기
 		
 		int count = auction_service.muchimages(product_num);
-		
+
+		//List<String> imagepath = auction_service.imagepath(product_num);
+		//사진 경로 가져오기
+
 		if(check == 1) {
 			
 			int much = auction_service.muchbid(dto1.auction_num) - 1;
@@ -212,9 +214,9 @@ public class AuctionController {
 			mv.addObject("user_id", user_id);
 			mv.addObject("detail_name",detail_name);
 			mv.addObject("much",much);
-			
 			mv.setViewName("auction/AuctionPage");
 //			mv.setViewName("auction/getdetail_auction");
+
 		}
 		else {
 			mv.setViewName("temp_mainpage");

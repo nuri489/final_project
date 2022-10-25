@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import likeinfo.LikeInfoDAO;
 import likeinfo.LikeInfoDTO;
 import product.ProductDTO;
 
@@ -13,6 +14,9 @@ public class MemberService_Impl implements MemberService {
 
 	@Autowired
 	MemberDAO dao;
+	
+	@Autowired
+	LikeInfoDAO likeInfoDAO;
 	
 	
 	@Override
@@ -56,39 +60,16 @@ public class MemberService_Impl implements MemberService {
 	public List<ProductDTO> getProductList(int user_num){
 		return dao.productList(user_num);
 	}
-	/**
-	 * 회원 마이페이지
-	 */
+
 	@Override
 	public MemberDTO getUser(int user_num) {
 		return dao.selectMyPage(user_num);
 	}
-
-	@Override
-	public List<LikeInfoDTO> getWishList(int user_num) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
-	/**
-	 * 회원 찜목록
-	 */
-	/*@Override
+	@Override
 	public List<LikeInfoDTO> getWishList(int user_num) {
 		return likeInfoDAO.selectMemberWishList(user_num);
 	}
 
-	
-	@Override
-	public int registerMember(MemberDTO dto) {
-		//dto.getUser_num() 조회해본다.
-		List<MemberDTO> list = dao.oneMember(dto.getUser_id());
-		//조회결과 있는지 확인한다
-		if(list == null || list.size() == 0) {
-			return dao.insertMember(dto);
-		}
-		else {
-			return 0;
-		}
-	} */
+
 }

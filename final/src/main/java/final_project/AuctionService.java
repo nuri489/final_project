@@ -62,6 +62,7 @@ public interface AuctionService {
 	//[승희] img_path 가져오기
 	public List<String> imagepath(int product_num);
 	
+
 	public int muchimages(int product_num);
-	
+
 }
