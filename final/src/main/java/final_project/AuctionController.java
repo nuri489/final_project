@@ -79,7 +79,7 @@ public class AuctionController {
 			mv.addObject("request_num",request_num);
 //			mv.setViewName("auction/getdetail_normal");
 			mv.setViewName("auction/AuctionPage2");
-			mv.setViewName("auction/getdetail_normal");
+//			mv.setViewName("auction/getdetail_normal");
 		}
 		// auction_check 값에 따라 일반 판매 페이지로 연결될지 말지 정함
 		

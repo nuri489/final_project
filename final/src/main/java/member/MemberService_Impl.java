@@ -94,16 +94,22 @@ public class MemberService_Impl implements MemberService {
 	}
 	
 	@Override
-	public MimeMessage createMessage(String email , String user_id) throws MessagingException, UnsupportedEncodingException {
+	public String getmypw(String user_id) {
+		return dao.getMy_PW(user_id);
+	}
+	
+	@Override
+	public MimeMessage createMessage1(String email , String user_id) throws MessagingException, UnsupportedEncodingException {
 		
 		MimeMessage message = sender.createMimeMessage();
 
 		message.addRecipients(RecipientType.TO, email);// 보내는 대상
-		message.setSubject("GoodJob 회원가입 이메일 인증");// 제목
+		message.setSubject("중고마켓 아이디 찾기 요청");// 제목
 
 		String msgg = "";
-		msgg += "중고마켓 아이디 찾기<br>";
-		msgg += "회원님의 아이디 : "+ user_id;
+		msgg += "경매가 가능한 아이돌 굿즈 거래 플랫폼 중고마켓입니다!<br>";
+		msgg += "회원님의 아이디";
+		msgg += "<h1>"+user_id+"</h1>";
 		msgg += "<br>아이디 찾기를 하신게 본인이 아니라면 중고마켓의 비밀번호를 변경하시길 바랍니다";
 		message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
 		// 보내는 사람의 이메일 주소, 보내는 사람 이름
@@ -115,7 +121,28 @@ public class MemberService_Impl implements MemberService {
 	}
 
 	@Override
+	public MimeMessage createMessage2(String email, String user_id , String key) throws MessagingException, UnsupportedEncodingException {
+		
+		MimeMessage message = sender.createMimeMessage();
+
+		message.addRecipients(RecipientType.TO, email);// 보내는 대상
+		message.setSubject("중고마켓 비밀번호 찾기 요청");// 제목
+
+		String msgg = "";
+		msgg += "경매가 가능한 아이돌 굿즈 거래 플랫폼 중고마켓입니다!<br>";
+		msgg += "인증번호: <h1>"+ key + "</h1>";
+		message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
+		// 보내는 사람의 이메일 주소, 보내는 사람 이름
+		message.setFrom(new InternetAddress("nuri489@naver.com", "중고마켓"));// 보내는 사람
+		
+		sender.send(message);
+
+		return message;
+	}
+	
+	@Override
 	public String createKey() {
+		
 		StringBuffer key = new StringBuffer();
 		Random rnd = new Random();
 
@@ -140,4 +167,6 @@ public class MemberService_Impl implements MemberService {
 
 		return key.toString();
 	}
+
+
 }

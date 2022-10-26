@@ -120,13 +120,13 @@ public class MemberController {
 		
 		@ResponseBody
 		@PostMapping("getMyID")
-		public int searchingID(String user_email) throws Exception {
+		public int getMyID(String user_email) throws Exception {
 			
 			int check = member_service.countmyid(user_email);
 			
 			if(check != 0) {
 				String user_id = member_service.getmyid(user_email);
-				member_service.createMessage(user_email, user_id);
+				member_service.createMessage1(user_email, user_id);
 				
 				return 1;
 			}
@@ -134,6 +134,41 @@ public class MemberController {
 				return 0;
 			}
 		}
+		
+		@ResponseBody
+		@PostMapping("getMyPW1")
+		public String resetPW1(String user_id , String user_email) throws Exception {
+			
+			int check = member_service.countmyid(user_email);
+			
+			if(check != 0) {
+				
+				if(user_id.equals(member_service.getmyid(user_email))) {
+					
+					String key = member_service.createKey();
+					member_service.createMessage2(user_email, user_id, key);
+					// 인증번호 이메일 전송
+					
+					return key;
+				}
+				else {
+					return "none";
+				}
+			}
+			else {
+				return "none";
+			}
+		}
+		// 본인확인을 위한 인증번호 전송
+		
+		@ResponseBody
+		@PostMapping("getMyPW2")
+		public String resetPW2(String user_id) throws Exception {
+
+			String password = member_service.getmypw(user_id);
+			return password;
+		}
+		// 본인확인 후 임시 비밀번호 전송
 		
 /*		
 		@GetMapping("/my/{user_num}")

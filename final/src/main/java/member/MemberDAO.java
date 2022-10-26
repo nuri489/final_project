@@ -33,4 +33,7 @@ public interface MemberDAO {
 	public int countMy_id(String user_email);
 	public String getMy_id(String user_email);
 	// 아이디 찾기를 위한 아이디 호출
+	
+	public String getMy_PW(String user_id);
+	// 비밀번호 찾기
 }

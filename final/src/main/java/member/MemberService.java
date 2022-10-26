@@ -31,10 +31,12 @@ public interface MemberService {
     
     public String getmyid(String user_email);
     public int countmyid(String user_email);
+    public String getmypw(String user_id);
     
-    
-    MimeMessage createMessage(String text , String user_id) throws MessagingException, UnsupportedEncodingException;
-	// 내용 작성
+    MimeMessage createMessage1(String email , String user_id) throws MessagingException, UnsupportedEncodingException;
+	// 아이디 찾기를 위한 내용 작성
+    MimeMessage createMessage2(String email , String user_id , String key) throws MessagingException, UnsupportedEncodingException;
+    // 비밀번호 초기화를 위한 내용 작성
 	String createKey();
 	// 랜덤 인증 코드 생성
 }
