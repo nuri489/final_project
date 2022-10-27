@@ -35,8 +35,7 @@ $(document).ready(function() {
 </head>
 <body>
 경매 확인용 메인 페이지<br>
-<a href="productdetail?product_num=1">일반 판매</a>
- <a href="auctionpage?product_num=1">경매 판매</a><br>
+<a href="productdetail?product_num=1">상품페이지</a><br>
  <a href="sellproductlist">판매글모아보기</a>
  <a href="buyinglist?buyer_num=${sessionUser_num}">구매 목록(로그인 해야됨)</a>
 <hr>

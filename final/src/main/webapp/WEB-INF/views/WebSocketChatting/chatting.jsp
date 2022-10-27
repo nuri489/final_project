@@ -32,7 +32,7 @@ $(document).ready(function() {
 <input type="hidden" id="seller_name" value="${seller_name}">
 <input type="hidden" id="time" value="${time}">
 <input type="hidden" id="time2" value="${time2}">
-<jsp:include page="../template/header.jsp" flush="true"/>
+
 <div id="info-table">
 	<table>
 	<tr>

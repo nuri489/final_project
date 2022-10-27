@@ -127,9 +127,9 @@
 
 	
 	<select id="getBuying_list" parameterType="int" resultType="productdto">
-		select * from (select pi.product_num,product_title,user_num,product_price,product_time,safe_trade,auction_check,product_sell,detail_num,image_path,
+		select * from (select pi.product_num,product_title, pi.user_num,product_price,product_time,safe_trade,auction_check,product_sell,detail_num,image_path,user_name,
 		rank() over (partition by i.product_num order by image_path) as rnk 
-		from product_info pi left join image i on pi.product_num=i.product_num
+		from product_info as pi left join image as i on pi.product_num=i.product_num left join user_info as u on pi.user_num = u.user_num
 		where buyer_num = #{buyer_num}) as rankrow where rankrow.rnk=1 order by product_time desc;
 	</select>
 	<!-- 구매목록 -->

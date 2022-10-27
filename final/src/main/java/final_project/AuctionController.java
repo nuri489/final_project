@@ -48,45 +48,62 @@ public class AuctionController {
 	public ModelAndView temp_product(int product_num) {
 		
 		ModelAndView mv = new ModelAndView();
-		ProductDTO dto = auction_service.product_info(product_num);
+		
+		ProductDTO product_dto = auction_service.product_info(product_num);
 		// product_info 테이블에서 제품 정보 가져옴
+		AuctionDTO auction_dto = auction_service.auction_info(product_num);
+		// 경매 정보 dto1에 저장
+		
 		int request_num = auction_service.request_num(product_num);
 		// auction_gauge 테이블에서 경매 요청 정보 가져옴
-		List<String> imagepath = auction_service.imagepath(product_num);
-		//사진 경로 가져오기
-		
 		int check = auction_service.auctionChecking(product_num); 
 		// 경매 유무 확인
-		
 		int buyer_num = auction_service.getBuyer_num(product_num);
 		// 구매자 번호
-		
-		int seller_num = dto.getUser_num();
+		int seller_num = product_dto.getUser_num();
 		// 판매자 번호
+		int count = auction_service.muchimages(product_num);
+		// 상품에 대한 이미지 갯수
 		
+		String user_id = member_service.user_id(auction_service.product_info(product_num).getUser_num());
+		// 상품 등록자 ID
+		String detail_name = auction_service.detail_name(auction_service.product_info(product_num).getDetail_num());
+		// 상품 상세 이름
+		
+		List<String> imagepath = auction_service.imagepath(product_num);
+		//사진 경로 가져오기
 		List<ChattingDTO> chattinglist = chatting_service.chattinglist(seller_num, product_num);
 		// 채팅 리스트
 		
-		
+
 		if(check == 1) {
-			mv.setViewName("temp_mainpage");
-			//mv.setViewName("product/getdetail_normal");
+			int much = auction_service.muchbid(auction_dto.auction_num) - 1;
+			// 입찰 수
+			mv.addObject("chattinglist",chattinglist);
+			mv.addObject("count",count);
+			mv.addObject("images",imagepath);
+			mv.addObject("product_dto",product_dto);
+			mv.addObject("auction_dto",auction_dto);
+			mv.addObject("user_id", user_id);
+			mv.addObject("detail_name",detail_name);
+			mv.addObject("much",much);
+			mv.setViewName("auction/AuctionPage");
 		}
 		else {
 			mv.addObject("buyer_num",buyer_num);
 			mv.addObject("chattinglist",chattinglist);
-			mv.addObject("temp_dto",dto);
+			mv.addObject("product_dto",product_dto);
 			mv.addObject("request_num",request_num);
 //			mv.setViewName("auction/getdetail_normal");
 			mv.setViewName("auction/AuctionPage2");
-//			mv.setViewName("auction/getdetail_normal");
 		}
-		// auction_check 값에 따라 일반 판매 페이지로 연결될지 말지 정함
 		
 		return mv;
 	}
-	// 임시 제품 상세 페이지. 제품에 대한 정보와 경매 요청 횟수를 모델로 넘김
-	
+	// 경매 유무(check)값에 따라 일반 상품 또는 경매 상품 페이지로 넘어감
+	// 10/27 두 개로 나뉘어져있던 거 합침
+
+
 	@ResponseBody
 	@PostMapping("/auction_request")
 	public int auctionRequest(int product_num , int user_num) {
@@ -178,55 +195,6 @@ public class AuctionController {
 	}
 	// 경매로 전환
 	
-	@GetMapping("/auctionpage")
-	public ModelAndView auctionpage(int product_num) {
-		
-		ModelAndView mv = new ModelAndView();
-
-		auction_service.auctionCheck(product_num); // auction_check 값 1로 바꿈
-		int check = auction_service.auctionChecking(product_num); // 경매 유무 확인
-		
-		ProductDTO dto2 = auction_service.product_info(product_num); 
-		// 제품에 대한 상세 정보를 dto2에 저장
-		String user_id = member_service.user_id(auction_service.product_info(product_num).getUser_num());
-		// 상품 등록자 ID
-		String detail_name = auction_service.detail_name(auction_service.product_info(product_num).getDetail_num());
-		// 상품 상세 이름
-		AuctionDTO dto1 = auction_service.auction_info(product_num);
-		// 경매 정보 dto1에 저장
-		List<String> images = auction_service.imagepath(product_num);
-		//사진 경로 가져오기
-		
-		int count = auction_service.muchimages(product_num);
-
-		//List<String> imagepath = auction_service.imagepath(product_num);
-		//사진 경로 가져오기
-
-		if(check == 1) {
-			
-			int much = auction_service.muchbid(dto1.auction_num) - 1;
-			// 입찰 수
-			
-			mv.addObject("count",count);
-			mv.addObject("images",images);
-			mv.addObject("dto1",dto1);
-			mv.addObject("dto2",dto2);
-			mv.addObject("user_id", user_id);
-			mv.addObject("detail_name",detail_name);
-			mv.addObject("much",much);
-			mv.setViewName("auction/AuctionPage");
-//			mv.setViewName("auction/getdetail_auction");
-
-		}
-		else {
-			mv.setViewName("temp_mainpage");
-			
-		}
-		// product_info의 경매유무 값에 따라 경매글인지 아닌지 구분하여 연결
-
-		return mv;
-	}
-	// 경매 판매글
 	
 	@ResponseBody
 	@PostMapping("/open_bid")

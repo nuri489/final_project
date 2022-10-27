@@ -6,12 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <link rel='stylesheet' type='text/css' href='./css/AuctionPage.css'>
-<title>Insert title here</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 <script src="js/jquery-3.6.0.min.js"></script>
+<title>Insert title here</title>
 <script>
 $(document).ready(function() {
 
-	var price = ${dto1.bid_unit} + ${dto1.final_price};
+	var price = ${auction_dto.bid_unit} + ${auction_dto.final_price};
 	$("#bid-price").attr('min',price);
 	$("#bid-price").attr('value',price);
 	
@@ -19,8 +22,16 @@ $(document).ready(function() {
 		$("#login-button").attr('hidden',true);
 		$("#logout-button").removeAttr("hidden");
 	}
+	
+	if("${sessionUser_num}" == "") {
+		
+		$("#chat-button").on('click',function(){
+			alert("로그인을 하셔야 합니다");
+			event.preventDefault();
+		});
+	}
 
-	const end = new Date("${dto1.end_time}");
+	const end = new Date("${auction_dto.end_time}");
 	
 	var x = setInterval(function() { 
 		// 현재시간을 계속 갱신해야 하므로 Interval 사용함
@@ -65,12 +76,14 @@ $(document).ready(function() {
 	// 로그아웃 버튼에 대한 ajax
 	
 	
-	if("${sessionUser_num}" != "${dto2.user_num}") {
+	if("${sessionUser_num}" != "${product_dto.user_num}") {
+		
+		$("#list-button").css('display','none');
 		
 		if("${sessionUser_num}" != "") {
 			$.ajax({
 				url : 'my_bid',
-				data : {'auction_num': ${dto1.auction_num} , 'user_num' : "${sessionUser_num}"},
+				data : {'auction_num': ${auction_dto.auction_num} , 'user_num' : "${sessionUser_num}"},
 				type : 'get',
 				dataType : 'text',
 				success : function(s) {
@@ -89,12 +102,32 @@ $(document).ready(function() {
 	}
 	else {
 		$("#my-bid").html("내 경매 상품입니다.");
+		
+		
+		$("#chatting-form1").css('display','none');
+
+		$.ajax({
+			url : 'roomchecking',
+			data : {'seller_num':"${sessionUser_num}" , 'product_num':${product_dto.product_num}},
+			type : 'post',
+			dataType : 'text',
+			success : function(s) {
+				
+				if(s == 0) {
+					$("#chatting-button2").on('click',function(){
+						alert("채팅 목록이 존재하지 않습니다");
+						event.preventDefault();
+					});
+				}
+			}
+		});
+		// 채팅 목록에 대한 ajax
 	}
 	
 	
 	
 
-	if(${dto1.auction_method} == 1) {
+	if(${auction_dto.auction_method} == 1) {
 		$("#auction-method").html("비공개(비딩)");
 		
 		$("#final_price").html("비공개");
@@ -102,7 +135,7 @@ $(document).ready(function() {
 		
 		$("#bid-button").on('click',function(){
 			
-			if("${sessionUser_num}" == "${dto2.user_num}") {
+			if("${sessionUser_num}" == "${product_dto.user_num}") {
 				
 				alert("자신의 상품에는 입찰이 불가합니다");
 			}
@@ -110,14 +143,14 @@ $(document).ready(function() {
 			
 			else {
 				
-				if( $("#bid-price").val()%${dto1.bid_unit} == 0 ) {
+				if( $("#bid-price").val()%${auction_dto.bid_unit} == 0 ) {
 					var really = confirm("입찰하시겠습니까? 입찰은 취소하실 수 없습니다");
 						
 					if(really) {
 						
 						$.ajax({
 							url : 'private_bid',
-							data : {'auction_num': ${dto1.auction_num} , 'user_num':"${sessionUser_num}" , 'bid_price':$("#bid-price").val() , 'product_num':${dto1.product_num}},
+							data : {'auction_num': ${auction_dto.auction_num} , 'user_num':"${sessionUser_num}" , 'bid_price':$("#bid-price").val() , 'product_num':${auction_dto.product_num}},
 							type : 'post',
 							dataType : 'text',
 							success : function(s) {
@@ -152,18 +185,18 @@ $(document).ready(function() {
 					
 				}
 				else {
-					alert("입찰의 최소 단위는 ${dto1.bid_unit}원 입니다.")
+					alert("입찰의 최소 단위는 ${auction_dto.bid_unit}원 입니다.")
 				}
 			}
 		});
 	}
-	else if(${dto1.auction_method} == 0) {
+	else if(${auction_dto.auction_method} == 0) {
 		
 		$("#auction-method").html("공개");
 		
 		$("#bid-button").on('click',function(){
 			
-			if("${sessionUser_num}" == "${dto2.user_num}") {
+			if("${sessionUser_num}" == "${product_dto.user_num}") {
 				
 				alert("자신의 상품에는 입찰이 불가합니다");
 			}
@@ -173,11 +206,11 @@ $(document).ready(function() {
 				alert("입찰을 하려면 로그인을 하셔야 합니다");
 			}
 			else {
-				if($("#bid-price").val() <= ${dto1.final_price}) {
+				if($("#bid-price").val() <= ${auction_dto.final_price}) {
 					alert("현재가격보다 높은 가격을 제시해야 합니다");
 				}
 				else {
-					if( $("#bid-price").val()%${dto1.bid_unit} == 0 ) {
+					if( $("#bid-price").val()%${auction_dto.bid_unit} == 0 ) {
 						
 						var really = confirm("입찰하시겠습니까? 입찰은 취소하실 수 없습니다");
 							
@@ -185,7 +218,7 @@ $(document).ready(function() {
 							
 							$.ajax({
 								url : 'open_bid',
-								data : {'auction_num': ${dto1.auction_num} , 'user_num':"${sessionUser_num}" , 'bid_price':$("#bid-price").val(), 'product_num':${dto1.product_num}},
+								data : {'auction_num': ${auction_dto.auction_num} , 'user_num':"${sessionUser_num}" , 'bid_price':$("#bid-price").val(), 'product_num':${auction_dto.product_num}},
 								type : 'post',
 								dataType : 'text',
 								success : function(s) {
@@ -220,34 +253,34 @@ $(document).ready(function() {
 						else {	}
 						}
 					else {
-						alert("입찰의 최소 단위는 ${dto1.bid_unit}원 입니다.")
+						alert("입찰의 최소 단위는 ${auction_dto.bid_unit}원 입니다.")
 					}
 				}	
 				}
 			});
 		}
 	
-	if(${dto2.product_status1} == 0) {
+	if(${product_dto.product_status1} == 0) {
 		$("#statu1").html("개봉여부 : 미개봉");
 	}
 	else {
 		$("#statu1").html("개봉여부 : 개봉");
 	}
 	
-	if(${dto2.product_status2} == 0) {
+	if(${product_dto.product_status2} == 0) {
 		$("#statu2").html("공식여부 : 비공식");
 	}
 	else {
 		$("#statu2").html("공식여부 : 공식");
 	}
 	
-	if(${dto2.product_status3} == 0) {
+	if(${product_dto.product_status3} == 0) {
 		$("#statu3").html("단종여부 : 비단종");
 	}
 	else {
 		$("#statu3").html("단종여부 : 단종");
 	}
-	if(${dto2.product_status5} == 0) {
+	if(${product_dto.product_status5} == 0) {
 		$("#statu5").html("구성품 포함");
 	}
 	else {
@@ -255,7 +288,7 @@ $(document).ready(function() {
 	}
 	// 상품 상태
 	
-	if("${dto2.safe_trade}" == 0) {
+	if("${product_dto.safe_trade}" == 0) {
 		$("#safe-trade").html("불가능");
 	}
 	else {
@@ -280,7 +313,6 @@ $(document).ready(function() {
 			$(".img-list").not(this).css("border-color","black");
 		});
 	}
-	
 });
 </script>
 </head>
@@ -298,8 +330,8 @@ $(document).ready(function() {
 		<td class="head">경매물품</td><td class="info">${detail_name}</td></tr>
 		<tr><td class="head">남은시간</td><td class="info"><div id="time"></div></td></tr>
 		<tr><td class="head">판매자</td><td class="info"><a href="">${user_id} 판매자에 대한 상세보기로 href 값 수정</a></td></tr>
-		<tr><td class="head">물품번호</td><td class="info">${dto1.product_num}</td></tr>
-		<tr><td class="head">경매번호</td><td class="info">${dto1.auction_num}</td></tr>
+		<tr><td class="head">물품번호</td><td class="info">${auction_dto.product_num}</td></tr>
+		<tr><td class="head">경매번호</td><td class="info">${auction_dto.auction_num}</td></tr>
 		<tr><td class="head">입찰방식</td><td class="info"><div id="auction-method"></div></td></tr>
 		<tr><td class="head">입찰 수</td><td class="info"><div id="much-bid">${much}</div></td></tr>
 		<tr><td rowspan="2" class="img">
@@ -319,24 +351,55 @@ $(document).ready(function() {
 				<tr><td id="statu1"></td></tr>
 				<tr><td id="statu2"></td></tr>
 				<tr><td id="statu3"></td></tr>
-				<tr><td id="statu4">상태 : ${dto2.product_status4}</td></tr>
+				<tr><td id="statu4">상태 : ${product_dto.product_status4}</td></tr>
 				<tr><td id="statu5"></td></tr>
 			</table>
 		</td></tr>
 	</table>
 	
 	<div id="bid-div">
-		<table id="bid-table">
-			<tr><td class="head2">시작가</td><td class="info2">${dto2.product_price} 원</td></tr>
-			<tr><td class="head2"><div id="bid-unit">입찰단위</div></td><td class="info2">${dto1.bid_unit} 원</td></tr>
-			<tr><td class="head2">현재가격</td><td class="info2"><div id="final_price">${dto1.final_price} 원</div></td></tr>
+		<table id="bid-table" class="bid-table">
+			<tr><td class="head2">시작가</td><td class="info2">${product_dto.product_price} 원</td></tr>
+			<tr><td class="head2"><div id="bid-unit">입찰단위</div></td><td class="info2">${auction_dto.bid_unit} 원</td></tr>
+			<tr><td class="head2">현재가격</td><td class="info2"><div id="final_price">${auction_dto.final_price} 원</div></td></tr>
 			<tr><td class="head2">내 제시가</td><td class="info2"><div id="my-bid"></div></td></tr>
-			<tr><td class="head2">입찰금액</td><td class="info2" id="bid-td"><input type=number step=${dto1.bid_unit} id="bid-price" name="bid_price"></td></tr>
-			<tr><td colspan="2" id="button-td"><input type="button" id="bid-button" value="입찰하기"></td></tr>
+			<tr><td class="head2">입찰금액</td><td class="info2" id="bid-td"><input type=number step=${auction_dto.bid_unit} id="bid-price" name="bid_price"></td></tr>
+		</table>
+		<table class="bid-table">
+			<tr><td class="button-td"><input type="button" id="bid-button" value="입찰하기"></td>
+			<td class="button-td">
+			<form action="chatting1" method="post" id="chatting-form1">
+				<input type=hidden name="buyer_num" value="${sessionUser_num}">
+				<input type=hidden name="seller_num" value="${product_dto.user_num}">
+				<input type=hidden name="product_num" value="${product_dto.product_num}">
+				<input type=hidden name="auction_check" value="${product_dto.auction_check}">
+				<input type=submit id="chat-button" class="chatting-button" value="채팅하기"><br>
+			</form>
+			<a href="#list-modal" rel="modal:open"><input type=button id="list-button" class="chatting-button" value="채팅목록"></a>
+			</td></tr>
 		</table><hr>
 		<div id="product_contents">
-			${dto2.product_contents}
+			${product_dto.product_contents}
 		</div>
+	</div>
+</div>
+<div id="list-div">
+	<div id="list-modal" class="modal">
+		<h1>채 팅 목 록</h1><hr id="chat-hr1">
+		  <table id="list-table">
+			<c:forEach items="${chattinglist}" var="chat" varStatus="status">
+			<tr><td class="buyer-name">
+			<form action="chatting2" method="post" id="list-form">
+			<input type=hidden value="${chat.product_num}" name="product_num">
+			<input type=hidden value="${chat.buyer_num}" name="buyer_num">
+			<input type=hidden value="${chat.buyer_name}" name="buyer_name">
+			<input type=hidden value="${chat.seller_num}" name="seller_num">
+			<input type=hidden value="${chat.roomNumber}" name="roomNumber" id="roomNumber">
+			<input type=submit value="${chat.buyer_name}" id="go-chat">
+			</form></td>
+			<td><div id="chat">${chat.last_chat}</div></td></tr>
+			</c:forEach>
+			</table>
 	</div>
 </div>
 <hr>

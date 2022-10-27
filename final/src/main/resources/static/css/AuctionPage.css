@@ -73,7 +73,7 @@ li {
 	padding-bottom: 10px;
 }
 
-#bid-table {
+.bid-table {
 	text-align : center;
 	width : 400px;
 	border-radius: 8px;
@@ -82,10 +82,28 @@ li {
 	padding: 0;
 }
 
-#button-td {
+.button-td {
 	border : none;
 	height: 15px;
 	padding: 3px;
+}
+
+.chatting-button {
+	cursor : pointer;
+	background-color: #5C75E6;
+	border : none;
+	border-radius: 8px;
+	width : 180px;
+	height: 55px;
+	margin-top: 5px;
+	padding: 0;
+	transition: all 0.2s;
+	color : white;
+	font-size : 25px;
+}
+
+.chatting-button:hover {
+	transform :  scale(1.05);
 }
 
 #bid-button {
@@ -93,8 +111,8 @@ li {
 	background-color: #5C75E6;
 	border : none;
 	border-radius: 8px;
-	width : 150px;
-	height: 49px;
+	width : 180px;
+	height: 55px;
 	margin-top: 5px;
 	padding: 0;
 	transition: all 0.2s;
@@ -213,4 +231,45 @@ td {
 
 #time {
 	font-weight: bold;
+}
+
+#list-table td {
+	border : none;
+}
+
+#go-chat {
+	font-size : 20px;
+	cursor : pointer;
+	border-radius : 8px;
+	border : none;
+	color : white;
+	background-color: #5C75E6;
+	margin: 0px auto;
+	padding: 10px;
+	width : 100%;
+	transition : 0.1s;
+}
+
+#go-chat:hover {
+	transform : scale(1.05);
+}
+
+#chat {
+	border-radius : 8px;
+	border : 1px solid black;
+	margin: 0px;
+	margin-left : 5px;
+	padding: 10px;
+	width : auto;
+	text-align: left;
+}
+
+#chat-hr1 {
+	background-color : white;
+	padding: 0;
+	border: none;
+	border-top: thick double #5C75E6;
+ 	text-align: center;
+ 	margin-top: 8px;
+ 	margin-bottom: 8px;
 }

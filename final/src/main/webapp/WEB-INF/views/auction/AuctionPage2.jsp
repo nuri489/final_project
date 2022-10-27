@@ -37,7 +37,7 @@ $(document).ready(function() {
 			
 			$.ajax({
 				url : 'auction_request',
-				data : {'product_num': ${temp_dto.product_num}, 'user_num': "${sessionUser_num}" },
+				data : {'product_num': ${product_dto.product_num}, 'user_num': "${sessionUser_num}" },
 				type : 'post',
 				dataType : 'text',
 				success : function(s) {
@@ -56,7 +56,7 @@ $(document).ready(function() {
 		$("#cancle-button").on('click',function() {
 			$.ajax({
 				url : 'cancle_request',
-				data : {'product_num': ${temp_dto.product_num}, 'user_num': "${sessionUser_num}" },
+				data : {'product_num': ${product_dto.product_num}, 'user_num': "${sessionUser_num}" },
 				type : 'post',
 				dataType : 'text',
 				success : function(s) {
@@ -74,7 +74,7 @@ $(document).ready(function() {
 		// 경매 요청 및 취소 버튼에 대한 ajax	
 	}
 	
-	if("${temp_dto.user_num}" != "${sessionUser_num}") {
+	if("${product_dto.user_num}" != "${sessionUser_num}") {
 	// 구매자 로그인
 		$("#list-button").css('display','none');
 		
@@ -89,7 +89,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			url : 'roomchecking',
-			data : {'seller_num':"${sessionUser_num}" , 'product_num':${temp_dto.product_num}},
+			data : {'seller_num':"${sessionUser_num}" , 'product_num':${product_dto.product_num}},
 			type : 'post',
 			dataType : 'text',
 			success : function(s) {
@@ -132,7 +132,7 @@ $(document).ready(function() {
 			alert("경매 요청이 5회 이상이어야 경매로 변경 가능합니다");
 		}
 		else {
-			location.replace('request_accepting?product_num=${temp_dto.product_num}');
+			location.replace('request_accepting?product_num=${product_dto.product_num}');
 		}
 	});
 	// 경매로 바꾸기 버튼에 대한 기능
@@ -148,12 +148,12 @@ $(document).ready(function() {
 <body>
 <h1>임시 일반 판매 상품 페이지</h1><hr>
 <table>
-	<tr><td>글 제목</td><td>${temp_dto.product_title}</td></tr>
-	<tr><td>물품 번호</td><td>${temp_dto.product_num}</td></tr>
-	<tr><td>판매자 고유번호</td><td>${temp_dto.user_num}</td></tr>
-	<tr><td>등록 날짜</td><td>${temp_dto.product_time}</td></tr>
-	<tr><td>경매 물품 번호</td><td>${temp_dto.detail_num}</td></tr>
-	<tr><td>판매가</td><td>${temp_dto.product_price}</td></tr>
+	<tr><td>글 제목</td><td>${product_dto.product_title}</td></tr>
+	<tr><td>물품 번호</td><td>${product_dto.product_num}</td></tr>
+	<tr><td>판매자 고유번호</td><td>${product_dto.user_num}</td></tr>
+	<tr><td>등록 날짜</td><td>${product_dto.product_time}</td></tr>
+	<tr><td>경매 물품 번호</td><td>${product_dto.detail_num}</td></tr>
+	<tr><td>판매가</td><td>${product_dto.product_price}</td></tr>
 	<tr><td>경매 요청 횟수</td><td><div id="request-val">${request_num}</div></td></tr>
 </table><hr>
 <form id="request-form">
@@ -163,8 +163,8 @@ $(document).ready(function() {
 </form>
 <form action="chatting1" method="post" id="chatting-form1">
 	<input type=hidden name="buyer_num" value="${sessionUser_num}">
-	<input type=hidden name="seller_num" value="${temp_dto.user_num}">
-	<input type=hidden name="product_num" value="${temp_dto.product_num}">
+	<input type=hidden name="seller_num" value="${product_dto.user_num}">
+	<input type=hidden name="product_num" value="${product_dto.product_num}">
 	<input type=submit id="chatting-button1" value="판매자와 채팅하기"><br>
 </form>
 
@@ -174,20 +174,20 @@ $(document).ready(function() {
 	<div id="list-modal" class="modal">
 		<h1>채 팅 목 록</h1><hr id="chat-hr1">
 		  <table id="list-table">
-			<c:forEach items="${chattinglist}" var="dto" varStatus="status">
+			<c:forEach items="${chattinglist}" var="chat" varStatus="status">
 			<tr>
 			<td class="buyer-name">
 			<form action="chatting2" method="post" id="list-form">
-			<input type=hidden value="${dto.product_num}" name="product_num">
-			<input type=hidden value="${dto.buyer_num}" name="buyer_num">
-			<input type=hidden value="${dto.buyer_name}" name="buyer_name">
-			<input type=hidden value="${dto.seller_num}" name="seller_num">
-			<input type=hidden value="${dto.roomNumber}" name="roomNumber" id="roomNumber">
-			<input type=submit value="${dto.buyer_name}" id="go-chat">
+			<input type=hidden value="${chat.product_num}" name="product_num">
+			<input type=hidden value="${chat.buyer_num}" name="buyer_num">
+			<input type=hidden value="${chat.buyer_name}" name="buyer_name">
+			<input type=hidden value="${chat.seller_num}" name="seller_num">
+			<input type=hidden value="${chat.roomNumber}" name="roomNumber" id="roomNumber">
+			<input type=submit value="${chat.buyer_name}" id="go-chat">
 			</form>
 			</td>
 			<td>
-			<div id="chat">${dto.last_chat}</div>
+			<div id="chat">${chat.last_chat}</div>
 			</td>
 			
 			</tr>
