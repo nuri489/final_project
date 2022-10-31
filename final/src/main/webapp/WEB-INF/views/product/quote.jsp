@@ -68,7 +68,7 @@ $(document).ready(function(){
 					avg/=server.length;
 					avg = parseInt(avg);
 					avg = avg.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-					$('#avg_div').html('최근 '+$("#period option:selected").val()+'달간 판매 가격 평균은 '+avg+'원 입니다.');
+					$('#avg_div').html('최근 '+$("#period option:selected").val()+'달간 판매 가격 평균은 <span style="font-weight:700; font-size:20px;">'+avg+'원</span> 입니다.');
 					
 						  google.charts.load('current', {'packages':['corechart']});
 						    google.charts.setOnLoadCallback(drawChart);  
@@ -169,8 +169,8 @@ select{
 - product_status3 TINYINT - 단종 1/ 노단종 0
 - product_status4 Varchar(4) - 상품 상태  {‘좋음’, ‘보통’, ‘나쁨’ }
 - product_status5 TINYINT - 공식 1/ 비공식 0 -->
-<div id="chart_div" style="width: 70%; height: 500px;"></div>
-<div id="avg_div"></div>
+<div id="chart_div" style="width: 100%; height: 500px;"></div>
+<div id="avg_div" style="text-align: center"></div>
 </div>
 </body>
 </html>
