@@ -6,10 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel='stylesheet' type='text/css' href='./css/chatting.css'>
+<jsp:include page="/WEB-INF/views/template/header.jsp" />
 <script src="js/jquery-3.6.0.min.js"></script>
+<link rel='stylesheet' type='text/css' href='./css/chatting.css'>
 <script>
 $(document).ready(function() {
+	
+	if("${sessionUser_num}" == "") {
+		window.location.replace("temp_mainpage");
+	}
 	
 	$("#chatting").focus();
 	
@@ -32,18 +37,18 @@ $(document).ready(function() {
 <input type="hidden" id="seller_name" value="${seller_name}">
 <input type="hidden" id="time" value="${time}">
 <input type="hidden" id="time2" value="${time2}">
-
-<div id="info-table">
-	<table>
+<div class="div-td"></div>
+<div id="info-div">
+	<table id="info-table">
 	<tr>
 	<td colspan="3" class="title"><div class="title" id="title"></div></td></tr>
 	<tr>
-	<td colspan="2"><img id="thumbnail" alt="" src="/final/${image}" onerror="this.src=null; this.src='/serverimg/none.png'"></td>
-	<td rowspan="6">
-		<div id="container" class="container">	
+	<td colspan="2" class="title_msg-td"><img id="thumbnail" alt="" src="/final/${image}" onerror="this.src=null; this.src='/serverimg/none.png'"></td>
+	<td rowspan="6" id="msg-td">
+		<div id="container" class="container">
 			<div class="div1"></div>
 			<div id="yourMsg">
-				<table class="inputTable">
+				<table class="input-table">
 					<tr>
 						<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
 						<th><button onclick="send()" id="sendBtn">전송</button></th>
@@ -53,13 +58,13 @@ $(document).ready(function() {
 		</div></td></tr>
 	<tr>
 	<td class="head">판매자</td>
-	<td>${seller_name}</td></tr>
+	<td class="info">${seller_name}</td></tr>
 	<tr>
 	<td class="head">상품명</td>
-	<td>${dto.product_title}</td></tr>
+	<td class="info">${dto.product_title}</td></tr>
 	<tr>
 	<td class="head">가격</td>
-	<td>${dto.product_price}원</td></tr>
+	<td class="info">${dto.product_price}원</td></tr>
 	<tr>
 	<td colspan="2" id="contents-td">${dto.product_contents}</td></tr>
 	<tr>

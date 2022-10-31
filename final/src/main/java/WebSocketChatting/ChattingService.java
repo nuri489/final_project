@@ -15,4 +15,12 @@ public interface ChattingService {
 	
 	public int lastchat(String last_chat , String rN);
 	
+	public int getuser_num(String rN);
+	public int buyernotice(String rN);
+	public int sellernotice(String rN);
+	public void updateseller1(String rN);
+	public void updatebuyer1(String rN);
+	public void updateseller2(String rN);
+	public void updatebuyer2(String rN);
+	
 }

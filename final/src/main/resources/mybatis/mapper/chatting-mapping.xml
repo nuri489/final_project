@@ -23,4 +23,32 @@ select count(*) from chatting_info where seller_num = #{seller_num} and product_
 update chatting_info set last_chat = #{last_chat} where roomNumber = #{rN}
 </update>
 
+<select id="buyerNotice" parameterType="String" resultType="int">
+select buyer_notice from chatting_info where roomNumber = #{rN}
+</select>
+
+<select id="sellerNotice" parameterType="String" resultType="int">
+select seller_notice from chatting_info where roomNumber = #{rN}
+</select>
+
+<select id="getUser_num" parameterType="String" resultType="int">
+select buyer_num from chatting_info where roomNumber = #{rN}
+</select>
+
+<update id="updateSeller_notice1" parameterType="String">
+update chatting_info set seller_notice = 1 where roomNumber = #{rN}
+</update>
+
+<update id="updateSeller_notice2" parameterType="String">
+update chatting_info set seller_notice = 0 where roomNumber = #{rN}
+</update>
+
+<update id="updateBuyer_notice1" parameterType="String">
+update chatting_info set buyer_notice = 1 where roomNumber = #{rN}
+</update>
+
+<update id="updateBuyer_notice2" parameterType="String">
+update chatting_info set buyer_notice = 0 where roomNumber = #{rN}
+</update>
+
 </mapper>

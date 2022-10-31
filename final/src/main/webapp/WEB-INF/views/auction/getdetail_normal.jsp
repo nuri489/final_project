@@ -15,16 +15,16 @@ $(document).ready(function() {
 	if("${sessionUser_num}" == "") {
 		
 		$("#request-button").on('click',function(){
-			alert("로그인을 하셔야 합니다");	
+			window.location.replace("loginform");
 		});
 		
 		$("#cancle-button").on('click',function(){
-			alert("로그인을 하셔야 합니다");	
+			window.location.replace("loginform");
 		});
 		
 		$("#chatting-button1").on('click',function(){
-			alert("로그인을 하셔야 합니다");
 			event.preventDefault();
+			window.location.replace("loginform");
 		});
 		// @@@@@@@@@@@@@@@@@@@@@@@@@@@@ 로그인을 안했을 경우 버튼 표시에 대하여 논의 필요
 	}

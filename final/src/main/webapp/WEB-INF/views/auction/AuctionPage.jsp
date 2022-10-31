@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<jsp:include page="/WEB-INF/views/template/header.jsp" />
 <link rel='stylesheet' type='text/css' href='./css/AuctionPage.css'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
@@ -21,13 +22,14 @@ $(document).ready(function() {
 	if("${sessionUser_num}" != "") {
 		$("#login-button").attr('hidden',true);
 		$("#logout-button").removeAttr("hidden");
+		
 	}
 	
 	if("${sessionUser_num}" == "") {
 		
 		$("#chat-button").on('click',function(){
-			alert("로그인을 하셔야 합니다");
 			event.preventDefault();
+			window.location.replace("loginform");
 		});
 	}
 
@@ -203,7 +205,7 @@ $(document).ready(function() {
 			// 자신의 상품에 입찰하려고 할 때
 			
 			else if("${sessionUser_num}" == "") {
-				alert("입찰을 하려면 로그인을 하셔야 합니다");
+				window.location.replace("loginform");
 			}
 			else {
 				if($("#bid-price").val() <= ${auction_dto.final_price}) {
@@ -317,8 +319,8 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
+<hr>
 <div id="head">
-	<div>헤드 부분</div>
 	<a href="loginform"><input type="button" id="login-button" value="로그인"></a>
 	<a href="logout"><input type="button" id="logout-button" value="로그아웃" hidden="true"></a><br>
 </div><hr>

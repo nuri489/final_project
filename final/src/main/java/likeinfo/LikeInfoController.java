@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.ModelAndView;
 
 import member.MemberService;
 
@@ -29,11 +30,18 @@ public class LikeInfoController {
 	 * @param user_num 유저 식별자
 	 */
 
-	@GetMapping("/wish/{user_num}")
-	public String getMemberWishList(@PathVariable int user_num, Model model) {
+	@GetMapping("/wish")
+	public ModelAndView getMemberWishList(int user_num) {
+		
+		ModelAndView mv = new ModelAndView();
 		List<LikeInfoDTO> dtos = likeinfoservice.getWishList(user_num);
-		model.addAttribute("dtos", dtos);
-		return "likeinfo/wishlist";
+		
+		mv.addObject("dtos",dtos);
+//		model.addAttribute("dtos", dtos);
+		
+		mv.setViewName("likeinfo/wishlist");
+		
+		return mv;
 	}
 
 	

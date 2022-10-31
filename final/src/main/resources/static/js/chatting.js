@@ -28,11 +28,11 @@
 		});
 		
 		if($("#buyer_num").val() == $("#sessionUser_num").val()) {
-			$("#title").html("<a href='aa' class='a'>"+$("#seller_name").val()+"<span class='tooltip'>닉네임을 클릭하여 상대방의 정보를 확인하세요!</span></a> 님과의 채팅");
+			$("#title").html("<a href='aa' id='other'>"+$("#seller_name").val()+"</a> 님과의 채팅");
 		}
 		// 구매자 입장
 		else {
-			$("#title").html("<a href='aa'>>"+$("#buyer_name").val()+"<</a> 님과의 채팅");
+			$("#title").html("<a href='aa' id='other'>"+$("#buyer_name").val()+"</a> 님과의 채팅");
 		}
 		// 판매자 입장
 		

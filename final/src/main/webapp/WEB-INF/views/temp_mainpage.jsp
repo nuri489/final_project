@@ -11,8 +11,11 @@
 $(document).ready(function() {
 	
 	if("${sessionUser_num}" != "") {
-		$("#login-button").attr('hidden',true);
+		$("#login-button").css('display','none');
 		$("#logout-button").removeAttr("hidden");
+	}
+	else {
+		$("#my-page").css('display','none');
 	}
 	// 로그인 및 로그아웃 버튼에 대한 표시
 	
@@ -36,14 +39,16 @@ $(document).ready(function() {
 <body>
 경매 확인용 메인 페이지<br>
 <a href="productdetail?product_num=1">상품페이지</a><br>
- <a href="sellproductlist">판매글모아보기</a>
- <a href="buyinglist?buyer_num=${sessionUser_num}">구매 목록(로그인 해야됨)</a>
-<hr>
 <div id="login">
-<a href="loginform"><input type="button" id="login-button" value="로그인"></a>
-<a href="logout"><input type="button" id="logout-button" value="로그아웃" hidden="true"></a><br>
-로그인한 사람의 user_num : ${sessionUser_num} // 버튼 위치 옮겨야 함
+	<a href="loginform"><input type="button" id="login-button" value="로그인"></a>
+	<a href="logout"><input type="button" id="logout-button" value="로그아웃" hidden="true"></a><br>
 </div>
+<div id="my-page" style="border: 1px solid black">
+	<h1>로그인 시 표시될 버튼들</h1>
+	<a href="sellproductlist">판매글모아보기</a>
+	<a href="buyinglist?buyer_num=${sessionUser_num}">구매 목록(로그인 해야됨)</a>
+</div>
+<hr>
 <div class="menu">
 <form action="search" method="get">
 <select id="search_select"  name="search_select">

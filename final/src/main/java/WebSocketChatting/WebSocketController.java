@@ -92,6 +92,12 @@ public class WebSocketController {
 			// 채팅 내역 저장을 위한 txt 파일 생성
 		}
 		
+		
+		int notice = chatting_service.buyernotice(f);
+		if(notice == 1) {
+			chatting_service.updatebuyer2(f);
+		}
+		
 		Calendar time1 = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("a KK:mm");
 		String time2 = sdf.format(time1.getTime());
@@ -147,7 +153,7 @@ public class WebSocketController {
 
 		return mv;
 	}
-	// 해당 상품에 대한 채팅 목록이 있는 room.jsp로 이동
+	// 해당 상품에 대한 채팅 목록
 	
 	@RequestMapping("/chatting2")
 	public ModelAndView chat2(int product_num , int buyer_num , String buyer_name , int seller_num , int roomNumber ) {
@@ -162,6 +168,13 @@ public class WebSocketController {
 		
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy년 MM월 dd일");
 		String time3 = sdf2.format(time1.getTime());
+		
+		String rN = Integer.toString(roomNumber);
+		int notice = chatting_service.sellernotice(rN);
+		if(notice == 1) {
+			chatting_service.updateseller2(rN);
+		}
+		
 		
 		ProductDTO pdto = auction_service.product_info(product_num);
 		mv.addObject("dto",pdto);

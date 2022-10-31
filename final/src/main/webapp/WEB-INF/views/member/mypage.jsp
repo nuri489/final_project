@@ -11,6 +11,16 @@
 <title>마이페이지</title>
 <jsp:include page="/WEB-INF/views/template/header.jsp" />
 <script src="resources/js/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+	
+	if("${sessionUser_num}" == "") {
+		window.location.replace("temp_mainpage");
+	}
+	// 오랜시간이 지나서 자동으로 로그아웃시 메인페이지로	
+	
+}
+</script>
 <style type="text/css">
 	table {
 		width: 40%;

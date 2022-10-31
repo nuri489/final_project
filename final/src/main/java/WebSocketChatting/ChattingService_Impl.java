@@ -69,6 +69,41 @@ public class ChattingService_Impl implements ChattingService {
 		return chatdao.updateLast_chat(last_chat , rN);
 	}
 
+	@Override
+	public int getuser_num(String rN) {
+		return chatdao.getUser_num(rN);
+	}
+
+	@Override
+	public int buyernotice(String rN) {
+		return chatdao.buyerNotice(rN);
+	}
+
+	@Override
+	public int sellernotice(String rN) {
+		return chatdao.sellerNotice(rN);
+	}
+
+	@Override
+	public void updateseller1(String rN) {
+		chatdao.updateSeller_notice1(rN);
+	}
+	@Override
+	public void updateseller2(String rN) {
+		chatdao.updateSeller_notice2(rN);
+	}
+
+	@Override
+	public void updatebuyer1(String rN) {
+		chatdao.updateBuyer_notice1(rN);
+	}
+	@Override
+	public void updatebuyer2(String rN) {
+		chatdao.updateBuyer_notice2(rN);
+	}
+
+
+
 	
 	
 

@@ -10,6 +10,12 @@
 <script>
 
 $(document).ready(function(){
+	
+	if("${sessionUser_num}" == "") {
+		window.location.replace("temp_mainpage");
+	}
+	// 오랜시간이 지나서 자동으로 로그아웃시 메인페이지로
+	
 	/* const drawStar = (target) => {
 		  $('.star span').css({ width: '${target.value * 10}%' });
 		} ; */

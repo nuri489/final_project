@@ -22,5 +22,14 @@ public interface ChattingDAO {
 	// 판매자의 채팅 목록의 갯수
 	
 	public int updateLast_chat(String last_chat , String rN);
+	
+	public int buyerNotice(String rN);
+	public int sellerNotice(String rN);
+	public int getUser_num(String rN);
+	public void updateSeller_notice1(String rN);
+	public void updateSeller_notice2(String rN);
+	public void updateBuyer_notice1(String rN);
+	public void updateBuyer_notice2(String rN);
+	// 채팅 알림을 위한것들
 
 }

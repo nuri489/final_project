@@ -43,6 +43,7 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		JSONObject obj = jsonToObjectParser(msg);
 		String last_chat = (String) obj.get("msg");
 		String rN = (String) obj.get("roomNumber");
+		int user_num = Integer.parseInt((String) obj.get("sessionUser_num"));
 		
 		JSONParser parser = new JSONParser();
 		
@@ -59,7 +60,23 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		// 읽어오고서 array 형태로 변환을 하고서 추가하는 것
 		
 		chatting_service.lastchat(last_chat , rN);
+		// chatting_info의 last_chat 컬럼 업데이트
 		
+		int buyer_num = chatting_service.getuser_num(rN);
+		// 구매자의 user_num
+		
+		if(user_num == buyer_num) { // 구매자가 채팅 보냄
+			if(chatting_service.sellernotice(rN) == 0) {
+				chatting_service.updateseller1(rN);
+			}
+		}
+		else { // 판매자가 채팅 보냄
+			if(chatting_service.buyernotice(rN) == 0) {
+				chatting_service.updatebuyer1(rN);
+			}
+		}
+		// 채팅을 보낸 사람과 DB상에 저장된 구매자,판매자 user_num을 비교하여 구매자인지 판매자인지 구분하고
+		// 상대방에게 알림을 보내야 하므로 상대방에 대한 알림값(notice)을 1로 바꿈
 		
         try {
         	//윤서 path 수정

@@ -11,6 +11,9 @@
 <script>
 $(document).ready(function() {
 
+	if("${sessionUser_num}" == "") {
+		window.location.replace("temp_mainpage");
+	}
 
 });
 </script>

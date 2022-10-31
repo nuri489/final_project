@@ -3,8 +3,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="likeinfo.LikeInfoDAO">
-<!--  
-	<select id="selectMemberWishList" resultMap="likeinfodto">
+
+<!-- 
+	<select id="selectMemberWishList" parameterType="int" resultType="likeinfodto">
 		select 
 			li.user_num,
 			li.product_num,
@@ -24,7 +25,6 @@
 		on pi.category_num = pc.category_num
 		where li.user_num = #{user_num}
 	</select>
-	
 	<resultMap type="ProductDTO" id="product">
 		<result column="product_title" property="product_title"/>
 		<result column="product_contents" property="product_contents"/>
@@ -37,8 +37,10 @@
 		<id column="product_num" property="product_num"/>
 	</resultMap>
 
+
 	<select id="selectMemberWishList" resultMap="likeInfo">
 		select * from like_info
 	</select>
--->
+ -->	
+
 </mapper>
