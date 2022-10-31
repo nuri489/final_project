@@ -45,19 +45,67 @@ $(document).ready(function(){
 					}else{
 						$('.circle').css('display','');
 						for(var i = 0 ; i< server.length;i++){
-							$('#newsinnerbox').append('<div id="newsitem">'+server[i].product_title+'의 거래가 확정되었습니다. <button id="openpop" value="'+server[i].product_num+'">리뷰쓰기</button></div>');
-						}
-							openpop();
-						
-					}
+							if(server[i].product_sell==1){
+								$('#newsinnerbox').append('<div id="newsitem">'+server[i].product_title+'의  <span style="color:blue;">거래</span>가 완료되었습니다. <button id="openpop" class="openpop" value="'+server[i].product_num+'">리뷰쓰기</button></div>');
+								openpop();
+							}else if(server[i].product_sell==3){
+								$('#newsinnerbox').append('<div id="newsitem">'+server[i].product_title+'의  <span style="color:red;">결제</span>가 완료되었습니다.<br> 3일 내 운송장번호 등록을 해주세요. 그렇지 않으면 해당 결제는 취소됩니다. <button id="register_billingnumber" value="'+server[i].product_num+'">운송장번호 등록</button></div>');
+								
+								$('#register_billingnumber').on('click',function(e){
+						    	var billing_num = prompt("등록하신 운송장 번호를 입력하세요.","");
+						    	let product_num=$(this).val();
+						    	if(!isNaN(billing_num)&&billing_num !=""&&billing_num != null){ //false - 숫자
+							    	$.ajax({
+										url: "/registerbillingnumber",
+										type:	"post",
+										data: {'product_num' : product_num,
+											'billing_number' : billing_num,
+										},
+										dataType: "json", //결과 타입
+										success: function(server){
+											if(server.result=='success'){
+												alert('성공적으로 등록되었습니다.');
+												return;
+											}
+										}//success end
+									});//ajax end
+						    		
+						    	}else{
+						    		alert("숫자만 입력하세요.");
+						    	}
+						    	});// register_billingnumber end
+							}else if(server[i].product_sell==4){
+								$('#newsinnerbox').append('<div id="newsitem">'+server[i].product_title+'의 <span style="color:orange">배송</span>이 시작되었습니다.<br> 7일 내 구매확정을 해주세요. 7일 후 자동 구매확정됩니다. <button id="confirmbtn" value="'+server[i].product_num+'">구매확정</button></div>');
+								$('#confirmbtn').on('click',function(e){
+						 	    	let product_num=$(this).val();
+						 	    	//location.href="/getpurchaselist";
+								    	/* $.ajax({
+											url: "/getpurchaselist",
+											type:	"post",
+											data: {'product_num' : product_num},
+											dataType: "json", //결과 타입
+											success: function(server){
+												if(server.result=='success'){
+													alert('성공적으로 등록되었습니다.');
+													
+													return;
+												}
+											}//success end
+										});//ajax end */
+							});//confirm btn end
+						}// else if end
+					}//for end
+					}//else end
 				}//success end
 			});//ajax end
 	 }; //alarm function end 
 	 
+	 
+	 
 	const popup = $('#popup');
 	var product_num=0;
 	var openpop = function() {
-		$('#openpop').on('click',function(e){
+		$('.openpop').on('click',function(e){
 				product_num=$(this).val();
 	    		$('#popup').css('display','');
 	    		popup.removeClass('hide');
@@ -103,6 +151,9 @@ $(document).ready(function(){
 	    $('#drawStar').on('change',function(e){
 			 $('.star span').css( 'width', $(this).val() * 10+'%' );
 		});
+	    
+
+	    
 });//ready end
 </script>
 <!-- 상단바 업데이트 소식 end -->
@@ -187,17 +238,23 @@ $(document).ready(function(){
         	max-height: 300px;
         	margin-right: 10px; 
         	z-index: 1;
+        	border-radius:8px;
+        	box-shadow: 0px 10px 6px -6px #666;
         	/* border: 1px solid black;  */
         	animation: fadeInDown 0.7s;
         	
         }
         #newsbox #newsinnerbox #newsitem{
-        	height: 70px;
+        	min-height: 70px;
         	/* border: 1px solid black; */
         	border-radius:8px;
         	background-color: rgb(220,220,220);
         	border : 2px solid rgb(190,190,190);
+        	margin-top :6px;
         	padding :10px;
+        	box-shadow: 0px 10px 6px -6px #666;
+        	/* box-shadow: 0px 0px 5px #444; */
+        	
         }
         @keyframes fadeInDown {
 	        0% {

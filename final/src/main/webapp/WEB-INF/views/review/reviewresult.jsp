@@ -91,7 +91,7 @@ font-family: 'Nanum Gothic', sans-serif;
 	flex-flow: column;
 	text-align:center;
 	border: 1px solid black;
-	min-height: 65vh;
+	min-height: 70vh;
 	padding : 10px 20px 20px 20px;
 	width: 600px;
 	border-radius: 8px;

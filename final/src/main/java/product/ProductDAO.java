@@ -37,4 +37,7 @@ public interface ProductDAO {
 	void updateSales(ProductDTO dto);
 	//검색결과
 	List<ProductDTO> searchSimple(ProductDTO dto);
+	
+	List<ProductDTO> getSaleslist2(int user_num);
+	List<ProductDTO> getSaleslist3(int user_num);
 }
