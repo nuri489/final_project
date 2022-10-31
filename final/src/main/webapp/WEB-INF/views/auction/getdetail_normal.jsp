@@ -181,6 +181,10 @@ button{
 	align: center;
 	border-radius: 8px;
 }
+#buy_btn, #resetbtn{
+	background-color: #5C75E6;
+	color: white;
+}
 </style>
 </head>
 <body>
@@ -273,6 +277,10 @@ button{
 		<tr><td colspan="4"><button id="buy_btn" onclick='location.href="/getsecurepaymentform?product_num=${temp_dto.product_num}"'>안전 결제</button></td></tr>
 	</c:if>
 	<!-- 안전 결제 상품일 경우 안전 결제 버튼 띄우기 end -->
+	<!-- 시세 보기 연결 -->
+	<tr><td colspan="4"><jsp:include page="../product/quote.jsp" flush="false">
+		<jsp:param value="${temp_dto.detail_num}" name="detail_num"/>
+	</jsp:include></td></tr>
 </table>
 </div>
 </body>
