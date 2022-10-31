@@ -20,6 +20,14 @@ public class ProductDTO {
 	int product_status3;
 	String product_status4;
 	int product_status5;
+	String user_name;
+	
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
 	
 	MultipartFile[] images;
 	String image_path;

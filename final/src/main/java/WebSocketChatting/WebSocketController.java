@@ -91,9 +91,6 @@ public class WebSocketController {
 			chatting_service.createFile(roomNumber);
 			// 채팅 내역 저장을 위한 txt 파일 생성
 		}
-		else { // 기존 채팅방 입장
-
-		}
 		
 		Calendar time1 = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("a KK:mm");
@@ -151,17 +148,6 @@ public class WebSocketController {
 		return mv;
 	}
 	// 해당 상품에 대한 채팅 목록이 있는 room.jsp로 이동
-	
-	
-	/*
-	 * 1. 상품정보(temp_dto)
-	 * 2. 구매자 번호
-	 * 3. 채팅 리스트
-	 * 4. 판매자 번호(temp_dto에 있음)
-	 * 5. 
-	 * 
-	 */
-	
 	
 	@RequestMapping("/chatting2")
 	public ModelAndView chat2(int product_num , int buyer_num , String buyer_name , int seller_num , int roomNumber ) {

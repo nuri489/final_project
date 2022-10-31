@@ -30,42 +30,30 @@ public class AuctionThread extends Thread {
 		try {
 			Thread.sleep(time);
 			
-			if(auction_method == 0) {
+			if(auction_method == 0) { // 공개 경매
 				
 				int auction_num = auction_service.getAuction_num(product_num);
 				int user_num = auction_service.lastbid(auction_num); // 1순위 입찰자의 user_num
 				AuctionDTO dto = auction_service.auction_info(product_num);
-				int final_price = dto.final_price; // 최종 가격
-				
+				int final_price = dto.final_price;
+				// auction_info에서 입찰 정보를 통해 최종 금액 산정
+
 				auction_service.soldout(final_price, user_num, product_num);
-				// product_info update
+				// product_info의 product_price 업데이트
 			}
-			else if(auction_method == 1) {
+			else if(auction_method == 1) { // 비공개 경매
 				int auction_num = auction_service.getAuction_num(product_num); // auction_num
 				int user_num = auction_service.lastbid(auction_num); // 1순위 입찰자의 user_num
 				int second = auction_service.secondbid(auction_num); // 2순위 입찰가
+				
 				AuctionDTO dto = auction_service.auction_info(product_num);
 				int bid_unit = dto.bid_unit; // 1호가
-				
 				int final_price = bid_unit + second; // 최종 가격
-				
+		
 				auction_service.soldout(final_price, user_num, product_num);
-				int pay_price = dto.final_price; // 최종 가격
-				
-				auction_service.soldout(pay_price, user_num, product_num);
-				// product_info update
+				// product_info의 product_price 업데이트
 			}
-			else if(auction_method == 1) {
-				int auction_num = auction_service.getAuction_num(product_num); // auction_num
-				int user_num = auction_service.lastbid(auction_num); // 1순위 입찰자의 user_num
-				int second = auction_service.secondbid(auction_num); // 2순위 입찰가
-				AuctionDTO dto = auction_service.auction_info(product_num);
-				int bid_unit = dto.bid_unit; // 1호가
-				
-				int pay_price = bid_unit + second; // 최종 가격
-				
-				auction_service.soldout(pay_price, user_num, product_num);
-			}
+
 
 		}
 		catch (Exception e) {
