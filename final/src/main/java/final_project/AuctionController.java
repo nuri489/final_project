@@ -75,7 +75,7 @@ public class AuctionController {
 		List<ChattingDTO> chattinglist = chatting_service.chattinglist(seller_num, product_num);
 		// 채팅 리스트
 		
-
+		
 		if(check == 1) {
 			int much = auction_service.muchbid(auction_dto.auction_num) - 1;
 			// 입찰 수
@@ -92,10 +92,11 @@ public class AuctionController {
 		else {
 			mv.addObject("buyer_num",buyer_num);
 			mv.addObject("chattinglist",chattinglist);
-			mv.addObject("product_dto",product_dto);
+			mv.addObject("temp_dto",product_dto);
+			mv.addObject("user_id", user_id);
 			mv.addObject("request_num",request_num);
-//			mv.setViewName("auction/getdetail_normal");
-			mv.setViewName("auction/AuctionPage2");
+			mv.setViewName("auction/getdetail_normal");
+//			mv.setViewName("auction/AuctionPage2");
 		}
 		
 		return mv;

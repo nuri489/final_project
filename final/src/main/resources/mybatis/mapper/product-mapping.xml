@@ -124,7 +124,7 @@
 	<select id="getSaleslist" parameterType="int" resultType="productdto">
 		select * from product_info where product_sell = 1 and user_num = #{user_num}
 	</select>
-
+	
 	
 	<select id="getBuying_list" parameterType="int" resultType="productdto">
 		select * from (select pi.product_num,product_title, pi.user_num,product_price,product_time,safe_trade,auction_check,product_sell,detail_num,image_path,user_name,
@@ -175,4 +175,15 @@
 		<!-- order by regdate -->
 	</select>
 	
+	<!-- 판매자 : 결제 완료 된 건 가져오기  -->
+	<select id="getSaleslist2" parameterType="int" resultType="productdto">
+		select * from product_info pi join payment_info pmi on pi.product_num = pmi.product_num 
+		where DATEDIFF(now(), pmi.pay_time) between 0 and 3 and product_sell = 3 and pi.user_num = #{user_num}
+	</select>
+	
+	<!-- 구매자 : 운송장번호 등록 완료 된 건 가져오기  -->
+	<select id="getSaleslist3" parameterType="int" resultType="productdto">
+		select * from product_info pi join payment_info pmi on pi.product_num = pmi.product_num 
+		where DATEDIFF(now(), pmi.seller_check) between 0 and 7 and product_sell = 4 and pmi.user_num = #{user_num}
+	</select>
   </mapper>

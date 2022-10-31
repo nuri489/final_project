@@ -129,4 +129,14 @@ public class ProductServiceImpl implements ProductService{
 	public List<ProductDTO> searchSimple(ProductDTO dto) { //메인페이지 검색
 		return productDAO.searchSimple(dto);
 	}
+
+	@Override
+	public List<ProductDTO> getSaleslist2(int user_num) {
+		return productDAO.getSaleslist2(user_num);
+	}
+	
+	@Override
+	public List<ProductDTO> getSaleslist3(int user_num) {
+		return productDAO.getSaleslist3(user_num);
+	}
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import final_project.AuctionService;
 import product.ProductDTO;
 import product.ProductService;
 import upload.UploadService;
@@ -33,6 +34,10 @@ public class SecurePaymentController {
 	@Qualifier("securepaymentservice")
 	SecurePaymentService securePaymentService;
 	
+	@Autowired
+	@Qualifier("auctionservice")
+	AuctionService auction_service;
+	
 	@RequestMapping("/getsecurepaymentform")
 	public ModelAndView getPaymentForm(int product_num, HttpServletRequest request){
 		HttpSession session = request.getSession();
@@ -45,15 +50,17 @@ public class SecurePaymentController {
 		System.out.println(product_num);
 		//상품 하나 가져오는 모듈 써서 상품 정보 모델로 보내줄 것
 		ProductDTO dto = securePaymentService.getProductOne(product_num);
+		List<String> imagepath = auction_service.imagepath(product_num);
 		System.out.println(dto);
 		//지금은 임시 상품 모델
 		//ProductDTO dto = new ProductDTO();
 		//dto.setProduct_price(10000);
 		//dto.setProduct_title("bts 스픽콘 부채");
-		String product_image = "/images/"+dto.getImage_path();
+		//String product_image = "/images/"+dto.getImage_path();
 		mv.addObject("productdto",dto);
 		mv.addObject("user_money", userMoney);
-		mv.addObject("image_path", product_image);
+		if(imagepath.size()!=0) mv.addObject("image_path", "/images/"+imagepath.get(0));
+		else mv.addObject("image_path", "/serverimg/logo.png");
 		mv.setViewName("securepayment/securepaymentform");
 		return mv;
 	}
@@ -94,7 +101,6 @@ public class SecurePaymentController {
 	public String registerBillingNumber(String billing_number,int product_num){
 		
 		System.out.println(billing_number);
-		billing_number = "100010001234";
 		System.out.println(product_num);
 		ProductDTO dto = new ProductDTO();
 		dto.setBilling_number(billing_number);
@@ -103,6 +109,8 @@ public class SecurePaymentController {
 		int insert_result = securePaymentService.registerBillingNumber(dto);
 		
 		if(insert_result>0) { //payment_info seller_check true로 바꿈
+			int[] num = new int[]{4, dto.getProduct_num()}; //운송장등록시 상태  4
+			securePaymentService.updateProductSell2(num);
 			//user_num과 product_num이 같은 곳 seller_chekc true로 update
 			SecurePaymentDTO securepaymentdto = new SecurePaymentDTO();
 			securepaymentdto.setProduct_num(product_num);
@@ -133,6 +141,8 @@ public class SecurePaymentController {
 		dto.setProduct_num(product_num);
 		//payment_info buyer_check now() 업데이트 시켜주고
 		securePaymentService.updateBuyerCheck(dto);
+		int[] num = new int[]{1, product_num}; //
+		securePaymentService.updateProductSell2(num);
 		// product_info product_sell true로 업뎃 시켜줌 
 		// productService로하는게 나은지 ..?
 		int result = securePaymentService.updateProductSell(product_num);

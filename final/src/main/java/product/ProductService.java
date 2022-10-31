@@ -20,6 +20,8 @@ public interface ProductService {
 	int getProductDetailNum(String detail_name);
 	
 	List<ProductDTO> getSaleslist(int user_num);
+	List<ProductDTO> getSaleslist2(int user_num);
+	List<ProductDTO> getSaleslist3(int user_num);
 	
 	List<ProductDTO> getBuyinglist(int buyer_num);
 

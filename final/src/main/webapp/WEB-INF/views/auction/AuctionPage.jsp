@@ -331,7 +331,7 @@ $(document).ready(function() {
 		<td rowspan="7" id="img-td" class="img"><img id="main-img" src="" onerror="this.src=null; this.src='/serverimg/none.png'"></td>
 		<td class="head">경매물품</td><td class="info">${detail_name}</td></tr>
 		<tr><td class="head">남은시간</td><td class="info"><div id="time"></div></td></tr>
-		<tr><td class="head">판매자</td><td class="info"><a href="">${user_id} 판매자에 대한 상세보기로 href 값 수정</a></td></tr>
+		<tr><td class="head">판매자</td><td class="info"><a href="/userreview?user_num=${product_dto.user_num}">${user_id}</a></td></tr>
 		<tr><td class="head">물품번호</td><td class="info">${auction_dto.product_num}</td></tr>
 		<tr><td class="head">경매번호</td><td class="info">${auction_dto.auction_num}</td></tr>
 		<tr><td class="head">입찰방식</td><td class="info"><div id="auction-method"></div></td></tr>
