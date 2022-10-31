@@ -252,7 +252,7 @@ input[type="checkbox"]:checked {
 			</tbody>
 		</table>
 </div>
-<form action="securepaymentprocess" method="post" id="securepaymentform">
+<form action="/securepaymentprocess" method="post" id="securepaymentform">
 	<div class="formitem">
 		<table  class="formitem_table" id="formitem_table2">
 			<colgroup>

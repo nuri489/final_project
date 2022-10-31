@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.example.demo.NaverInform;
 
 import final_project.AuctionService;
 import upload.UploadDTO;
@@ -41,6 +45,10 @@ public class ProductController {
 	@Qualifier("auctionservice")
 	AuctionService auction_service;
 	
+	//사진 저장할 폴더 경로 
+	String savePath=NaverInform.yssaveimgpath; //이거 수정하세용~!! C://final_images/
+	
+	
 	@RequestMapping("/getsalesform")
 	public String getSalesForm() {
 		
@@ -58,7 +66,6 @@ public class ProductController {
 					user_num = (int) session.getAttribute("sessionUser_num");
 					
 				}
-			String savePath="/Users/choiyoonseo/Documents/final_images/"; //이거 수정하세용~!! C://final_images/
 			
 			int last_insert_pdt_num = 0;
 			dto.setUser_num(user_num);
@@ -199,16 +206,29 @@ public class ProductController {
 			return filterlist;
 		}
 		
+		// 판매자 상단바에 알림 띄울 때 가져오는 정보 - 구매확정된 건 있는지, 결제 완료된 건 있는지 가져와서 알림으로 보여줌
 		@RequestMapping("/getSaleslist")
 		@ResponseBody
 		public List<ProductDTO> getSaleslist(HttpServletRequest request){
 			HttpSession session = request.getSession();
 			List<ProductDTO> dto = null;
+			List<ProductDTO> dto2 = null;
+			List<ProductDTO> dto3 = null;
+			List<ProductDTO> joined =null;
 			if(session.getAttribute("sessionUser_num")!=null) {
 				int user_num = (int) session.getAttribute("sessionUser_num");
-				dto = pdtService.getSaleslist(user_num);
+				dto = pdtService.getSaleslist(user_num); // 구매 확정 건 
+				dto2 = pdtService.getSaleslist2(user_num); // 결제 완료 건 
+				dto3 = pdtService.getSaleslist3(user_num); // 운송장 번호 등록 완료건 
+				System.out.println(dto3);
+				joined = Stream.concat(dto.stream(), dto2.stream())
+                        .collect(Collectors.toList());
+				
+				joined = Stream.concat(joined.stream(), dto3.stream())
+                        .collect(Collectors.toList());
+				
 			}
-			return dto;
+			return joined;
 		}
 	
 	@RequestMapping("/buyinglist")

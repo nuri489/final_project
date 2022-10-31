@@ -228,9 +228,11 @@ button{
 	<tr>
 		<td colspan="3" class="header"><h1>${temp_dto.product_title}</h3></td>
 	</tr>
+	
 	<tr>
 		<td colspan="3"><h3>${temp_dto.product_price} 원</h3></td>
 	</tr>
+	<tr><td colspan="3">판매자 : <a href="userreview?user_num=${temp_dto.user_num}">${user_id}</a></td></tr>
 	<tr>
 		<td>안전결제여부 : ${temp_dto.safe_trade}</span></td>
 		<td>경매요청횟수 : <span id="request-val">${request_num}</span></td>
@@ -266,6 +268,11 @@ button{
 	<tr>
 		<td colspan="4">설명 : ${temp_dto.product_contents }</td>
 	</tr>
+	<!-- 안전 결제 상품일 경우 안전 결제 버튼 띄우기 -->
+	<c:if test="${temp_dto.safe_trade }">
+		<tr><td colspan="4"><button id="buy_btn" onclick='location.href="/getsecurepaymentform?product_num=${temp_dto.product_num}"'>안전 결제</button></td></tr>
+	</c:if>
+	<!-- 안전 결제 상품일 경우 안전 결제 버튼 띄우기 end -->
 </table>
 </div>
 </body>
