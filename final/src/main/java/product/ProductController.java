@@ -41,6 +41,12 @@ public class ProductController {
 	@Qualifier("auctionservice")
 	AuctionService auction_service;
 	
+	@RequestMapping("/getsalesform")
+	public String getSalesForm() {
+		
+		return "product/salesform";
+	}
+	
 	// 판매글 등록 프로세스 
 		@RequestMapping("/insertsales")
 		public String insertSales(ProductDTO dto,HttpServletRequest request) throws IOException {
