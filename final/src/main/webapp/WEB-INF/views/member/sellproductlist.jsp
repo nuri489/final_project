@@ -46,7 +46,7 @@ $(document).ready(function(){
 			$(this).html('❤️');
 			$(this).css('font-size', '18px');
 			$.ajax({
-				url:'likeclickajax',
+				url:'/likeclickajax',
 				data: {'product_num' : $(this).val()},
 				type:"get",
 				dataType:'json',
@@ -58,7 +58,7 @@ $(document).ready(function(){
 			$(this).html('🤍');
 			$(this).css('font-size', '18px');
 			$.ajax({
-				url:'unlikeclickajax',
+				url:'/unlikeclickajax',
 				data: {'product_num' : $(this).val()},
 				type:"get",
 				dataType:'json',
@@ -76,6 +76,40 @@ $(document).ready(function(){
 		  result+='원';
 		  $(this).html(result);
 	});
+	
+	$('.sell_confirmbtn').on('click',function(e){
+		e.stopPropagation();
+		$.ajax({
+			url:'/confirmsell',
+			data: {'product_num' : $(this).val()},
+			type:"get",
+			dataType:'json',
+			success:function(server){
+				alert(server.result);
+				location.reload();
+			}//success end
+		}); //ajax end	
+	});
+	
+	//입금받기(구매자 7일동안 구매확정 안함)  - ajax 
+	$(".depositbtn").on("click",function(e){
+		e.stopPropagation();
+		var children = $(this).children('div');
+		$.ajax({
+			url: "depositseller",
+			type:	"post",
+			data: {'product_num' : $(this).val(), 'pay_price': $(children).html() },
+			dataType: "json", //결과 타입
+			success: function(server){
+				if(server.result == 'success'){
+					alert('입금받았습니다.');
+				}else{
+					alert('입금 실패하였습니다. 다시 시도해주십시오.');
+				}
+				location.reload();
+			}//success end
+		});//ajax end
+	}); //click end 
 	/*   e.preventDefault();  
 	  $(this).css('background-color', 'gold');
 	   $('.a').not($(this)).css('background-color', '#fff'); */
@@ -241,7 +275,7 @@ a:hover{
 .top{
 	margin-bottom: 3px;
 }
-.trade_type{
+.trade_type, .trade_type2{
 	padding:2px;
 	background-color:#0ab194;
 	color:white;
@@ -249,6 +283,14 @@ a:hover{
 	border-radius: 4px;
 	margin-right: 10px;
 	/*#1eb588  */ 
+}
+.trade_type2 , .sell_confirmbtn{
+	background-color:#68abfe;
+	border:none;
+	color:#fff;
+}
+.sell_confirmbtn:hover{
+	background-color:#84ecfe;
 }
 .auction_type{
 	padding:3px;
@@ -280,6 +322,11 @@ a:hover{
 }
 .product_status5{
 	background-color: #f6a180;
+}
+.depositbtn{
+	background-color: #f2a120;
+	color: #fff;
+	border:none;
 }
 </style>
 </head>
@@ -357,8 +404,10 @@ a:hover{
 							<%-- ${p.safe_trade} ${p.auction_check} --%>
 							<div class="product_option">
 								<div class="top">
-								<c:if test="${p.safe_trade==true}"><span class="trade_type">안전거래</span></c:if>
-								<c:if test="${p.auction_check==true}"><span class="auction_type">경매</span></c:if>
+								<c:if test="${empty p.buyer_check && p.safe_trade==1 &&p.elapsed_date>7 && p.product_sell==4}"><span class="trade_type"><button class="depositbtn" value="${p.product_num }">입금받기<div style="display:none;">${p.product_price }</div></button></span></c:if>
+								<c:if test="${p.safe_trade==1}"><span class="trade_type">안전거래</span></c:if>
+								<c:if test="${p.safe_trade==0 && p.product_sell==0}"><span class="trade_type2"><button class="sell_confirmbtn" value="${p.product_num}">판매확정 하기</button></span></c:if>
+								<c:if test="${p.auction_check==1}"><span class="auction_type">경매</span></c:if>
 								</div>
 								<div class="bottom">
 									<c:if test="${p.product_status1==0}"><span class="product_status product_status1">미개봉</span></c:if>

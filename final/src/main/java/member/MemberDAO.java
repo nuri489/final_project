@@ -1,6 +1,7 @@
 package member;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -23,7 +24,8 @@ public interface MemberDAO {
 	//회원가입
 	public int insertMember(MemberDTO dto);
 	//[승희] 판매글모아보기
-	public List<ProductDTO> productList(int user_num);
+	//public List<ProductDTO> productList(int user_num);
+	public List<Map<String,String>> productList(int user_num);
 	/**
 	 * 회원 마이페이지 정보 가져오기
 	 * @param user_num 회원 식별자

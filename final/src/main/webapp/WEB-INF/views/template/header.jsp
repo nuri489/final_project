@@ -65,7 +65,7 @@ $(document).ready(function(){
 										success: function(server){
 											if(server.result=='success'){
 												alert('성공적으로 등록되었습니다.');
-												return;
+												location.reload();
 											}
 										}//success end
 									});//ajax end
@@ -75,24 +75,8 @@ $(document).ready(function(){
 						    	}
 						    	});// register_billingnumber end
 							}else if(server[i].product_sell==4){
-								$('#newsinnerbox').append('<div id="newsitem">'+server[i].product_title+'의 <span style="color:orange">배송</span>이 시작되었습니다.<br> 7일 내 구매확정을 해주세요. 7일 후 자동 구매확정됩니다. <button id="confirmbtn" value="'+server[i].product_num+'">구매확정</button></div>');
-								$('#confirmbtn').on('click',function(e){
-						 	    	let product_num=$(this).val();
-						 	    	//location.href="/getpurchaselist";
-								    	/* $.ajax({
-											url: "/getpurchaselist",
-											type:	"post",
-											data: {'product_num' : product_num},
-											dataType: "json", //결과 타입
-											success: function(server){
-												if(server.result=='success'){
-													alert('성공적으로 등록되었습니다.');
-													
-													return;
-												}
-											}//success end
-										});//ajax end */
-							});//confirm btn end
+								$('#newsinnerbox').append('<div id="newsitem">'+server[i].product_title+'의 <span style="color:orange">배송</span>이 시작되었습니다.<br> 7일 내 구매확정을 해주세요. 7일 후 자동 구매확정됩니다. <button id="confirmbtn" value="'+server[i].product_num+'" onclick="location.href=\'/buyinglist\'">구매확정</button></div>');
+								
 						}// else if end
 					}//for end
 					}//else end
@@ -128,7 +112,7 @@ $(document).ready(function(){
 	
 	
 	    $('#writepopupbtn').on('click',function(e){
-	    	alert(product_num);
+	    	
 	    	$.ajax({
 				url: "insertreviewajax",
 				type:	"post",
@@ -235,9 +219,9 @@ $(document).ready(function(){
         #newsbox #newsinnerbox{
         	position:relative;
         	/* width: 300px; */
-        	max-height: 300px;
+        	max-height: 400px;
         	margin-right: 10px; 
-        	z-index: 1;
+        	z-index: 2;
         	border-radius:8px;
         	box-shadow: 0px 10px 6px -6px #666;
         	/* border: 1px solid black;  */

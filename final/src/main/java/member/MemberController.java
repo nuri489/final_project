@@ -3,6 +3,7 @@ package member;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -101,7 +102,8 @@ public class MemberController {
 			int user_num = Integer.parseInt(String.valueOf(session.getAttribute("sessionUser_num")));
 			String user_id = String.valueOf(session.getAttribute("sessionUser_id"));
 			
-			List<ProductDTO> productlist = member_service.getProductList(user_num);
+			//List<ProductDTO> productlist = member_service.getProductList(user_num);
+			List<Map<String,String>> productlist = member_service.getProductList(user_num);
 			
 			if(user_id != null) {
 				mv.addObject("sellproductlist", productlist);
