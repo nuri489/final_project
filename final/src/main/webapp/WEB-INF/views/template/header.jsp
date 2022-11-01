@@ -151,6 +151,7 @@ $(document).ready(function(){
 			$("#my-page-button").removeAttr("hidden");
 			$("#login-button").attr('hidden',true);
 			$("#logout-button").removeAttr("hidden");
+			$("#sign-in").attr('hidden',true);
 			
 	    	$.ajax({
 				url: "chat_buyer_notice",
@@ -219,9 +220,10 @@ $(document).ready(function(){
 	<style type="text/css">
 	
 		#start-div {
-			padding-top: 10px;
 			position: sticky;
-			height: 100px;
+			height: 110px;
+			margin: 0px 0 15px 0;
+			box-shadow: 1px 2px 4px 1px rgba(0,0,0,0.35);
 		}
 	
         .header {
@@ -281,10 +283,6 @@ $(document).ready(function(){
             color: gray;
         }
 
-        .ml-15 {
-            margin-left: 15px;
-        }
-        
         .search_area {
         	margin-right: 300px;
         }
@@ -307,8 +305,10 @@ $(document).ready(function(){
         	
         } 
         #newsbox #newsinnerbox{
-        	position:relative;
-        	/* width: 300px; */
+        	position: absolute;
+        	width: 300px;
+        	top : -50px;
+        	right : 100px;
         	max-height: 300px;
         	margin-right: 10px; 
         	z-index: 1;
@@ -494,25 +494,124 @@ textarea{
 	border-radius: 50%;
 }
 
-#end-line {
-	background-color: gray;
-	height: 1px;
-	margin-top: 10px;
-}
 
-#login-button {
-	color : #5C75E6;
-	font-size : 20px;
-	font-weight: bold;
-}
 
 #header_logo {
 	position: absolute;
-	left : 2%;
+	left : 1%;
 	top : 10%;
-	width : 100px;
-	height: 100px;
+	width : 90px;
+	height: 90px;
 	cursor: pointer;
+}
+
+#search_select {
+	width : 65px;
+	border : 2px solid #5C75E6;
+	border-radius: 8px;
+	height: 37.5px;
+	text-align: center;
+	font-size: 18px;
+}
+
+#searching-form {
+	position: absolute;
+	top : 40%;
+	left : 40%;
+}
+
+#searching-bar {
+	position : absolute;
+	width : 315px;
+	height: 37.5px;
+	left : 75px;
+	border : 2px solid #5C75E6;
+	border-radius: 8px;
+	padding: 1px 5px 1px 10px;
+}
+
+#searching-button {
+	position: absolute;
+	left : 400px;
+	width : 50px;
+	height: 37.5px;
+	border : none;
+	border-radius: 8px;
+	background-color: #5C75E6;
+	text-align: center;
+	color : white;
+	transition: 0.1s;
+	font-weight: bold;
+}
+
+#searching-bar:hover {
+	background-color: #f0f0f0;
+	border : 2px solid black;
+}
+
+#search_select:hover {
+	background-color: #f0f0f0;
+	border : 2px solid black;
+}
+
+#searching-button:hover {
+	background-color: #4662e2;
+	transform: scale(1.03);
+}
+
+*::-webkit-scrollbar {
+	width : 10px;
+	border : 1px solid black;
+	border-radius : 8px;
+	background-color: #f7f7f7;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color : #5C75E6;
+	border-radius: 8px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	background-color : #6682FF;
+	border-radius: 8px;
+}
+
+#my-page-button {
+	position: absolute;
+	right : 200px;
+	top : 15px;
+}
+
+#logout-button {
+	position: absolute;
+	right : 50px;
+	top : 15px;
+}
+
+#submit-item {
+	position: absolute;
+	right : 110px;
+	top : -30px;
+	width : 75px;
+}
+
+#news {
+	position: absolute;
+	right : 295px;
+	top : -30px;
+}
+
+#login-button {
+	position: absolute;
+	right : 160px;
+	top : 15px;
+}
+
+#sign-in {
+	position: absolute;
+	right : 80px;
+	top : 15px;
 }
 
     </style>
@@ -523,9 +622,10 @@ textarea{
     <div class="header_top">
         <div class="top_inner">
             <ul class="top_list">
-                <li class="top_item"><a href="/my" class="top_link" id="my-page-button" hidden="hidden">마이페이지</a></li>
+                <li class="top_item ml-15"><a href="/my" class="top_link" id="my-page-button" hidden="hidden">마이페이지</a></li>
                 <li class="top_item ml-15"><a href="loginform" class="top_link" id="login-button">로그인</a></li>
                 <li class="top_item ml-15"><a href="logout" class="top_link" id="logout-button" hidden="hidden">로그아웃</a></li>
+                <li class="top_item ml-15"><a href="" class="top_link" id="sign-in">회원가입</a></li>
             </ul>
         </div>
     </div>
@@ -534,13 +634,13 @@ textarea{
             <div class="gnb_area">
                 <div class="search_area">
                     <div class="search">
-						<form action="search" method="get">
+						<form action="search" method="get" id="searching-form">
 						<select id="search_select"  name="search_select">
 							<option value="product_title">제목</option>
 							<option value="product_contents">내용</option>
 						</select>
-							<input type="text" placeholder="검색어 입력" name="keyword" title="검색창" class="input_search show_placeholder_on_focus">
-							<button type="submit">검색</button>
+							<input type="text" placeholder="검색어를 입력하세요" name="keyword" title="검색창" class="input_search show_placeholder_on_focus" id="searching-bar" onfocus="this.placeholder=''" onblur="this.placeholder='검색어를 입력하세요'">
+							<button type="submit" id="searching-button">검색</button>
 						</form>
 							<!-- <button type="submit" id="search_detail_btn">상세검색</button> 추후 추가 고려중-->
                 	</div>
@@ -585,6 +685,5 @@ textarea{
  	 </div>
 </div>
 <!-- 리뷰팝업 end -->	
-<hr id="end-line">
 </body>
 </html>
