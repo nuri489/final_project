@@ -31,5 +31,9 @@ public interface ChattingDAO {
 	public void updateBuyer_notice1(String rN);
 	public void updateBuyer_notice2(String rN);
 	// 채팅 알림을 위한것들
+	
+	public List<ChattingDTO> chat_As_buyer(int user_num);
+	public List<ChattingDTO> chat_As_seller(int user_num);
+	// 알림값을 가져오기 위해 구매자 혹은 판매자로써 참여한 채팅방의 notice 값 가져오기
 
 }

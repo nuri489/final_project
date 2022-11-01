@@ -63,19 +63,7 @@ $(document).ready(function() {
 	   
 	});
 	// 경매 남은 시간
-	
-	$("#logout-button").on('click',function(e){
-		
-		$.ajax({
-			url : 'logout',
-			type : 'post',
-			dataType : 'text',
-			success : function(s) { 
-				location.reload();
-			}
-		});
-	});
-	// 로그아웃 버튼에 대한 ajax
+
 	
 	
 	if("${sessionUser_num}" != "${product_dto.user_num}") {
@@ -319,19 +307,13 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<hr>
-<div id="head">
-	<a href="loginform"><input type="button" id="login-button" value="로그인"></a>
-	<a href="logout"><input type="button" id="logout-button" value="로그아웃" hidden="true"></a><br>
-</div><hr>
-
 <div id="main-div">
 	<table id="info-table">
 		<tr>
 		<td rowspan="7" id="img-td" class="img"><img id="main-img" src="" onerror="this.src=null; this.src='/serverimg/none.png'"></td>
 		<td class="head">경매물품</td><td class="info">${detail_name}</td></tr>
 		<tr><td class="head">남은시간</td><td class="info"><div id="time"></div></td></tr>
-		<tr><td class="head">판매자</td><td class="info"><a href="/userreview?user_num=${product_dto.user_num}">${user_id}</a></td></tr>
+		<tr><td class="head">판매자</td><td class="info"><a href="/userreview?user_num=${product_dto.user_num}" id="user-id">${user_id}</a></td></tr>
 		<tr><td class="head">물품번호</td><td class="info">${auction_dto.product_num}</td></tr>
 		<tr><td class="head">경매번호</td><td class="info">${auction_dto.auction_num}</td></tr>
 		<tr><td class="head">입찰방식</td><td class="info"><div id="auction-method"></div></td></tr>
@@ -404,6 +386,5 @@ $(document).ready(function() {
 			</table>
 	</div>
 </div>
-<hr>
 </body>
 </html>

@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -91,8 +92,7 @@ public class WebSocketController {
 			chatting_service.createFile(roomNumber);
 			// 채팅 내역 저장을 위한 txt 파일 생성
 		}
-		
-		
+			
 		int notice = chatting_service.buyernotice(f);
 		if(notice == 1) {
 			chatting_service.updatebuyer2(f);
@@ -194,6 +194,22 @@ public class WebSocketController {
 		return mv;
 	}
 	// 판매자의 채팅방 입장
+	
+	@ResponseBody
+	@RequestMapping("chat_buyer_notice")
+	public List<ChattingDTO> chat_buyer_notice(int user_num) {
+		
+		List<ChattingDTO> list = chatting_service.chatasbuyer(user_num);
+		return list;
+	}
+	
+	@ResponseBody
+	@RequestMapping("chat_seller_notice")
+	public List<ChattingDTO> chat_seller_notice(int user_num) {
+		
+		List<ChattingDTO> list = chatting_service.chatasseller(user_num);
+		return list;
+	}
 	
 	private static JSONObject jsonToObjectParser(String jsonStr) {
 		JSONParser parser = new JSONParser();

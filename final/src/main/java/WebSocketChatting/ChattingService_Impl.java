@@ -58,7 +58,7 @@ public class ChattingService_Impl implements ChattingService {
 		String time2 = sdf.format(time1.getTime());
 		
 		FileWriter file = new FileWriter(txtFile , true);
-		file.write("[{\"msg\":안전거래 규칙을 지켜주세요!\"\",\"roomNumber\":"+roomNumber+",\"type\":\"message\",\"sessionUser_num\":\"0\",\"userName\":\"SYSTEM\",\"time\":\""+time2+"\"}]");
+		file.write("[{\"msg\":\"안전거래 규칙을 지켜주세요!\",\"roomNumber\":"+roomNumber+",\"type\":\"message\",\"sessionUser_num\":\"0\",\"userName\":\"SYSTEM\",\"time\":\""+time2+"\"}]");
 		file.flush();
 		file.close();
 		
@@ -100,6 +100,16 @@ public class ChattingService_Impl implements ChattingService {
 	@Override
 	public void updatebuyer2(String rN) {
 		chatdao.updateBuyer_notice2(rN);
+	}
+
+	@Override
+	public List<ChattingDTO> chatasbuyer(int user_num) {
+		return chatdao.chat_As_buyer(user_num);
+	}
+
+	@Override
+	public List<ChattingDTO> chatasseller(int user_num) {
+		return chatdao.chat_As_seller(user_num);
 	}
 
 

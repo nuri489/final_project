@@ -13,7 +13,7 @@
 $(document).ready(function() {
 	
 	if("${sessionUser_num}" == "") {
-		window.location.replace("temp_mainpage");
+		window.location.replace("temp_main");
 	}
 	
 	$("#chatting").focus();

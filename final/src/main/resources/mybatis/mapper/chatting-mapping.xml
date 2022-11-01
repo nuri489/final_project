@@ -38,17 +38,23 @@ select buyer_num from chatting_info where roomNumber = #{rN}
 <update id="updateSeller_notice1" parameterType="String">
 update chatting_info set seller_notice = 1 where roomNumber = #{rN}
 </update>
-
 <update id="updateSeller_notice2" parameterType="String">
 update chatting_info set seller_notice = 0 where roomNumber = #{rN}
 </update>
-
 <update id="updateBuyer_notice1" parameterType="String">
 update chatting_info set buyer_notice = 1 where roomNumber = #{rN}
 </update>
-
 <update id="updateBuyer_notice2" parameterType="String">
 update chatting_info set buyer_notice = 0 where roomNumber = #{rN}
 </update>
+<!-- chatting_info의 notice 값 업데이트 -->
+
+<select id="chat_As_buyer" parameterType="int" resultType="chattingdto">
+select * from chatting_info where buyer_num = #{user_num} and buyer_notice = 1
+</select>
+<select id="chat_As_seller" parameterType="int" resultType="chattingdto">
+select * from chatting_info where seller_num = #{user_num} and seller_notice = 1
+</select>
+<!-- user_num을 통해 구매자 또는 판매자로 참여하는 채팅방에 대하여 notice 값 가져오기 -->
 
 </mapper>

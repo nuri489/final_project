@@ -23,4 +23,7 @@ public interface ChattingService {
 	public void updateseller2(String rN);
 	public void updatebuyer2(String rN);
 	
+	public List<ChattingDTO> chatasbuyer(int user_num);
+	public List<ChattingDTO> chatasseller(int user_num);
+	
 }

@@ -96,8 +96,6 @@ $(document).ready(function(){
 			});//ajax end
 	 }; //alarm function end 
 	 
-	 
-	 
 	const popup = $('#popup');
 	var product_num=0;
 	var openpop = function() {
@@ -111,8 +109,6 @@ $(document).ready(function(){
 	    		  } else {
 	    		  	popup.removeClass('has-filter');
 	    		  }
-	    		
-	    	
 	    });
 	};
 	
@@ -148,13 +144,86 @@ $(document).ready(function(){
 			 $('.star span').css( 'width', $(this).val() * 10+'%' );
 		});
 	    
+	    
+		
+		if("${sessionUser_num}" != "") { // 로그인 했다면
+			
+			$("#my-page-button").removeAttr("hidden");
+			$("#login-button").attr('hidden',true);
+			$("#logout-button").removeAttr("hidden");
+			
+	    	$.ajax({
+				url: "chat_buyer_notice",
+				type: "post",
+				data: {'user_num' : "${sessionUser_num}"},
+				success: function(e){
+					
+					if(e.length != 0) {
+						$('.circle').css('display','');
+						for(var i = 0; i<e.length; i++){
+						$("#chatbox").append("<form action='chatting1' method='post' class='chatform'><input type=hidden name='buyer_num' value='"+e[i].buyer_num+"'><input type=hidden name='seller_num' value='"+e[i].seller_num+"'><input type=hidden name='product_num' value='"+e[i].product_num+"'><input type='submit' class='chat_submit' value='새로운 채팅이 달렸습니다'></form>");
+						}
+					openpop();
+					}
+				}
+			});
+	    	
+	    	$.ajax({
+				url: "chat_seller_notice",
+				type: "post",
+				data: {'user_num' : "${sessionUser_num}"},
+				success: function(e){
+					
+					if(e.length != 0) {
+						$('.circle').css('display','');
+						for(var i = 0; i< e.length; i++){
+						$("#chatbox").append("<form action='chatting2' method='post' class='chatform'><input type=hidden name='buyer_num' value='"+e[i].buyer_num+"'><input type=hidden name='seller_num' value='"+e[i].seller_num+"'><input type=hidden name='product_num' value='"+e[i].product_num+"'><input type=hidden name='buyer_name' value='"+e[i].buyer_name+"'><input type=hidden name='roomNumber' value='"+e[i].roomNumber+"'><input type='submit' class='chat_submit' value='새로운 채팅이 달렸습니다'></form>");
+						}
+					openpop();
+					}
+				}
+			});
+			// 채팅 알림에 대한 ajax
+		}
+		else {
+			$("#submit-item").attr('hidden',true);
+			$("#news").attr('hidden',true);
+			
+		}
+		
+	    
 
+
+    	$("#logout-button").on('click',function(e){
+    		
+    		$.ajax({
+    			url : 'logout',
+    			type : 'post',
+    			dataType : 'text',
+    			success : function(s) { 
+    				location.reload();
+    			}
+    		});
+    	});
+		// 로그아웃 버튼
+		
+		$("#header_logo").on('click',function(){
+			location.href = "temp_main";
+		});
+		
 	    
 });//ready end
 </script>
 <!-- 상단바 업데이트 소식 end -->
 
 	<style type="text/css">
+	
+		#start-div {
+			padding-top: 10px;
+			position: sticky;
+			height: 100px;
+		}
+	
         .header {
             top: 0;
             left: 0;
@@ -165,7 +234,8 @@ $(document).ready(function(){
 
         .main_inner {
             display: flex;
-            padding: 0 40px;
+            margin : 0 auto;
+            padding: 0;
             height: 68px;
             min-width: 320px;
             -webkit-box-align: center;
@@ -175,7 +245,7 @@ $(document).ready(function(){
         .top_inner {
             display: flex;
             padding: 8px 40px;
-            border-bottom: 1px solid #cbd3da;
+            border-bottom: none;
         }
 
         .top_list {
@@ -206,6 +276,7 @@ $(document).ready(function(){
         }
 
         a {
+        	font-size : 16px;
             text-decoration: none;
             color: gray;
         }
@@ -218,6 +289,13 @@ $(document).ready(function(){
         	margin-right: 300px;
         }
         /* 윤서 추가 css */
+        
+        .chat_submit {
+        	border : none;
+        	background-color: transparent;
+        	padding: 5px 5px 5px 5px;
+        }
+        
          #newsbox{
         	position:absolute;
         	align-content:flex-end;
@@ -240,6 +318,18 @@ $(document).ready(function(){
         	animation: fadeInDown 0.7s;
         	
         }
+        #newsbox #chatbox{
+        	position:relative;
+        	width: auto;
+        	margin : 5px 5px 5px 5px; 
+        	z-index: 1;
+        	border-radius:8px;
+        	box-shadow: 0px 10px 6px -6px #666;
+        	/* border: 1px solid black;  */
+        	animation: fadeInDown 0.7s;
+        	background-color: rgb(220,220,220);
+        	
+        }
         #newsbox #newsinnerbox #newsitem{
         	min-height: 70px;
         	/* border: 1px solid black; */
@@ -247,6 +337,18 @@ $(document).ready(function(){
         	background-color: rgb(220,220,220);
         	border : 2px solid rgb(190,190,190);
         	margin-top :6px;
+        	padding :10px;
+        	box-shadow: 0px 10px 6px -6px #666;
+        	/* box-shadow: 0px 0px 5px #444; */
+        	
+        }
+        #newsbox #chatbox1 .chatform{
+        	min-height: 70px;
+        	/* border: 1px solid black; */
+        	border-radius:8px;
+        	background-color: rgb(220,220,220);
+        	border : 2px solid rgb(190,190,190);
+
         	padding :10px;
         	box-shadow: 0px 10px 6px -6px #666;
         	/* box-shadow: 0px 0px 5px #444; */
@@ -384,30 +486,51 @@ textarea{
 }
 .circle{
 	position:absolute;
-	margin-left:27px;
-	bottom:12px;
-	width:4px;
-	height: 4px;
+	margin-left:30px;
+	bottom:18px;
+	width:6px;
+	height: 6px;
 	background-color: red;
 	border-radius: 50%;
 }
+
+#end-line {
+	background-color: gray;
+	height: 1px;
+	margin-top: 10px;
+}
+
+#login-button {
+	color : #5C75E6;
+	font-size : 20px;
+	font-weight: bold;
+}
+
+#header_logo {
+	position: absolute;
+	left : 2%;
+	top : 10%;
+	width : 100px;
+	height: 100px;
+	cursor: pointer;
+}
+
     </style>
 </head>
 <body>
-<div class="header lg">
+<div id="start-div">
+   	<img alt="header logo" src="/serverimg/logo.png" id="header_logo" >
     <div class="header_top">
         <div class="top_inner">
             <ul class="top_list">
-                <li class="top_item"><a href="/my" class="top_link">마이페이지</a></li>
-                <li class="top_item ml-15"><a href="loginform" class="top_link">로그인</a></li>
+                <li class="top_item"><a href="/my" class="top_link" id="my-page-button" hidden="hidden">마이페이지</a></li>
+                <li class="top_item ml-15"><a href="loginform" class="top_link" id="login-button">로그인</a></li>
+                <li class="top_item ml-15"><a href="logout" class="top_link" id="logout-button" hidden="hidden">로그아웃</a></li>
             </ul>
         </div>
     </div>
     <div class="header_main">
         <div class="main_inner">
-            <div>
-                <img alt="header logo" src="/serverimg/logo2.png" style="width:70px; height:70px;">
-            </div>
             <div class="gnb_area">
                 <div class="search_area">
                     <div class="search">
@@ -425,17 +548,17 @@ textarea{
             
                 <nav class="gnb">
                     <ul class="gnb_list">
-                        <li class="gnb_item"><a href="getsalesform" class="gnb_link ml-15">판매등록</a></li>
-                        <li class="gnb_item"><a href="#" class="gnb_link ml-15" id="news"><img alt="알림" src="/serverimg/alarmicon.png" width="15px" height="15px"></a><div class="circle" style="display:none;"></div></li>
+                        <li class="gnb_item"><a href="getsalesform" class="gnb_link ml-15" id="submit-item">판매등록</a></li>
+                        <li class="gnb_item"><a href="#" class="gnb_link ml-15" id="news"><img alt="알림" src="/serverimg/alarmicon.png" width="20px" height="20px"></a><div class="circle" style="display:none;"></div></li>
                     </ul>
                 </nav>
             </div>
         </div>
-                   <div id="newsbox" style="display: none; ">
-                   	<div id="newsinnerbox" style="overflow-y: scroll;" >
-                   		<div id="newsitem">구매완료 확인 알람 띄울 거임!</div>
-                   		
-                   	</div>
+                   <div id="newsbox" style="display: none;">
+	                   	<div id="newsinnerbox" style="overflow-y: scroll;">
+	                   		<div id="newsitem">구매완료 확인 알람 띄울 거임!</div>
+	                   	</div>
+	                   	<div id="chatbox"></div>
                    </div>
     </div>
 </div>
@@ -462,5 +585,6 @@ textarea{
  	 </div>
 </div>
 <!-- 리뷰팝업 end -->	
+<hr id="end-line">
 </body>
 </html>
