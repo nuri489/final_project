@@ -306,11 +306,11 @@ $(document).ready(function(){
         } 
         #newsbox #newsinnerbox{
         	position: absolute;
-        	width: 300px;
+        	width: 230px;
+        	height : auto;
         	top : -50px;
-        	right : 100px;
-        	max-height: 300px;
-        	margin-right: 10px; 
+        	right : 200px;
+
         	z-index: 1;
         	border-radius:8px;
         	box-shadow: 0px 10px 6px -6px #666;
@@ -319,9 +319,11 @@ $(document).ready(function(){
         	
         }
         #newsbox #chatbox{
-        	position:relative;
+        	position: absolute;
         	width: auto;
         	margin : 5px 5px 5px 5px; 
+        	top : -50px;
+        	right : 0;
         	z-index: 1;
         	border-radius:8px;
         	box-shadow: 0px 10px 6px -6px #666;
@@ -485,11 +487,11 @@ textarea{
 	background-color:  #fff;
 }
 .circle{
-	position:absolute;
-	margin-left:30px;
-	bottom:18px;
-	width:6px;
-	height: 6px;
+	position: absolute;
+	right : 310px;
+	top : -30px;
+	width:7px;
+	height: 7px;
 	background-color: red;
 	border-radius: 50%;
 }
@@ -561,10 +563,8 @@ textarea{
 
 *::-webkit-scrollbar {
 	width : 10px;
-	border : 1px solid black;
-	border-radius : 8px;
-	background-color: #f7f7f7;
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border : none;
+	background-color: transparent;
 }
 
 *::-webkit-scrollbar-thumb {

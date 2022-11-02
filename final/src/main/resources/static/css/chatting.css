@@ -274,22 +274,6 @@ table .info {
 	color: black;
 }
 
-div .div1::-webkit-scrollbar {
-	width : 10px;
-	border : none;
-	background-color: transparent;
-}
-
-div .div1::-webkit-scrollbar-thumb {
-	background-color : #5C75E6;
-	border-radius: 8px;
-}
-
-div .div1::-webkit-scrollbar-thumb:hover {
-	background-color : #6682FF;
-	border-radius: 8px;
-}
-
 #getout-button:hover {
 	transform : scale(0.99);
 }
