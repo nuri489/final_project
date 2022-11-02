@@ -15,5 +15,6 @@ public class NaverInform {
 	public final static String chatbot_url = "https://mzwlr9j1eq.apigw.ntruss.com/custom/v1/8040/0c60a96bdedc6112752713e05edf2f057145914a24f4fc6765c5c00925ff98b3";
 	public final static String chatbot_key = "UVhLWXlDc0tGWkNITmxEZHJWc3VmZXpnbW50bkprc3c=";
 
-
+	
+	public final static String yssaveimgpath = "/Users/choiyoonseo/Documents/final_images/";
 }

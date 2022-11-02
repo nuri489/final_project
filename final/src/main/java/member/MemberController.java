@@ -3,6 +3,7 @@ package member;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -91,27 +92,28 @@ public class MemberController {
 	}
 	
 	//[승희] 본인 판매글 모아보기
-		@RequestMapping("/sellproductlist")
-		@ResponseBody
-		public ModelAndView sellproductlist(HttpServletRequest request){
-			ModelAndView mv = new ModelAndView();
-			ProductDTO dto = new ProductDTO();
-			
-			HttpSession session = request.getSession();
-			int user_num = Integer.parseInt(String.valueOf(session.getAttribute("sessionUser_num")));
-			String user_id = String.valueOf(session.getAttribute("sessionUser_id"));
-			
-			List<ProductDTO> productlist = member_service.getProductList(user_num);
-			
-			if(user_id != null) {
-				mv.addObject("sellproductlist", productlist);
-				mv.setViewName("member/sellproductlist");
-			}
-			else {
-				mv.setViewName("temp_mainpage");
-			}
-			return mv;
+	@RequestMapping("/sellproductlist")
+	@ResponseBody
+	public ModelAndView sellproductlist(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		ProductDTO dto = new ProductDTO();
+		
+		HttpSession session = request.getSession();
+		int user_num = Integer.parseInt(String.valueOf(session.getAttribute("sessionUser_num")));
+		String user_id = String.valueOf(session.getAttribute("sessionUser_id"));
+		
+		//List<ProductDTO> productlist = member_service.getProductList(user_num);
+		List<Map<String,String>> productlist = member_service.getProductList(user_num);
+		
+		if(user_id != null) {
+			mv.addObject("sellproductlist", productlist);
+			mv.setViewName("member/sellproductlist");
 		}
+		else {
+			mv.setViewName("temp_mainpage");
+		}
+		return mv;
+	}
 		
 		@GetMapping("/getmyid")
 		public String getmyid() {

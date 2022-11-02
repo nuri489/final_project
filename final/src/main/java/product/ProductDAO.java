@@ -2,6 +2,7 @@ package product;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -26,7 +27,7 @@ public interface ProductDAO {
 	int getProductDetailNum(String detail_name);
 	List<ProductDTO> getSaleslist(int user_num);
 	
-	List<ProductDTO> getBuying_list(int buyer_num);
+	List<Map<String,String>> getBuying_list(int buyer_num);
 	// 구매목록과 구매목록에 표시될 리스트의 count
 
 	List<ProductDTO> getAllProducts();
@@ -40,4 +41,6 @@ public interface ProductDAO {
 	
 	List<ProductDTO> getSaleslist2(int user_num);
 	List<ProductDTO> getSaleslist3(int user_num);
+	
+	int updateBuyerNum(ProductDTO dto);
 }

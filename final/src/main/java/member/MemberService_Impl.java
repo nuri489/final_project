@@ -2,6 +2,7 @@ package member;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -68,11 +69,15 @@ public class MemberService_Impl implements MemberService {
 	}
 	
 	//[승희] 판매글모아보기
+//	@Override
+//	public List<ProductDTO> getProductList(int user_num){
+//		return dao.productList(user_num);
+//	}
+
 	@Override
-	public List<ProductDTO> getProductList(int user_num){
+	public List<Map<String,String>> getProductList(int user_num){
 		return dao.productList(user_num);
 	}
-
 	
 	@Override
 	public MemberDTO getUser(int user_num) {

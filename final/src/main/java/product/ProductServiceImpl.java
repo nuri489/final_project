@@ -2,6 +2,7 @@ package product;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -94,7 +95,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<ProductDTO> getBuyinglist(int buyer_num) {
+	public List<Map<String,String>> getBuyinglist(int buyer_num) {
 		return productDAO.getBuying_list(buyer_num);
 	}
 	
@@ -139,4 +140,11 @@ public class ProductServiceImpl implements ProductService{
 	public List<ProductDTO> getSaleslist3(int user_num) {
 		return productDAO.getSaleslist3(user_num);
 	}
+
+	@Override
+	public int updateBuyerNum(ProductDTO dto) {
+		return productDAO.updateBuyerNum(dto);
+	}
+	
+	
 }
