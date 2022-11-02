@@ -77,6 +77,10 @@ public class SecurePaymentController {
 		if(insert_result>0) {
 			//해당유저 보유머니 - 결제 금액
 			int insert_result2 = securePaymentService.minusUserMoney(dto);
+			ProductDTO pdtdto = new ProductDTO();
+			pdtdto.setUser_num(user_num);
+			pdtdto.setProduct_num(dto.getProduct_num());
+			productService.updateBuyerNum(pdtdto);
 			int[] num = new int[]{3, dto.getProduct_num()}; //결제중 3
 			securePaymentService.updateProductSell2(num);
 		}
@@ -171,18 +175,20 @@ public class SecurePaymentController {
 	
 	@RequestMapping("/refund")
 	@ResponseBody
-	public String refund(int pay_price, HttpServletRequest request){
+	public String refund(int pay_price,int product_num, HttpServletRequest request){
 		HttpSession session = request.getSession();
 		int user_num = 0;
 		if(session.getAttribute("sessionUser_num")!=null) {
 			user_num = (int) session.getAttribute("sessionUser_num");
 		}
-		System.out.println(pay_price);
+		System.out.println(pay_price+" 넘버"+product_num);
 		//지금 로그인되어있는 user_num 세션으로 받아옴
 		SecurePaymentDTO dto = new SecurePaymentDTO();
 		dto.setPay_price(pay_price);
 		dto.setUser_num(user_num);
 		int update_result = securePaymentService.refund(dto);
+		int[] num = new int[]{0, product_num}; //
+		securePaymentService.updateProductSell2(num);
 		if(update_result>0) {
 			return "{\"result\" : \"success\"}";
 		}
@@ -191,7 +197,8 @@ public class SecurePaymentController {
 	}
 	
 	@RequestMapping(value="/depositseller", produces= {"application/json;charset=utf-8"})
-	public String depositToSeller(int pay_price ,HttpServletRequest request){
+	@ResponseBody
+	public String depositToSeller(int pay_price ,int product_num, HttpServletRequest request){
 		HttpSession session = request.getSession();
 		int user_num = 0;
 		if(session.getAttribute("sessionUser_num")!=null) {
@@ -202,6 +209,8 @@ public class SecurePaymentController {
 		dto.setPay_price(pay_price);
 		dto.setUser_num(user_num);
 		int update_result = securePaymentService.depositToSeller(dto);
+		int[] num = new int[]{1, product_num}; //결제 완료 1
+		int update_result2 = securePaymentService.updateProductSell2(num);
 		if(update_result>0) {
 			return "{\"result\" : \"success\"}";
 		}
@@ -211,5 +220,17 @@ public class SecurePaymentController {
 	@RequestMapping("/review")
 	public String getReviewForm() {
 		return "review/reviewform";
+	}
+	
+	@RequestMapping("/confirmsell")
+	@ResponseBody
+	public String confirmSell(int product_num) {
+		System.out.println(product_num);
+		int[] num = new int[]{1, product_num}; //결제 완료 1
+		int update_result = securePaymentService.updateProductSell2(num);
+		if(update_result>0) {
+			return "{\"result\" : \"success\"}";
+		}
+		return "{\"result\" : \"fail\"}";
 	}
 }

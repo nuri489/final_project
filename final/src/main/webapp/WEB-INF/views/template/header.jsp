@@ -30,7 +30,7 @@ $(document).ready(function(){
 	 // update된 구매확정 글 가져옴
 	 function alarm(){
 		 $.ajax({
-				url: "getSaleslist",
+				url: "/getSaleslist",
 				type:	"post",
 				dataType: "json", //결과 타입
 				success: function(server){
@@ -61,7 +61,7 @@ $(document).ready(function(){
 										success: function(server){
 											if(server.result=='success'){
 												alert('성공적으로 등록되었습니다.');
-												return;
+												location.reload();
 											}
 										}//success end
 									});//ajax end
@@ -71,78 +71,64 @@ $(document).ready(function(){
 						    	}
 						    	});// register_billingnumber end
 							}else if(server[i].product_sell==4){
-								$('#newsinnerbox').append('<div id="newsitem">'+server[i].product_title+'의 <span style="color:orange">배송</span>이 시작되었습니다.<br> 7일 내 구매확정을 해주세요. 7일 후 자동 구매확정됩니다. <button id="confirmbtn" value="'+server[i].product_num+'">구매확정</button></div>');
-								$('#confirmbtn').on('click',function(e){
-						 	    	let product_num=$(this).val();
-						 	    	//location.href="/getpurchaselist";
-								    	/* $.ajax({
-											url: "/getpurchaselist",
-											type:	"post",
-											data: {'product_num' : product_num},
-											dataType: "json", //결과 타입
-											success: function(server){
-												if(server.result=='success'){
-													alert('성공적으로 등록되었습니다.');
-													
-													return;
-												}
-											}//success end
-										});//ajax end */
-							});//confirm btn end
+								$('#newsinnerbox').append('<div id="newsitem">'+server[i].product_title+'의 <span style="color:orange">배송</span>이 시작되었습니다.<br> 7일 내 구매확정을 해주세요. 7일 후 자동 구매확정됩니다. <button id="confirmbtn" value="'+server[i].product_num+'" onclick="location.href=\'/buyinglist\'">구매확정</button></div>');
+								
 						}// else if end
 					}//for end
 					}//else end
 				}//success end
 			});//ajax end
-	 }; //alarm function end 
+	 }; //alarm function end
 	 
-	const popup = $('#popup');
-	var product_num=0;
-	var openpop = function() {
-		$('.openpop').on('click',function(e){
-				product_num=$(this).val();
-	    		$('#popup').css('display','');
-	    		popup.removeClass('hide');
-	    		popup.addClass('has-filter');
-	    		if (popup.hasClass('has-filter')) {
-	    		  	popup.addClass('has-filter');
-	    		  } else {
-	    		  	popup.removeClass('has-filter');
-	    		  }
-	    });
-	};
-	
-	    $('#closepopupbtn').on('click',function(e){
-	    	e.preventDefault();
-	    	popup.removeClass('has-filter');
-    		popup.addClass('hide');
-	    });
-	
-	
-	    $('#writepopupbtn').on('click',function(e){
-	    	alert(product_num);
-	    	$.ajax({
-				url: "insertreviewajax",
-				type:	"post",
-				data: {'review_num' : product_num,
-					'review_contents' : $('#review_contents').val(),
-					'review_rating' : $('#drawStar').val(),
-					'reviewer_role' : 'seller'
-				},
-				dataType: "json", //결과 타입
-				success: function(server){
-					if(server.result=='success'){
-						alert('성공적으로 등록되었습니다.');
-						popup.removeClass('has-filter');
-			    		popup.addClass('hide');
-					}
-				}//success end
-			});//ajax end
-	    });
-	
-	    $('#drawStar').on('change',function(e){
-			 $('.star span').css( 'width', $(this).val() * 10+'%' );
-		});
+		const popup = $('#popup');
+		var product_num=0;
+		var openpop = function() {
+			$('.openpop').on('click',function(e){
+					product_num=$(this).val();
+		    		$('#popup').css('display','');
+		    		popup.removeClass('hide');
+		    		popup.addClass('has-filter');
+		    		if (popup.hasClass('has-filter')) {
+		    		  	popup.addClass('has-filter');
+		    		  } else {
+		    		  	popup.removeClass('has-filter');
+		    		  }
+		    		
+		    	
+		    });
+		};
+		
+		    $('#closepopupbtn').on('click',function(e){
+		    	e.preventDefault();
+		    	popup.removeClass('has-filter');
+	    		popup.addClass('hide');
+		    });
+		
+		
+		    $('#writepopupbtn').on('click',function(e){
+		    	
+		    	$.ajax({
+					url: "/insertreviewajax",
+					type:	"post",
+					data: {'review_num' : product_num,
+						'review_contents' : $('#review_contents').val(),
+						'review_rating' : $('#drawStar').val(),
+						'reviewer_role' : 'seller'
+					},
+					dataType: "json", //결과 타입
+					success: function(server){
+						if(server.result=='success'){
+							alert('성공적으로 등록되었습니다.');
+							popup.removeClass('has-filter');
+				    		popup.addClass('hide');
+						}
+					}//success end
+				});//ajax end
+		    });
+		
+		    $('#drawStar').on('change',function(e){
+				 $('.star span').css( 'width', $(this).val() * 10+'%' );
+			});
 	    
 	    
 		
@@ -614,7 +600,9 @@ border : none;
 	right : 80px;
 	top : 15px;
 }
-
+#chatbotlink{
+	position: absolute;
+}
     </style>
 </head>
 <body>
@@ -633,6 +621,7 @@ border : none;
     <div class="header_main">
         <div class="main_inner">
             <div class="gnb_area">
+            
                 <div class="search_area">
                     <div class="search">
 						<form action="search" method="get" id="searching-form">
@@ -643,18 +632,20 @@ border : none;
 							<input type="text" placeholder="검색어를 입력하세요" name="keyword" title="검색창" class="input_search show_placeholder_on_focus" id="searching-bar" onfocus="this.placeholder=''" onblur="this.placeholder='검색어를 입력하세요'">
 							<button type="submit" id="searching-button">검색</button>
 						</form>
+							<a id="chatbotlink" href="/chatbotform">챗봇문의</a>
 							<!-- <button type="submit" id="search_detail_btn">상세검색</button> 추후 추가 고려중-->
                 	</div>
                 </div>
             
                 <nav class="gnb">
                     <ul class="gnb_list">
-                        <li class="gnb_item"><a href="getsalesform" class="gnb_link ml-15" id="submit-item">판매등록</a></li>
+                        <li class="gnb_item"><a href="/getsalesform" class="gnb_link ml-15" id="submit-item">판매등록</a></li>
                         <li class="gnb_item"><a href="#" class="gnb_link ml-15" id="news"><img alt="알림" src="/serverimg/alarmicon.png" width="20px" height="20px"></a><div class="circle" style="display:none;"></div></li>
                     </ul>
                 </nav>
             </div>
         </div>
+             
                    <div id="newsbox" style="display: none;">
 	                   	<div id="newsinnerbox" style="overflow-y: scroll;">
 	                   		<div id="newsitem">구매완료 확인 알람 띄울 거임!</div>

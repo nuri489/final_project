@@ -2,6 +2,7 @@ package member;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -23,7 +24,8 @@ public interface MemberService {
 	//회원가입
 	public int registerMember(MemberDTO dto);
 	//[승희] 판매글모아보기
-	public List<ProductDTO> getProductList(int user_num);
+	//public List<ProductDTO> getProductList(int user_num);
+	List<Map<String,String>> getProductList(int user_num);
 	// 마이페이지
 	public MemberDTO getUser(int user_num);
 
