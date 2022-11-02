@@ -253,7 +253,7 @@ textarea{
 <jsp:include page="../template/header.jsp" flush="true"/><hr>
 <div id="buyinglistform">
 <h1>구매목록</h1>
-<table id="list-table">
+<table id="list-table" style="width: 70%;">
 <tr id="list-table-head"><td class="head" style="border-radius:8px 0 0 0;">상품번호</td><td class="head">제목</td><td class="head">판매자</td><td class="head">가격</td>
 <td class="head">구매시간</td><td class="head">운송장 번호</td>
 <td class="head " style="border-radius:0 8px 0 0;">처리상태</td>
