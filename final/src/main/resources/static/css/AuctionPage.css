@@ -285,7 +285,7 @@ td {
 }
 
 #list-modal {
-	margin : 0;
-	padding: 0 10px 10px 10px;
+	margin : 5px 2px 5px 2px;
+	padding: 0 20px 30px 30px;
 	width : 500px;
 }

@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<jsp:include page="/WEB-INF/views/template/header.jsp" />
 <link rel="stylesheet" href="CSS/slideStyle.css">
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
@@ -188,15 +189,6 @@ button{
 </style>
 </head>
 <body>
-
-상단바 추후 수정 예정
-<div id="login">
-<a href="loginform"><input type="button" id="login-button" value="로그인"></a>
-<a href="logout"><input type="button" id="logout-button" value="로그아웃" hidden="true"></a>
-로그인한 사람의 user_num : ${sessionUser_num}
-</div>
-<hr>
-
 <div id="contents">
 <div id="form_name">일반판매상품페이지</div>
 <table border="1" id="product_table">

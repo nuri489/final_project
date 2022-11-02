@@ -519,12 +519,12 @@ textarea{
 #searching-form {
 	position: absolute;
 	top : 40%;
-	left : 40%;
+	left : 38%;
 }
 
 #searching-bar {
 	position : absolute;
-	width : 315px;
+	width : 350px;
 	height: 37.5px;
 	left : 75px;
 	border : 2px solid #5C75E6;
@@ -534,7 +534,7 @@ textarea{
 
 #searching-button {
 	position: absolute;
-	left : 400px;
+	left : 430px;
 	width : 50px;
 	height: 37.5px;
 	border : none;
@@ -568,6 +568,7 @@ textarea{
 }
 
 *::-webkit-scrollbar-thumb {
+border : none;
 	background-color : #5C75E6;
 	border-radius: 8px;
 }

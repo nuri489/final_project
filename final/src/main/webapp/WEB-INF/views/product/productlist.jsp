@@ -403,8 +403,8 @@ a:hover{
 					</div> -->
 						<c:forEach items="${productlist }" var="p">
 							<div class="product_item">
-						<div> <c:if test="${not empty p.image_path }"><img alt="등록된 이미지 없음" src="/images/${p.image_path}"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;"></c:if>
-						<c:if test="${empty p.image_path }"><img alt="등록된 이미지 없음" src="/serverimg/noimage.png"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;"></c:if>
+						<div> <c:if test="${not empty p.image_path }"><img alt="등록된 이미지 없음" src="/images/${p.image_path}" onerror="this.src=null; this.src='/serverimg/none.png'"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;"></c:if>
+						<c:if test="${empty p.image_path }"><img alt="등록된 이미지 없음" src="/serverimg/noimage.png" onerror="this.src=null; this.src='/serverimg/none.png'"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;"></c:if>
 						<%
 							/* 세션아이디값이 있을 때만 찜할 수 있는 버튼 띄움 */
 							if(session.getAttribute("sessionUser_num") != null){%>

@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<jsp:include page="../template/header.jsp" flush="true"/>
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function(){
@@ -77,15 +78,16 @@ $(document).ready(function(){
 </script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400&display=swap');
+
 *{
 font-family: 'Nanum Gothic', sans-serif;
   margin:0; padding:0;
   font-size:15px; 
   line-height:1.3;
-  margin:0 auto;
-  
 }
+
 #reviewresultform{
+	margin:0 auto;
 	position: relative;
 	display: flex;
 	flex-flow: column;
@@ -221,7 +223,6 @@ ul{list-style:none;}
 </style>
 </head>
 <body>
-<jsp:include page="../template/header.jsp" flush="true"/>
 <div id="reviewresultform">
 	<div id="reviewresultitem1">
 		<div class ="profiletitle">
@@ -262,7 +263,7 @@ ul{list-style:none;}
 		     	<div class="tabCon" style="overflow-y: scroll;"></div>
 		     </li>
   		</ul>
-</div>
+		</div>
 	</div>
 </div>
 </body>
