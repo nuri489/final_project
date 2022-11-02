@@ -39,4 +39,7 @@ public interface MemberService {
     // 비밀번호 초기화를 위한 내용 작성
 	String createKey();
 	// 랜덤 인증 코드 생성
+	
+	public void addmoney(int pay_price , int user_num);
+	// 계좌 충전
 }

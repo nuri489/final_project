@@ -9,6 +9,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 
 <!-- 상단바 업데이트 소식 추가 - 윤서 -->
 
@@ -211,6 +214,24 @@ $(document).ready(function(){
 		$("#header_logo").on('click',function(){
 			location.href = "temp_main";
 		});
+		
+		
+
+		$.ajax({
+			url : 'my',
+			type : 'post',
+			data: {'user_num' : "${sessionUser_num}"},
+			dataType : 'JSON',
+			success : function(s) { 
+				$("#mypage-table").append("<tr><td colspan='2' id='mypage-name'>"+s.user_name+"</td></tr>");
+				$("#mypage-table").append("<tr><td class='mypage-head'>아이디</td><td>"+s.user_id+"</td></tr>");
+				$("#mypage-table").append("<tr><td class='mypage-head'>전화번호</td><td>"+s.user_tel+"</td></tr>");
+				$("#mypage-table").append("<tr><td class='mypage-head'>이메일</td><td>"+s.user_email+"</td></tr>");
+				$("#mypage-table").append("<tr><td class='mypage-head'>보유머니</td><td>"+s.user_money+" 원</td></tr>");
+				
+			}
+		});
+
 		
 	    
 });//ready end
@@ -514,6 +535,7 @@ textarea{
 	height: 37.5px;
 	text-align: center;
 	font-size: 18px;
+	transition: all 0.2s;
 }
 
 #searching-form {
@@ -530,6 +552,7 @@ textarea{
 	border : 2px solid #5C75E6;
 	border-radius: 8px;
 	padding: 1px 5px 1px 10px;
+	transition: all 0.2s;
 }
 
 #searching-button {
@@ -542,22 +565,22 @@ textarea{
 	background-color: #5C75E6;
 	text-align: center;
 	color : white;
-	transition: 0.1s;
+	transition: all 0.2s;
 	font-weight: bold;
 }
 
 #searching-bar:hover {
 	background-color: #f0f0f0;
-	border : 2px solid black;
+	border : 2px solid #68abfe;
 }
 
 #search_select:hover {
 	background-color: #f0f0f0;
-	border : 2px solid black;
+	border : 2px solid #68abfe;
 }
 
 #searching-button:hover {
-	background-color: #4662e2;
+	background-color: #68abfe;
 	transform: scale(1.03);
 }
 
@@ -568,13 +591,14 @@ textarea{
 }
 
 *::-webkit-scrollbar-thumb {
-border : none;
+	border : none;
 	background-color : #5C75E6;
 	border-radius: 8px;
+	transition: all 0.2s;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-	background-color : #6682FF;
+	background-color : #68abfe;
 	border-radius: 8px;
 }
 
@@ -615,6 +639,90 @@ border : none;
 	top : 15px;
 }
 
+#mypage-modal {
+	width : 500px;
+	margin: 0 10px 0 10px;
+	padding: 20px 5px 20px 5px;
+}
+
+#mypage-table {
+	margin : 0 auto;
+	padding : 0;
+	width : 400px;
+	border : 2px solid gray;
+	border-radius : 8px;
+	border-spacing: 1px;
+	text-align: center;
+	border-collapse: separate !important;
+	margin-bottom: 10px;
+}	
+
+#mypage-table td {
+
+	heigth : 35px;
+	padding : 5px 0 5px 0;
+	border: 1px solid #5C75E6;
+	font-size: 17px;
+}
+
+.mypage-head {
+	width : 100px;
+	
+}
+
+#mypage-ul {
+
+}
+
+.mypage-li {
+	width : 80px;
+	list-style : none;
+	float : left;
+	padding: 0;
+	margin-left : 0px;
+    font-size: 15px;
+	cursor: pointer;
+	text-align: center;
+}
+
+.mypage-li::after {
+	content : "|";
+	float : right;
+	margin-right: -1px;
+}
+
+.mypage-li:last-child::after {
+	content : "";
+}
+
+#charge-button {
+	border : none;
+	background-color: transparent;
+	font-size: 16px;
+}
+
+#mypage-name {
+	color : white;
+	font-size: 20px;
+	font-weight: bold;
+	background-color: #5C75E6;
+	border : none;
+	
+}
+
+.mypage-a {
+	font-size : 16px;
+	color : #5C75E6;
+	text-decoration: none!important;
+	margin: 0 auto;
+	padding: 0;
+}
+
+.mypage-a:hover {
+	font-weight: bold;
+}
+
+
     </style>
 </head>
 <body>
@@ -623,10 +731,10 @@ border : none;
     <div class="header_top">
         <div class="top_inner">
             <ul class="top_list">
-                <li class="top_item ml-15"><a href="/my" class="top_link" id="my-page-button" hidden="hidden">마이페이지</a></li>
+                <li class="top_item ml-15"><a href="#mypage-modal" rel="modal:open" class="top_link" id="my-page-button" hidden="hidden">내 정보</a></li>
                 <li class="top_item ml-15"><a href="loginform" class="top_link" id="login-button">로그인</a></li>
                 <li class="top_item ml-15"><a href="logout" class="top_link" id="logout-button" hidden="hidden">로그아웃</a></li>
-                <li class="top_item ml-15"><a href="" class="top_link" id="sign-in">회원가입</a></li>
+                <li class="top_item ml-15"><a href="memberjoin" class="top_link" id="sign-in">회원가입</a></li>
             </ul>
         </div>
     </div>
@@ -684,6 +792,23 @@ border : none;
 		    	<button class="popupbtn" id="writepopupbtn">작성</button>
 		    </div>
  	 </div>
+</div>
+
+<div id="mypage-modal" class="modal">
+<table id="mypage-table"></table>
+
+	<ul id="mypage-ul">
+		<li class="mypage-li"><a href="/wish/${user.user_num}" class="mypage-a">찜 목록</a></li>
+		<li class="mypage-li"><a href="sellproductlist" class="mypage-a">판매내역</a></li>
+		<li class="mypage-li"><a href="buyinglist?buyer_num=${sessionUser_num}" class="mypage-a">구매내역</a></li>
+		<li class="mypage-li"><a href="" class="mypage-a">정보수정</a></li>
+		<li class="mypage-li">
+			<form action="addMoneyform" method="post">
+				<input type=hidden value="${sessionUser_num}" name="user_num">
+				<input type=submit value="머니충전" id="charge-button" class="mypage-a">
+			</form>
+		</li>
+	</ul>
 </div>
 <!-- 리뷰팝업 end -->	
 </body>

@@ -36,4 +36,7 @@ public interface MemberDAO {
 	
 	public String getMy_PW(String user_id);
 	// 비밀번호 찾기
+	
+	public void addMoney(int pay_price , int user_num);
+	// 계좌 충전
 }

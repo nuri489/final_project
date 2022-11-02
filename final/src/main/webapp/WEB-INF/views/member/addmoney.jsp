@@ -1,37 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<jsp:include page="/WEB-INF/views/template/header.jsp" />
+<link rel='stylesheet' type='text/css' href='./css/addMoney.css'>
 <script src="js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script>
-$(document).ready(function(){
-
+$(document).ready(function() {
 	
-	var pay_price_str = ${user_money-productdto.product_price};
-	//var pay_price_str =-10;
-	if(pay_price_str<0){
-		$('#paysubmitbtn').attr('disabled',true);
-		$('#hiddenitem').css('display','');
-		$('#payprice').css('color','red');
+	var ref = document.referrer;
+	
+	if("${sessionUser_num}" == "") {
+		window.location.replace("temp_main");
 	}
 	
-	$('#securepaymentform').submit(function(e) {
-		if($('#termscheck').is(':checked')==false){
-			alert("서비스 이용약관에 동의해주세요.");
-			e.preventDefault();
-		}
-    }); // end submit()
-    
-	$('.price').each(function(){ // 가격 표시 , 세자리마다 콤마 찍기
-		  var price = $(this).text();
-		  price = price.slice(0,-1); //맨 마지막 글자 짜르기 (원)
-		  let result = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-		  result+='원';
-		  $(this).html(result);
+    var IMP = window.IMP;
+    IMP.init("imp21802081");
+
+    $("#payment-button").on('click',function(){
+        
+        if($("#pay_price").val()%1000 != 0) {
+        	alert("충전 금액의 최소단위는 1,000원 입니다.")
+        	$("#pay_price").focus();
+        }
+        else {
+        	
+    		if($("#termscheck").is(":checked")==false){
+    			alert("서비스 이용약관에 동의해주세요.");
+    			$("#termscheck").focus();
+    		}
+    		else {
+	        	IMP.request_pay({ // param
+			    	 pg: "html5_inicis",
+			    	 pay_method: "card",
+			         merchant_uid: "${key}",
+			         name: "중고마켓 머니 충전",
+			         amount: $("#pay_price").val(),
+			         buyer_email: "${dto.user_email}",
+			         buyer_name: "${dto.user_name}",
+			         buyer_tel: "${dto.user_tel}",
+			     }, 
+			     function (rsp) { // callback
+			    	 
+			         if (rsp.success) {
+			 			$.ajax({
+							url : 'addMoney',
+							data : {'pay_price': $("#pay_price").val(), 'user_num' : "${sessionUser_num}"},
+							type : 'post',
+							dataType : 'text',
+							success : function(s) {
+								if(s == 0) {
+									alert("충전완료!");
+									window.location.replace(ref);
+								}
+								else {
+									alert("충전 실패! 관리자에게 문의해주세요!");
+								}
+							}
+						});
+			          } 
+			         else {
+			        	 alert(rsp.error_msg);
+			          }
+			      });
+    		}
+        }
 	});
     
 	const popup = $('#popup_t');
@@ -56,286 +94,33 @@ $(document).ready(function(){
     	popup.removeClass('has-filter');
 		popup.addClass('hide');
     });
-    
- 
 
-	
-});//ready end
-
-
+});
 </script>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
-
-* {
-  font-family: 'Nanum Gothic', sans-serif;
-  font-size : 16px;
-}
-
-button, input[type=submit]{
-	outline: 0;
-	border:none;
-	transition: all 0.2s ;
-}
-
-#securepaymentform{
-	position:relative;
-	display:flex;
-	flex-flow:column;
-	align-items:center;
-	/* justify-content:center; */
-	/* border: 1px solid black; */
-	min-height:300px;
-}
-#securepaymentinnerform{
-/* 	border: 1px solid black; */
-	width: 650px;
-	border-radius: 8px;
-	padding:15px;
-	background-color: #f5f5f5;
-}
-.formitem{
-	width: 100% ;
-	margin-bottom:15px;
-}
-.formitem_table{
-	width: 100%;
-	height:180px;
-	border-collapse: collapse;
-	border-bottom: 2px solid #c6d1e3;;
-}
-#formtitle{
-	height: 30px;
-	border-bottom: 2px solid #c6d1e3;
-}
-#formtitletext{
-	font-size: 22px;
-	font-weight: 600;
-	padding :3px;
-	margin-bottom: 8px;
-}
-#formitem_table1{
-	height:110px;
-	border-bottom: 2px solid #c6d1e3;
-}
-#formitem_table2{
-	height:200px;
-	border: 2px solid #c6d1e3;
-}
-.tablecol2{
-	border-left:2px solid #c6d1e3;
-	border-bottom: 2px solid #c6d1e3;;
-	padding-left: 15px;
-}
-#formitem_table3{
-	height:100px;
-	border: 2px solid #c6d1e3;
-}
-#paysubmitbtn{
-	width: 100px;
-	height: 30px;
-	border-radius: 8px;
-	background-color: #5C75E6;
-	color: white;
-}
-#paysubmitbtn:hover, #closepopupbtn:hover{
-	cursor:pointer;
-	background-color:  #68abfe;
-}	
-#paysubmitbtn:disabled{
-	background-color: gray;
-	opacity : 0.6;
-	cursor: no-drop;
-}
-input[type=checkbox]{
-	/* 체크박스 기본값 없애기 */	
-	 -webkit-appearance: none;
-     -moz-appearance: none;
-     appearance: none;
-    width:15px;
-    height:15px;
-    border-radius:3px;
-    outline: 0;
-	border : 2px solid rgb(92, 117, 230,0.3);
-	background-color:  #fff;
-}
-
-input[type="checkbox"]:checked {
-  background-color:  rgb(92, 117, 230,0.3);
-  background-image:url("/serverimg/checkicon.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-/* 팝업창  */
-#popup_t {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, .7);
-  z-index: 1;
-}
-
-#popup_t.hide {
-  display: none;
-}
-
-#popup_t.has-filter {
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
-#popup_t .content {
-	width:450px;
- 	 padding: 20px;
- 	 background: #fff;
- 	 border-radius: 5px;
- 	 box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
-}
-#popup_t .termstitle{
-	font-weight: 700;
-	font-size: 18px;
-	margin-bottom: 15px;
-	
-}
-#popup_t .termscontent{
-	margin-bottom: 45px;
-	color: #6f7792;
-}
-.terms_highligt{
-	color : black;
-	font-weight: 700;
-	margin-bottom: 10px;
-}
-#popupbtnarea{
-	height: 50px;
-}
-#closepopupbtn_t{
- 	width: 120px;
- 	height: 35px;
- 	border-radius: 8px;
-	background-color: #5C75E6;
-	color: white;
-}
-#openpop_t{
-	border: none;
-	text-decoration-line: underline;
-	cursor :pointer;
-	outline: none;
-	background-color: #f5f5f5;
-}
-#openpop_t:hover{
-	color: #5C75E6;
-}
-
-</style>
 </head>
 <body>
-<jsp:include page="../template/header.jsp" flush="true"/>
-<div id="securepaymentform">
-<div id="securepaymentinnerform">
-<div class="formitem">
-<table class="formitem_table" id="formitem_table1">
-			<colgroup>
-				<col width="15%">
-				<col width="*">
-			</colgroup>
-			<tbody>
-				<tr id="formtitle"> 
-					<td colspan="3" id="formtitletext">택배거래, 안전결제로 구매합니다.</td>
-				</tr>
-				<tr>
-					<th rowspan="2"><img src="${image_path}" width="50px" height="50px"> </th>
-					<td id="pay_price" class="price">${productdto.product_price }원</td>
-				</tr>
-				<tr>
-					<td>${productdto.product_title }</td>
-				</tr>
-			</tbody>
-		</table>
+<div id="main-div">
+	<table id="table1">
+		<tr><td colspan="2" id="title">중고마켓 계좌충전</td></tr>
+		<tr><td class="head">아이디</td><td>${dto.user_id}</td></tr>
+		<tr><td class="head">보유머니</td><td>${dto.user_money}</td></tr>
+		<tr><td>충전금액</td><td><input type=number step="1000" min="1000" id="pay_price" value=10000></td></tr>
+	</table>
+		<div id="term">
+			<span style="font-weight: 700;" id="span">
+				개인정보 제 3자 제공동의와 결제 대행 서비스 <button id="openpop_t" value="false">이용약관</button>에 동의합니다.
+			</span>
+			<input type="checkbox" name="" id="termscheck">
+		</div>
+	<input type=button id="payment-button" value="결제하기">
 </div>
-<form action="/securepaymentprocess" method="post" id="securepaymentform">
-	<div class="formitem">
-		<table  class="formitem_table" id="formitem_table2">
-			<colgroup>
-				<col width="25%">
-				<col width="25%">
-				<col width="*">
-			</colgroup>
-			<tbody>
-				<tr>
-					<th style="text-align: center;" rowspan="5">결제금액</th>
-					<td class="tablecol2">상품 금액</td>
-					<td class="tablecol2 price">${productdto.product_price }원</td>
-				</tr>
-				<tr>
-					
-					<td class="tablecol2">현재 보유 머니</td>
-					<td class="tablecol2 price">${user_money}원</td>
-				</tr>
-				<tr>
-					
-					<td class="tablecol2">결제 후 잔액</td>
-					<%-- <td><span id="pay_price">${productdto.product_price-user_money}</span>원</td> --%>
-					<td id="payprice" class="tablecol2 price">${user_money-productdto.product_price}원</td>
-				</tr>
-				<tr id="hiddenitem" style="display:none;">
-					
-					<td class="tablecol2"></td>
-					<td class="tablecol2" ><a href="">잔액충전하러가기</a></td>
-				</tr>
-				<tr>
-					
-					<td class="tablecol2">배송비</td>
-					<td class="tablecol2">배송비별도</td>
-				</tr>
-				<tr>
-					
-					<td class="tablecol2">총 결제 금액</td>
-					<td class="tablecol2 price">${productdto.product_price }원</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<div class="formitem"> 
-		<table border="1" class="formitem_table" id="formitem_table3">
-			<colgroup>
-				<col width="25%">
-				<col width="*">
-			</colgroup>
-			<tbody>
-				<tr>
-					<th style="text-align: center;"><input type="checkbox" name="" id="termscheck"> </th>
-					<td class="tablecol2" style="padding-top: 10px;">
-						<span style="font-weight: 700;">개인정보 제 3자 제공동의와 결제 대행 서비스 이용약관에<br> 동의합니다.</span>
-						<button id="openpop_t" value="false">자세히보기</button>
-						<div style="width: 400px; margin: 10px 0 10px 0;">
-						<span style="color: #7f869d; font-size: 14px;">
-							모든 상품들에 대하여, ㅇㅇ마켓은 통신판매중개자로서 중고거래마켓의 거래 당사자가 아니며,
-							입점판매자가 등록한 상품정보 및 거래에 대해 책임을 지지 않습니다. 
-						</span>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<div class="formitem" style="text-align: center;">
-		<input type="hidden" value="${productdto.product_price}" name="pay_price">
-		<input type="hidden" value="${param.product_num }" name="product_num">
-		<input type="submit" id="paysubmitbtn" value="결제하기"> 
-	</div>
-	<div id="popup_t" style="display: none;" >
-		<div class="content" style="overflow-y: scroll; height:550px;">
-	    	<p style="font-size: 16px; font-weight: 700;"> 안전페이 이용약관</p>
-	    	<div>
-		    	 <div class="termstitle">제 1조(목적)</div>
-		    	 <div class="termscontent">
+
+<div id="popup_t" style="display: none;">
+	<div class="content" style="overflow-y: scroll; height:550px;">
+	    <p style="font-size: 16px; font-weight: 700;"> 안전페이 이용약관</p>
+	    <div>
+		    <div class="termstitle">제 1조(목적)</div>
+		    <div class="termscontent">
 		    	이 약관은 ㅇㅇ 주식회사(이하 '회사'라 함)이 제공하는 
 		    	안전페이 서비스(전자지급결제대행서비스 및 결제대금예치서비스)의 이용에 관한 제반사항과   
 		    	기타 필요한 사항을 구체적으로 규정함을 목적으로 합니다.
@@ -445,11 +230,8 @@ input[type="checkbox"]:checked {
 					1. 회사는 회사가 제공하는 서비스의 원활한 진행 및 회원간 안전한 서비스 이용이 이루어지도록 하기 위하여 일정한 경우 회원자격을 정지할 수 있습니다. 회원자격이 정지된 회원은 회사가 제공하는 서비스의 이용이 제한됩니다.<br>		    	  
 		    	</div>
 	    	</div> <!-- inner -->
-		    <div id="popupbtnarea" style="text-align: center;"><button id="closepopupbtn_t">확인하였습니다</button></div>
- 	 </div>
-	</div>
-</form>
-</div>
+		<div id="popupbtnarea" style="text-align: center;"><button id="closepopupbtn_t">확인하였습니다</button></div>
+ 	</div>
 </div>
 </body>
 </html>

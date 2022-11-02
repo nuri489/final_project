@@ -113,13 +113,13 @@ public class MemberController {
 			return mv;
 		}
 		
-		@GetMapping("getmyid")
+		@GetMapping("/getmyid")
 		public String getmyid() {
 			return "member/getmyid";
 		}
 		
 		@ResponseBody
-		@PostMapping("getMyID")
+		@PostMapping("/getMyID")
 		public int getMyID(String user_email) throws Exception {
 			
 			int check = member_service.countmyid(user_email);
@@ -136,7 +136,7 @@ public class MemberController {
 		}
 		
 		@ResponseBody
-		@PostMapping("getMyPW1")
+		@PostMapping("/getMyPW1")
 		public String resetPW1(String user_id , String user_email) throws Exception {
 			
 			int check = member_service.countmyid(user_email);
@@ -162,7 +162,7 @@ public class MemberController {
 		// 본인확인을 위한 인증번호 전송
 		
 		@ResponseBody
-		@PostMapping("getMyPW2")
+		@PostMapping("/getMyPW2")
 		public String resetPW2(String user_id) throws Exception {
 
 			String password = member_service.getmypw(user_id);
@@ -170,14 +170,38 @@ public class MemberController {
 		}
 		// 본인확인 후 임시 비밀번호 전송
 		
-/*		
-		@GetMapping("/my/{user_num}")
-		public String getMemberMyPage(@PathVariable int user_num, Model model) {
+		@ResponseBody
+		@PostMapping("/my")
+		public MemberDTO getMemberMyPage(int user_num) {
 			MemberDTO dto = member_service.getUser(user_num);
-			model.addAttribute("user", dto);
-			return "member/mypage";
+			return dto;
 		}
-
+		
+		@PostMapping("/addMoneyform")
+		public ModelAndView addMoneyform(int user_num) {
+			
+			ModelAndView mv = new ModelAndView();
+			MemberDTO dto = member_service.getUser(user_num);
+			String key = member_service.createKey();
+			// 유저 정보와 거래를 위한 고유 번호
+			
+			mv.addObject("key",key);
+			mv.addObject("dto",dto);
+			mv.setViewName("member/addmoney");
+			return mv;
+		}
+		// 계좌 충전 과정 1
+		
+		@ResponseBody
+		@PostMapping("/addMoney")
+		public int addMoney(int pay_price , int user_num) {
+			
+			member_service.addmoney(pay_price, user_num);
+			return 0;
+		}
+		// 계좌 충전 과정 2
+		
+/*		
 		@GetMapping("/wish/{user_num}")
 		public String getMemberWishList(@PathVariable int user_num, Model model) {
 			List<LikeInfoDTO> dtos = member_service.getWishList(user_num);

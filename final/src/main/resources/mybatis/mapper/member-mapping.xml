@@ -51,11 +51,14 @@
 	select user_password from user_info where user_id = #{user_id}
 	</select>
 	
-<!-- 
-	<select id="selectMyPage" resultType="int" parameterType="">
+ 
+	<select id="selectMyPage" resultType="memberdto" parameterType="int">
 	 select user_num, user_id, user_money, user_name, user_tel, user_email from user_info where user_num = #{user_num}
 	 </select>
- -->	
+	 
+	 <update id="addMoney" parameterType="int">
+	 update user_info set user_money = #{pay_price} where user_num = #{user_num}
+	 </update>
 	
 	
  </mapper>

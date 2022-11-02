@@ -168,5 +168,10 @@ public class MemberService_Impl implements MemberService {
 		return key.toString();
 	}
 
+	@Override
+	public void addmoney(int pay_price, int user_num) {
+		dao.addMoney(pay_price, user_num);
+	}
+
 
 }

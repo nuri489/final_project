@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<jsp:include page="/WEB-INF/views/template/header.jsp" />
 <link rel='stylesheet' type='text/css' href='./css/AuctionPage.css'>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<jsp:include page="/WEB-INF/views/template/header.jsp" />
 <script src="js/jquery-3.6.0.min.js"></script>
 <title>Insert title here</title>
 <script>
