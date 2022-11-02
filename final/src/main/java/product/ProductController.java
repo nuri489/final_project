@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -46,7 +47,7 @@ public class ProductController {
 	AuctionService auction_service;
 	
 	//사진 저장할 폴더 경로 
-	String savePath=NaverInform.path; //이거 수정하세용~!! C://final_images/
+	String savePath=NaverInform.yssaveimgpath; //이거 수정하세용~!! C://final_images/
 	
 	
 	@RequestMapping("/getsalesform")
@@ -220,28 +221,51 @@ public class ProductController {
 				dto = pdtService.getSaleslist(user_num); // 구매 확정 건 
 				dto2 = pdtService.getSaleslist2(user_num); // 결제 완료 건 
 				dto3 = pdtService.getSaleslist3(user_num); // 운송장 번호 등록 완료건 
-				System.out.println(dto3);
+				
 				joined = Stream.concat(dto.stream(), dto2.stream())
                         .collect(Collectors.toList());
 				
 				joined = Stream.concat(joined.stream(), dto3.stream())
                         .collect(Collectors.toList());
-				
 			}
 			return joined;
 		}
 	
-	@RequestMapping("/buyinglist")
-	public ModelAndView buyinglist(int buyer_num) {
+//	@RequestMapping("/buyinglist")
+//	public ModelAndView buyinglist(int buyer_num) {
+//		
+//		ModelAndView mv = new ModelAndView();
+//		//List<ProductDTO> buyinglist = pdtService.getBuyinglist(buyer_num);
+//		List<Map<String,String>> buyinglist = pdtService.getBuyinglist(buyer_num);
+//		for(Map<String,String> s:buyinglist) {
+//			System.out.println(s);
+//		}
+//		mv.addObject("buyinglist",buyinglist);
+//		
+//		mv.setViewName("product/buyinglist");
+//		
+//		return mv;
+//	}
 		
-		ModelAndView mv = new ModelAndView();
-		List<ProductDTO> buyinglist = pdtService.getBuyinglist(buyer_num);
-		mv.addObject("buyinglist",buyinglist);
-		
-		mv.setViewName("product/buyinglist");
-		
-		return mv;
-	}
+		@RequestMapping("/buyinglist")
+		public ModelAndView buyinglist(HttpServletRequest request){
+			HttpSession session = request.getSession();
+			int buyer_num=0;
+			if(session.getAttribute("sessionUser_num")!=null) {
+				 buyer_num = (int) session.getAttribute("sessionUser_num");
+			}
+			ModelAndView mv = new ModelAndView();
+			//List<ProductDTO> buyinglist = pdtService.getBuyinglist(buyer_num);
+			List<Map<String,String>> buyinglist = pdtService.getBuyinglist(buyer_num);
+			for(Map<String,String> s:buyinglist) {
+				System.out.println(s);
+			}
+			mv.addObject("buyinglist",buyinglist);
+			
+			mv.setViewName("product/buyinglist");
+			
+			return mv;
+		}		
 	
 
 	//[승희] 판매글 수정하기

@@ -23,7 +23,7 @@ public interface ProductService {
 	List<ProductDTO> getSaleslist2(int user_num);
 	List<ProductDTO> getSaleslist3(int user_num);
 	
-	List<ProductDTO> getBuyinglist(int buyer_num);
+	List<Map<String,String>> getBuyinglist(int buyer_num);
 
 	List<ProductDTO> getAllProducts();
 	List<ProductDTO> getProductsIdol(int idol_num);
@@ -35,4 +35,6 @@ public interface ProductService {
 	void updateSales(ProductDTO dto);
 	//검색
 	List<ProductDTO> searchSimple(ProductDTO dto);
+	
+	int updateBuyerNum(ProductDTO dto);
 }
