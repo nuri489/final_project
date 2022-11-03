@@ -43,7 +43,7 @@ $(document).ready(function() {
 	<tr>
 	<td colspan="3" class="title"><div class="title" id="title"></div></td></tr>
 	<tr>
-	<td colspan="2" class="title_msg-td"><img id="thumbnail" alt="" src="/final/${image}" onerror="this.src=null; this.src='/serverimg/none.png'"></td>
+	<td colspan="2" class="title_msg-td"><img id="thumbnail" alt="" src="/images/${image}" onerror="this.src=null; this.src='/serverimg/none.png'"></td>
 	<td rowspan="6" id="msg-td">
 		<div id="container" class="container">
 			<div class="div1"></div>
