@@ -758,7 +758,7 @@ body::-webkit-scrollbar-thumb:hover {
         </div>
              
                    <div id="newsbox" style="display: none; ">
-	                   	<div id="newsinnerbox" style="overflow-y: scroll; max-height: 100px;">
+	                   	<div id="newsinnerbox" style="overflow-y: scroll; max-height: 250px;">
 	                   		<div id="newsitem">구매완료 확인 알람 띄울 거임!</div>
 	                   	</div>
 	                   	<div id="chatbox"></div>

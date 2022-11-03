@@ -58,7 +58,7 @@ li {
 	font-size : 18px;
 }
 
-#bid-div {
+#trade-div {
 	flex : 1;
 	margin: 0;
 	padding-top : 20px;
@@ -67,7 +67,7 @@ li {
 	padding-bottom: 10px;
 }
 
-.bid-table {
+.trade-table {
 	text-align : center;
 	width : 400px;
 	border-radius: 8px;
@@ -79,13 +79,17 @@ li {
 	font-size: 18px;
 }
 
+.trade-table td {
+	border : none;
+}
+
 .button-td {
 	border : none;
 	height: 15px;
 	padding: 3px;
 }
 
-.chatting-button {
+.trade-buttons {
 	cursor : pointer;
 	background-color: #5C75E6;
 	border : none;
@@ -99,54 +103,9 @@ li {
 	font-size : 25px;
 }
 
-.chatting-button:hover {
+.trade-buttons:hover {
 	transform :  scale(1.02);
 	background-color: #68abfe;
-}
-
-#bid-button {
-	cursor : pointer;
-	background-color: #5C75E6;
-	border : none;
-	border-radius: 8px;
-	width : 180px;
-	height: 55px;
-	margin-top: 5px;
-	padding: 0;
-	transition: all 0.2s;
-	color : white;
-	font-size : 25px;
-}
-
-#bid-button:hover {
-	transform :  scale(1.02);
-	background-color: #68abfe;
-}
-
-#bid-price {
-	border : none;
-	background-color : transparent;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	font-size : 18px;
-	font-weight: bold;
-	color : #5C75E6;
-}
-
-#bid-td:hover {
-	background-color : #5C75E6;
-	color : white;
-	border : 1px solid white;
-}
-
-#bid-td:hover #bid-price {
-	color : white;
-}
-
-#bid-price:focus {
-	outline: none;
-	
 }
 
 #product_contents {
@@ -284,4 +243,19 @@ td {
 	margin : 5px 2px 5px 2px;
 	padding: 0 20px 30px 30px;
 	width : 500px;
+}
+
+#market_price {
+	margin: 0 auto;
+	margin-bottom: 30px;
+	border-collapse: separate !important;
+	border-spacing: 3px;
+}
+
+#market_price_title {
+	height : 50px;
+	text-align: center;
+	font-size: 30px;
+	background-color: #5C75E6;
+	color : white;
 }

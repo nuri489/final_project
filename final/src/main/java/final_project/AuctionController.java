@@ -91,8 +91,8 @@ public class AuctionController {
 		else {
 			mv.addObject("buyer_num",buyer_num);
 			mv.addObject("request_num",request_num);
-//			mv.setViewName("auction/NormalPage");
-			mv.setViewName("auction/getdetail_normal");
+			mv.setViewName("auction/NormalPage");
+//			mv.setViewName("auction/getdetail_normal");
 //			mv.setViewName("auction/AuctionPage2");
 		}
 		
@@ -135,7 +135,7 @@ public class AuctionController {
 		else {
 			auction_service.cancle_request(product_num, user_num);
 			int request = auction_service.request_num(product_num);
-			return request;
+			return 1;
 		}
 	}
 	

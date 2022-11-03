@@ -15,26 +15,78 @@
 <script>
 $(document).ready(function() {
 	
-	if("${sessionUser_num}" != "") {
-		$("#login-button").attr('hidden',true);
-		$("#logout-button").removeAttr("hidden");
-		
-	}
-	
 	if("${sessionUser_num}" == "") {
 		
 		$("#chat-button").on('click',function(){
 			event.preventDefault();
 			window.location.replace("loginform");
 		});
-	}
-	
-	if("${sessionUser_num}" != "${product_dto.user_num}") {
 		
-		$("#list-button").css('display','none');
+		$("#request-button").on('click',function(){
+			window.location.replace("loginform");
+		});
+		
+		$("#cancle-button").on('click',function(){
+			window.location.replace("loginform");
+		});
+		
+		$("#chatting-button1").on('click',function(){
+			event.preventDefault();
+			window.location.replace("loginform");
+		});
 	}
 	else {
 		
+		$("#request-button").on('click',function(e){
+			
+			$.ajax({
+				url : 'auction_request',
+				data : {'product_num': ${product_dto.product_num}, 'user_num': "${sessionUser_num}" },
+				type : 'post',
+				dataType : 'text',
+				success : function(s) {
+					
+					if(${request_num} == s) {
+						alert("이미 요청함");
+						// 이미 요청했다면 기존의 값과 리턴된 s 값이 같으므로..
+					}
+					else {
+						location.reload();
+						}
+					}
+				});
+			});
+		
+		$("#cancle-button").on('click',function() {
+			$.ajax({
+				url : 'cancle_request',
+				data : {'product_num': ${product_dto.product_num}, 'user_num': "${sessionUser_num}" },
+				type : 'post',
+				dataType : 'text',
+				success : function(s) {
+					
+						if(s == 0) {
+							alert("요청 기록이 존재하지 않습니다.");
+						}
+						else {
+							alert("요청 취소 완료");
+							location.reload();
+						}
+					}
+				});
+			});
+		// 경매 요청 및 취소 버튼에 대한 ajax	
+	}
+	
+	if("${sessionUser_num}" != "${product_dto.user_num}") {
+		$("#accept-button").css("display","none");
+		$("#list-button").css('display','none');
+	}
+	else {
+		$("#request-button").css("display","none");
+		$("#cancle-button").css("display","none");
+		
+		$("#buy_btn").css('display','none');
 		$("#chatting-form1").css('display','none');
 
 		$.ajax({
@@ -108,6 +160,17 @@ $(document).ready(function() {
 			$(".img-list").not(this).css("border-color","black");
 		});
 	}
+	
+	$("#accept-button").on('click',function(){
+		
+		if(${request_num} < 5) {
+			alert("경매 요청이 5회 이상이어야 경매로 변경 가능합니다");
+		}
+		else {
+			location.replace('request_accepting?product_num=${product_dto.product_num}');
+		}
+	});
+	// 경매로 바꾸기 버튼에 대한 기능
 });
 </script>
 </head>
@@ -115,8 +178,9 @@ $(document).ready(function() {
 <div id="main-div">
 	<table id="info-table">
 		<tr>
-		<td rowspan="6" id="img-td" class="img"><img id="main-img" src="" onerror="this.src=null; this.src='/serverimg/none.png'"></td>
-		<td class="head">경매물품</td><td class="info">${detail_name}</td></tr>
+		<td rowspan="7" id="img-td" class="img"><img id="main-img" src="" onerror="this.src=null; this.src='/serverimg/none.png'"></td>
+		<td class="head">제목</td><td class="info">${product_dto.product_title}</td></tr>
+		<tr><td class="head">상품명</td><td class="info">${detail_name}</td></tr>
 		<tr><td class="head">판매자</td><td class="info"><a href="/userreview?user_num=${product_dto.user_num}" id="user-id">${user_id}</a></td></tr>
 		<tr><td class="head">물품번호</td><td class="info">${product_dto.product_num}</td></tr>
 		<tr><td class="head">경매요청횟수</td><td class="info">${request_num}</td></tr>
@@ -140,20 +204,28 @@ $(document).ready(function() {
 		</td></tr>
 	</table>
 	
-	<div id="bid-div">
-
-		<table class="bid-table">
+	<div id="trade-div">
+		<table class="trade-table">
+			<tr>
+			<td><input type=button id="request-button" value="경매 요청" class="trade-buttons"></td>
+			<td><input type=button id="cancle-button" value="경매 요청 취소" class="trade-buttons"></td>
+			</tr>
+			
 			<tr>
 			<td>
+			<button id="buy_btn" onclick='location.href="/getsecurepaymentform?product_num=${product_dto.product_num}"' class="trade-buttons">안전 결제</button>
+			<input type=button id="accept-button" value="경매로 바꾸기" class="trade-buttons">
+			</td>
+			
 			<td class="button-td">
 			<form action="chatting1" method="post" id="chatting-form1">
 				<input type=hidden name="buyer_num" value="${sessionUser_num}">
 				<input type=hidden name="seller_num" value="${product_dto.user_num}">
 				<input type=hidden name="product_num" value="${product_dto.product_num}">
 				<input type=hidden name="auction_check" value="${product_dto.auction_check}">
-				<input type=submit id="chat-button" class="chatting-button" value="채팅하기"><br>
+				<input type=submit id="chat-button" class="trade-buttons" value="채팅하기"><br>
 			</form>
-			<a href="#list-modal" rel="modal:open"><input type=button id="list-button" class="chatting-button" value="채팅목록"></a>
+			<a href="#list-modal" rel="modal:open"><input type=button id="list-button" class="trade-buttons" value="채팅목록"></a>
 			</td></tr>
 		</table><hr>
 		<div id="product_contents">
@@ -164,7 +236,7 @@ $(document).ready(function() {
 <div id="list-div">
 	<div id="list-modal" class="modal">
 		<h1>채 팅 목 록</h1><hr id="chat-hr1">
-		  <table id="list-table">
+		 <table id="list-table">
 			<c:forEach items="${chattinglist}" var="chat" varStatus="status">
 			<tr><td class="buyer-name">
 			<form action="chatting2" method="post" id="list-form">
@@ -177,8 +249,16 @@ $(document).ready(function() {
 			</form></td>
 			<td><div id="chat">${chat.last_chat}</div></td></tr>
 			</c:forEach>
-			</table>
+		</table>
 	</div>
-</div>
+</div><hr>
+<table id="market_price">
+<tr><td id="market_price_title">상품시세</td></tr>
+<tr><td>
+	<jsp:include page="../product/quote.jsp" flush="false">
+	<jsp:param value="${product_dto.detail_num}" name="detail_num"/>
+	</jsp:include>
+</td></tr>
+</table>
 </body>
 </html>
