@@ -74,27 +74,24 @@ public class AuctionController {
 		//사진 경로 가져오기
 		List<ChattingDTO> chattinglist = chatting_service.chattinglist(seller_num, product_num);
 		// 채팅 리스트
-		
+		mv.addObject("images",imagepath);
+		mv.addObject("user_id", user_id);
+		mv.addObject("product_dto",product_dto);
+		mv.addObject("chattinglist",chattinglist);
+		mv.addObject("detail_name",detail_name);
+		mv.addObject("count",count);
 		
 		if(check == 1) {
 			int much = auction_service.muchbid(auction_dto.auction_num) - 1;
 			// 입찰 수
-			mv.addObject("chattinglist",chattinglist);
-			mv.addObject("count",count);
-			mv.addObject("images",imagepath);
-			mv.addObject("product_dto",product_dto);
 			mv.addObject("auction_dto",auction_dto);
-			mv.addObject("user_id", user_id);
-			mv.addObject("detail_name",detail_name);
 			mv.addObject("much",much);
 			mv.setViewName("auction/AuctionPage");
 		}
 		else {
 			mv.addObject("buyer_num",buyer_num);
-			mv.addObject("chattinglist",chattinglist);
-			mv.addObject("temp_dto",product_dto);
-			mv.addObject("user_id", user_id);
 			mv.addObject("request_num",request_num);
+//			mv.setViewName("auction/NormalPage");
 			mv.setViewName("auction/getdetail_normal");
 //			mv.setViewName("auction/AuctionPage2");
 		}
@@ -192,7 +189,7 @@ public class AuctionController {
 		auctionthread = new AuctionThread(time , dto.product_num , dto.auction_method , auction_service);
 		auctionthread.start();
 		
-		return "temp_mainpage";
+		return "getproducts";
 	}
 	// 경매로 전환
 	

@@ -195,7 +195,7 @@ $(document).ready(function(){
 		// 로그아웃 버튼
 		
 		$("#header_logo").on('click',function(){
-			location.href = "temp_main";
+			location.href = "getproducts";
 		});
 		
 		$.ajax({
@@ -226,6 +226,7 @@ $(document).ready(function(){
 			height: 110px;
 			margin: 0px 0 15px 0;
 			box-shadow: 1px 2px 4px 1px rgba(0,0,0,0.35);
+			z-index: 10;
 		}
 	
         .header {
@@ -303,7 +304,7 @@ $(document).ready(function(){
         	display:flex;
         	justify-content:flex-end;
         	width: 20%;
-        	z-index: 4;
+        	z-index: 1;
         	/* border:1px solid black; */
         	
         } 
@@ -314,7 +315,7 @@ $(document).ready(function(){
         	top : -50px;
         	right : 200px;
 
-        	z-index: 1;
+        	z-index: 2;
         	border-radius:8px;
         	box-shadow: 0px 10px 6px -6px #666;
         	/* border: 1px solid black;  */
@@ -327,7 +328,7 @@ $(document).ready(function(){
         	margin : 5px 5px 5px 5px; 
         	top : -50px;
         	right : 0;
-        	z-index: 1;
+        	z-index: 0;
         	border-radius:8px;
         	box-shadow: 0px 10px 6px -6px #666;
         	/* border: 1px solid black;  */
@@ -348,14 +349,14 @@ $(document).ready(function(){
         	/* box-shadow: 0px 0px 5px #444; */
         	
         }
-        #newsbox #chatbox .chatform{
-        	min-height: 70px;
+        .chatform{
+        	min-height: 35px;
         	/* border: 1px solid black; */
         	border-radius:8px;
         	background-color: rgb(220,220,220);
         	border : 2px solid rgb(190,190,190);
-
-        	padding :10px;
+			margin : 0 auto;
+        	padding : 0;
         	box-shadow: 0px 10px 6px -6px #666;
         	/* box-shadow: 0px 0px 5px #444; */
         	
@@ -379,7 +380,7 @@ $(document).ready(function(){
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -634,7 +635,6 @@ body::-webkit-scrollbar-thumb:hover {
 	padding : 0;
 	width : 400px;
 	border : 2px solid gray;
-	border-radius : 8px;
 	border-spacing: 1px;
 	text-align: center;
 	border-collapse: separate !important;

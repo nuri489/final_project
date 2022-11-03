@@ -27,7 +27,6 @@ $(document).ready(function() {
 			event.preventDefault();
 			window.location.replace("loginform");
 		});
-		// @@@@@@@@@@@@@@@@@@@@@@@@@@@@ 로그인을 안했을 경우 버튼 표시에 대하여 논의 필요
 	}
 	else {
 		
@@ -35,7 +34,7 @@ $(document).ready(function() {
 			
 			$.ajax({
 				url : 'auction_request',
-				data : {'product_num': ${temp_dto.product_num}, 'user_num': "${sessionUser_num}" },
+				data : {'product_num': ${product_dto.product_num}, 'user_num': "${sessionUser_num}" },
 				type : 'post',
 				dataType : 'text',
 				success : function(s) {
@@ -54,7 +53,7 @@ $(document).ready(function() {
 		$("#cancle-button").on('click',function() {
 			$.ajax({
 				url : 'cancle_request',
-				data : {'product_num': ${temp_dto.product_num}, 'user_num': "${sessionUser_num}" },
+				data : {'product_num': ${product_dto.product_num}, 'user_num': "${sessionUser_num}" },
 				type : 'post',
 				dataType : 'text',
 				success : function(s) {
@@ -72,7 +71,7 @@ $(document).ready(function() {
 		// 경매 요청 및 취소 버튼에 대한 ajax	
 	}
 	
-	if("${temp_dto.user_num}" != "${sessionUser_num}") { 
+	if("${product_dto.user_num}" != "${sessionUser_num}") { 
 	// 구매자 로그인
 		
 		$("#accept-button").css("display","none");
@@ -87,7 +86,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			url : 'roomchecking',
-			data : {'seller_num':${sessionUser_num} , 'product_num':${temp_dto.product_num}},
+			data : {'seller_num':${sessionUser_num} , 'product_num':${product_dto.product_num}},
 			type : 'post',
 			dataType : 'text',
 			success : function(s) {
@@ -131,7 +130,7 @@ $(document).ready(function() {
 			alert("경매 요청이 5회 이상이어야 경매로 변경 가능합니다");
 		}
 		else {
-			location.replace('request_accepting?product_num=${temp_dto.product_num}');
+			location.replace('request_accepting?product_num=${product_dto.product_num}');
 		}
 	});
 	// 경매로 바꾸기 버튼에 대한 기능
@@ -197,8 +196,8 @@ button{
 		<!-- 이미지 슬라이드 부분 -->
 		<div id="slideShow">
 			<ul class="slides">
-		      	<c:forEach var="image" items="${imagepath}" >
-					<li><img src="resources/images/${image }" alt="사진" width="400px" height="300px"/></li>
+		      	<c:forEach var="image" items="${images}" >
+					<li><img src="/final/${image}" alt="사진" onerror="this.src=null; this.src='/serverimg/none.png'" width="400px" height="300px"/></li>
 				</c:forEach>
 		    </ul>  
 		 	<p class="controller">
@@ -222,26 +221,26 @@ button{
 		<td colspan="3"><input type=button id="accept-button" value="경매로 바꾸기"></td>
 	</tr>
 	<tr>
-		<td colspan="3" class="header"><h1>${temp_dto.product_title}</h3></td>
+		<td colspan="3" class="header"><h1>${product_dto.product_title}</h3></td>
 	</tr>
 	
 	<tr>
-		<td colspan="3"><h3>${temp_dto.product_price} 원</h3></td>
+		<td colspan="3"><h3>${product_dto.product_price} 원</h3></td>
 	</tr>
-	<tr><td colspan="3">판매자 : <a href="userreview?user_num=${temp_dto.user_num}">${user_id}</a></td></tr>
+	<tr><td colspan="3">판매자 : <a href="userreview?user_num=${product_dto.user_num}">${user_id}</a></td></tr>
 	<tr>
-		<td>안전결제여부 : ${temp_dto.safe_trade}</span></td>
+		<td>안전결제여부 : ${product_dto.safe_trade}</span></td>
 		<td>경매요청횟수 : <span id="request-val">${request_num}</span></td>
-		<td>게시날짜 : ${temp_dto.product_time}</td>
+		<td>게시날짜 : ${product_dto.product_time}</td>
 	</tr>
 	<tr>
 		<td colspan="3">
 		   <ul>
-	           <li>미개봉/개봉 : ${temp_dto.product_status1}</li>
-	           <li>공식/비공식 : ${temp_dto.product_status2}</li>
-	           <li>단종/단종아님 : ${temp_dto.product_status3}</li>
-	           <li>좋음/보통/나쁨 : ${temp_dto.product_status4}</li>
-	           <li>구성품 포함 / 미포함 : ${temp_dto.product_status5}</li>
+	           <li>미개봉/개봉 : ${product_dto.product_status1}</li>
+	           <li>공식/비공식 : ${product_dto.product_status2}</li>
+	           <li>단종/단종아님 : ${product_dto.product_status3}</li>
+	           <li>좋음/보통/나쁨 : ${product_dto.product_status4}</li>
+	           <li>구성품 포함 / 미포함 : ${product_dto.product_status5}</li>
        		</ul>
 		</td>
 	</tr>
@@ -250,28 +249,28 @@ button{
 			<input type=button id="chat_button" value="채팅">
 			<form action="chatting1" method="post" id="chatting-form1">
 				<input type=hidden name="buyer_num" value="${sessionUser_num}">
-				<input type=hidden name="seller_num" value="${temp_dto.user_num}">
-				<input type=hidden name="product_num" value="${temp_dto.product_num}">
+				<input type=hidden name="seller_num" value="${product_dto.user_num}">
+				<input type=hidden name="product_num" value="${product_dto.product_num}">
 				<input type=submit id="chatting-button1" value="판매자와 채팅하기"><br>
 			</form>
 			<form action="chatting_list" method="post" id="chatting-form2" hidden="true">
 				<input type=hidden name="seller_num" value="${sessionUser_num}">
-				<input type=hidden name="product_num" value="${temp_dto.product_num}">
+				<input type=hidden name="product_num" value="${product_dto.product_num}">
 				<input type=submit id="chatting-button2" value="채팅목록"><br>
 			</form>
 		</td>
 	</tr>
 	<tr>
-		<td colspan="4">설명 : ${temp_dto.product_contents }</td>
+		<td colspan="4">설명 : ${product_dto.product_contents }</td>
 	</tr>
 	<!-- 안전 결제 상품일 경우 안전 결제 버튼 띄우기 -->
-	<c:if test="${temp_dto.safe_trade }">
-		<tr><td colspan="4"><button id="buy_btn" onclick='location.href="/getsecurepaymentform?product_num=${temp_dto.product_num}"'>안전 결제</button></td></tr>
+	<c:if test="${product_dto.safe_trade }">
+		<tr><td colspan="4"><button id="buy_btn" onclick='location.href="/getsecurepaymentform?product_num=${product_dto.product_num}"'>안전 결제</button></td></tr>
 	</c:if>
 	<!-- 안전 결제 상품일 경우 안전 결제 버튼 띄우기 end -->
 	<!-- 시세 보기 연결 -->
 	<tr><td colspan="4"><jsp:include page="../product/quote.jsp" flush="false">
-		<jsp:param value="${temp_dto.detail_num}" name="detail_num"/>
+		<jsp:param value="${product_dto.detail_num}" name="detail_num"/>
 	</jsp:include></td></tr>
 </table>
 </div>

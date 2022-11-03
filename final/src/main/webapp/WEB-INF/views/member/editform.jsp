@@ -14,6 +14,10 @@
 <script>
 $(document).ready(function() {
 	
+	if("${sessionUser_num}" == "") {
+		window.location.replace("getproducts");
+	}
+	
 
 	$("#edit-button").on('click',function(){
 		

@@ -319,12 +319,9 @@ $(document).ready(function() {
 		<tr><td class="head">입찰방식</td><td class="info"><div id="auction-method"></div></td></tr>
 		<tr><td class="head">입찰 수</td><td class="info"><div id="much-bid">${much}</div></td></tr>
 		<tr><td rowspan="2" class="img">
-			<!-- 이미지 슬라이드 부분 -->
-			<ul class="slides">
 			    <c:forEach var="image" items="${images}">
 				<li><img class="img-list" src="/final/${image}" onerror="this.src=null; this.src='/serverimg/none.png'"></li>
 				</c:forEach>
-			</ul>  
 		</td>
 		<td class="head">안전거래</td><td class="info"><div id="safe-trade"></div></td>
 		</tr>
