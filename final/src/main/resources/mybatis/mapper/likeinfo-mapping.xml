@@ -5,26 +5,13 @@
 <mapper namespace="likeinfo.LikeInfoDAO">
 	
 	<select id="selectMemberWishList" resultType="likeinfodto" parameterType="int">
-		select 
-			pi.user_num,
-			pi.product_num,
-			pi.product_title,
-			pi.product_price,
-			ig.image_path,
-			ui.user_name
-		from (
-		
-		product_info as pi
-		join like_info as li
-		on pi.product_num = li.product_num
-		
-		join image as ig
-		on pi.product_num = ig.product_num
-		
-		join user_info as ui
-		on pi.user_num = ui.user_num
-
-		where li.user_num = #{user_num})
+select * from (select pi.product_num,product_title,ui.user_name,product_price,image_path,li.user_num,
+    rank() over (partition by i.product_num order by image_path) as rnk 
+    from product_info pi left join image i on pi.product_num=i.product_num
+      left JOIN user_info ui ON pi.user_num = ui.user_num
+     left JOIN like_info li on pi.product_num = li.product_num
+   where li.user_num = #{user_num})
+    as rankrow where rankrow.rnk=1 order by product_num;
 	</select>
 	
 

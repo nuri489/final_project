@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <jsp:include page="../template/header.jsp" flush="true"/>
-<link rel='stylesheet' type='text/css' href='./css/buyinglist.css'>
+<link rel='stylesheet' type='text/css' href='./css/wishlist2.css'>
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -20,8 +20,8 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-<table>
-	<tr><td>제품번호</td><td>판매자</td><td>제목</td><td>가격</td></tr>
+<table id="wish-table">
+	<tr><td class="head">제품번호</td><td class="head">판매자</td><td class="head">제목</td><td class="head">가격</td></tr>
 		<c:forEach items="${dto}" var="dto" varStatus="status">
 			<tr><td>${dto.product_num}</td><td><a href="">${dto.user_name}</a></td><td><a href="">${dto.product_title}</a></td><td>${dto.product_price}</td></tr>
 </c:forEach>

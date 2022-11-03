@@ -1,0 +1,16 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
+
+body {
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size : 16px;
+}
+
+#wish-table {
+	border-collapse: separate !important;
+	border-spacing: 1.5px;
+}
+
+#wish-table td {
+	border : 1px solid black;
+}
