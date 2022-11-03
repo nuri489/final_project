@@ -4,7 +4,9 @@ public class NaverInform {
 	
 	public final static String id = "";
 	public final static String password = "";
-	public final static String path = "D:\\Download\\chatting/";
+	//public final static String path = "D:\\Download\\chatting/";
+	public final static String path = "/root/chatting/";
+	//public final static String path = "/Users/choiyoonseo/Documents/chatting/";
 	public final static String yspath = "/Users/choiyoonseo/Documents/chatting/";
 	public final static String voice_id = "toes1a91cu";
 	public final static String voice_key = "7Ylcac8x908YBz40zx8031Ph3D1W4r289krlVb89";
@@ -16,5 +18,6 @@ public class NaverInform {
 	public final static String chatbot_key = "UVhLWXlDc0tGWkNITmxEZHJWc3VmZXpnbW50bkprc3c=";
 
 	
-	public final static String yssaveimgpath = "/Users/choiyoonseo/Documents/final_images/";
+	//public final static String yssaveimgpath = "/Users/choiyoonseo/Documents/final_images/";
+	public final static String yssaveimgpath = "/root/final_images/";
 }
