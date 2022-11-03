@@ -82,4 +82,7 @@
   	<select id="getProductOne" parameterType="int" resultType="productdto">
   		select * from product_info where product_num = #{product_num}
   	</select>
+  	<update id="updateSellerMoney" parameterType="productdto">
+  		update user_info set user_money = user_money + #{product_price} where user_num = #{user_num}
+  	</update>
   </mapper>

@@ -149,6 +149,9 @@ public class SecurePaymentController {
 		securePaymentService.updateProductSell2(num);
 		// product_info product_sell true로 업뎃 시켜줌 
 		// productService로하는게 나은지 ..?
+		//판매자에게 돈 넣어줌
+		ProductDTO pdtdto = securePaymentService.getProductOne(product_num);
+		securePaymentService.updateSellerMoney(pdtdto);
 		int result = securePaymentService.updateProductSell(product_num);
 		if(result>0) {
 			return "{\"result\" : \"success\"}";

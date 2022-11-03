@@ -80,6 +80,11 @@ public class SecurePaymentServiceImpl implements SecurePaymentService {
 	public ProductDTO getProductOne(int product_num) {
 		return securePaymentDAO.getProductOne(product_num);
 	}
+
+	@Override
+	public int updateSellerMoney(ProductDTO dto) {
+		return securePaymentDAO.updateSellerMoney(dto);
+	}
 	
 	
 	
