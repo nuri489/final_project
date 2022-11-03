@@ -14,7 +14,7 @@ public class web_config implements WebMvcConfigurer {
 		registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/"); 
 		registry.addResourceHandler("/serverimg/**").addResourceLocations("classpath:/static/images/"); 
 		registry.addResourceHandler("/images/**").addResourceLocations("file:/root/final_images/"); 
-		registry.addResourceHandler("/final/**").addResourceLocations("file:/"+NaverInform.path);
+		registry.addResourceHandler("/final/**").addResourceLocations("file:"+NaverInform.path);
 		// file: ~~ 경로에 있는걸(이미지 등) 호출하는 URL은 8092/final/~~~ 이다.
 	
 	}
