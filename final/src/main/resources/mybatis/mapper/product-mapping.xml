@@ -24,6 +24,10 @@
   		<id column="billing_number" property="billing_number"/>
   		<id column="pay_price" property="pay_price"/>
   		<id column="image_path" property="image_path"/>
+  		<id column="elapsed_date" property="elapsed_date"/>
+  		<id column="elapsed_date2" property="elapsed_date2"/>
+  		<id column="seller_check" property="seller_check"/>
+  		<id column="pay_time" property="pay_time"/>
   	</resultMap>
   	
   	<select id="getpdtDetailTags" parameterType="String" resultType="product.ProductDetailDTO">
@@ -126,11 +130,18 @@
 	</select>
 	
 	
-	<select id="getBuying_list" parameterType="int" resultType="productdto">
+		<!-- <select id="getBuying_list" parameterType="int" resultType="productdto">
 		select * from (select pi.product_num,product_title, pi.user_num,product_price,product_time,safe_trade,auction_check,product_sell,detail_num,image_path,user_name,
 		rank() over (partition by i.product_num order by image_path) as rnk 
-		from product_info as pi left join image as i on pi.product_num=i.product_num left join user_info as u on pi.user_num = u.user_num
+		from product_info as pi left join image as i on pi.product_num=i.product_num left join user_info as u on pi.user_num = u.user_num join payment_info pmi on pi.product_num = pmi.product_num 
 		where buyer_num = #{buyer_num}) as rankrow where rankrow.rnk=1 order by product_time desc;
+	</select> -->
+	<select id="getBuying_list" parameterType="int" resultMap="getproducts">
+		select * from (select pi.product_num,product_title, pi.user_num,product_price,product_time,safe_trade,auction_check,product_sell,detail_num,image_path,user_name, DATEDIFF(now(), pay_time)
+ 		as elapsed_date , date_format(pay_time,'%Y-%m-%d %H:%i:%S') as pay_time, seller_check, buyer_check, billing_number, DATEDIFF(now(), seller_check) as elapsed_date2, 
+		rank() over (partition by i.product_num order by image_path) as rnk 
+		from product_info as pi left join image as i on pi.product_num=i.product_num left join user_info as u on pi.user_num = u.user_num left join payment_info pmi on pi.product_num = pmi.product_num 
+		where pmi.user_num = #{buyer_num} and pi.product_sell!=0) as rankrow where rankrow.rnk=1 order by product_time desc
 	</select>
 	<!-- 구매목록 -->
 	
@@ -178,7 +189,7 @@
 	<!-- 판매자 : 결제 완료 된 건 가져오기  -->
 	<select id="getSaleslist2" parameterType="int" resultType="productdto">
 		select * from product_info pi join payment_info pmi on pi.product_num = pmi.product_num 
-		where DATEDIFF(now(), pmi.pay_time) between 0 and 3 and product_sell = 3 and pi.user_num = #{user_num}
+		where DATEDIFF(now(), pmi.pay_time) between 0 and 3 and product_sell = 3 and pi.user_num = #{user_num} 
 	</select>
 	
 	<!-- 구매자 : 운송장번호 등록 완료 된 건 가져오기  -->
@@ -186,4 +197,9 @@
 		select * from product_info pi join payment_info pmi on pi.product_num = pmi.product_num 
 		where DATEDIFF(now(), pmi.seller_check) between 0 and 7 and product_sell = 4 and pmi.user_num = #{user_num}
 	</select>
+	
+		<!-- buyer_num 업데이트 -->
+	<update id="updateBuyerNum" parameterType="productdto">
+		update product_info set buyer_num = #{user_num} where product_num = #{product_num}
+	</update>
   </mapper>
