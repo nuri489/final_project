@@ -197,7 +197,7 @@ button{
 		<div id="slideShow">
 			<ul class="slides">
 		      	<c:forEach var="image" items="${images}" >
-					<li><img src="/final/${image}" alt="사진" onerror="this.src=null; this.src='/serverimg/none.png'" width="400px" height="300px"/></li>
+					<li><img src="/images/${image}" alt="사진" onerror="this.src=null; this.src='/serverimg/none.png'" width="400px" height="300px"/></li>
 				</c:forEach>
 		    </ul>  
 		 	<p class="controller">

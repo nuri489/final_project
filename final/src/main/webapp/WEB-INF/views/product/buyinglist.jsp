@@ -261,7 +261,7 @@ textarea{
 <c:forEach items="${buyinglist}" var="product_dto" varStatus="status">
 <tr>
 <td>${product_dto.product_num}</td>
-<td><a href="productdetail?product_num=${product_dto.product_num}" class="a">${product_dto.product_title}</a><div class="img-div"><img class="thumbnail" src="${product_dto.image_path}" onerror="this.src=null; this.src='/serverimg/none.png'"></div></td>
+<td><a href="productdetail?product_num=${product_dto.product_num}" class="a">${product_dto.product_title}</a><div class="img-div"><img class="thumbnail" src="/images/${product_dto.image_path}" onerror="this.src=null; this.src='/serverimg/none.png'"></div></td>
 <td><a href="/userreview?user_num=${product_dto.user_num}" class="a">${product_dto.user_name}</a></td>
 <td id="product_price">${product_dto.product_price}원</td>
 <td>${product_dto.pay_time}</td>
