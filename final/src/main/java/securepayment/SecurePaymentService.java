@@ -20,4 +20,6 @@ public interface SecurePaymentService  {
 
 	int getUserMoney(int user_num);
 	ProductDTO getProductOne(int product_num);
+	
+	int updateSellerMoney(ProductDTO dto);
 }
