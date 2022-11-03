@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import product.ProductDTO;
@@ -41,4 +42,7 @@ public interface MemberDAO {
 	
 	public void addMoney(int pay_price , int user_num);
 	// 계좌 충전
+	
+	public void editAccount(@Param("user_num") int user_num , @Param("user_name") String user_name , @Param("user_email") String user_email , @Param("user_tel") String user_tel);
+	public void changePassword(@Param("user_num") int user_num , @Param("user_password") String user_password);
 }

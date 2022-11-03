@@ -203,6 +203,45 @@ public class MemberController {
 		}
 		// 계좌 충전 과정 2
 		
+		@GetMapping("/editAccount")
+		public ModelAndView editAccount(int user_num) {
+			
+			ModelAndView mv = new ModelAndView();
+			MemberDTO dto = member_service.getUser(user_num);
+
+			mv.addObject("dto",dto);
+			mv.setViewName("member/editform");
+			return mv;
+		}
+		
+		@ResponseBody
+		@PostMapping("/editdone")
+		public int editDone(int user_num , String user_name , String user_email , String user_tel) {
+
+			member_service.editaccount(user_num, user_name, user_email, user_tel);
+			
+			return 1;
+		}
+		
+		@ResponseBody
+		@PostMapping("/passwordChange1")
+		public String passwordChange1(String user_id , String user_email) throws UnsupportedEncodingException, MessagingException {
+			
+			String key = member_service.createKey();
+			member_service.createMessage2(user_email, user_id, key);
+			// 인증번호 이메일 전송
+			
+			return key;
+		}
+		
+		@ResponseBody
+		@PostMapping("/passwordChange2")
+		public int passwordChange2(int user_num , String user_password) {
+			
+			member_service.changepassword(user_num, user_password);
+			return 0;
+		}
+		
 /*		
 		@GetMapping("/wish/{user_num}")
 		public String getMemberWishList(@PathVariable int user_num, Model model) {

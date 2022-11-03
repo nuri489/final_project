@@ -181,9 +181,6 @@ $(document).ready(function(){
 			
 		}
 		
-	    
-
-
     	$("#logout-button").on('click',function(e){
     		
     		$.ajax({
@@ -201,8 +198,6 @@ $(document).ready(function(){
 			location.href = "temp_main";
 		});
 		
-		
-
 		$.ajax({
 			url : 'my',
 			type : 'post',
@@ -308,6 +303,7 @@ $(document).ready(function(){
         	display:flex;
         	justify-content:flex-end;
         	width: 20%;
+        	z-index: 4;
         	/* border:1px solid black; */
         	
         } 
@@ -348,10 +344,11 @@ $(document).ready(function(){
         	margin-top :6px;
         	padding :10px;
         	box-shadow: 0px 10px 6px -6px #666;
+        	z-index: 1;
         	/* box-shadow: 0px 0px 5px #444; */
         	
         }
-        #newsbox #chatbox1 .chatform{
+        #newsbox #chatbox .chatform{
         	min-height: 70px;
         	/* border: 1px solid black; */
         	border-radius:8px;
@@ -388,7 +385,7 @@ $(document).ready(function(){
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, .7);
-  z-index: 1;
+  z-index: 5;
 }
 
 #popup.hide {
@@ -495,7 +492,7 @@ textarea{
 }
 .circle{
 	position: absolute;
-	right : 310px;
+	right : 360px;
 	top : -30px;
 	width:7px;
 	height: 7px;
@@ -570,20 +567,20 @@ textarea{
 	transform: scale(1.03);
 }
 
-*::-webkit-scrollbar {
+body::-webkit-scrollbar {
 	width : 10px;
 	border : none;
 	background-color: transparent;
 }
 
-*::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb {
 	border : none;
 	background-color : #5C75E6;
 	border-radius: 8px;
 	transition: all 0.2s;
 }
 
-*::-webkit-scrollbar-thumb:hover {
+body::-webkit-scrollbar-thumb:hover {
 	background-color : #68abfe;
 	border-radius: 8px;
 }
@@ -609,7 +606,7 @@ textarea{
 
 #news {
 	position: absolute;
-	right : 295px;
+	right : 345px;
 	top : -30px;
 }
 
@@ -624,7 +621,7 @@ textarea{
 	right : 80px;
 	top : 15px;
 }
-<<<<<<< HEAD
+
 
 #mypage-modal {
 	width : 500px;
@@ -713,6 +710,8 @@ textarea{
 
 #chatbotlink{
 	position: absolute;
+	right : 265px;
+	top : 15px;
 }
 
     </style>
@@ -796,7 +795,7 @@ textarea{
 		<li class="mypage-li"><a href="/wish/${user.user_num}" class="mypage-a">찜 목록</a></li>
 		<li class="mypage-li"><a href="sellproductlist" class="mypage-a">판매내역</a></li>
 		<li class="mypage-li"><a href="buyinglist?buyer_num=${sessionUser_num}" class="mypage-a">구매내역</a></li>
-		<li class="mypage-li"><a href="" class="mypage-a">정보수정</a></li>
+		<li class="mypage-li"><a href="editAccount?user_num=${sessionUser_num}" class="mypage-a">정보수정</a></li>
 		<li class="mypage-li">
 			<form action="addMoneyform" method="post">
 				<input type=hidden value="${sessionUser_num}" name="user_num">

@@ -1,0 +1,150 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
+
+body {
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size : 16px;
+}
+
+#edit-table {
+	margin: 0 auto;
+	margin-top : 30px;
+	border-collapse: separate !important;
+	border-spacing: 1.5px;
+	text-align: center;
+	font-size: 18px;
+}
+
+#edit-table td {
+	border : 1px solid black;
+	border-radius : 8px;
+	height: 75px;
+}
+
+#title {
+	color : white;
+	background-color: #5C75E6;
+	font-size: 20px;
+}
+
+#edit-table a {
+	color : #5C75E6;
+	font-weight: bold;
+	transition: all 0.2s ;
+}
+
+#edit-table a:hover {
+	color: #68abfe;
+	transform: scale(1.03);
+}
+
+.head {
+	width : 120px;
+}
+
+.child {
+	width : 450px;
+}
+
+#edit-table input {
+	width : 100%;
+	height : 100%;
+	text-align: center;
+	background-color: #5C75E6;
+	color : white;
+	outline: 0.5px solid #5C75E6;
+	border : none;
+	border-radius : 8px;
+	transition: all 0.2s ;
+}
+
+#edit-table input:hover {
+	background-color: #68abfe;
+	color : black;
+}
+
+#edit-button {
+	margin: 0 auto;
+	margin-top : 30px;
+	width : 200px;
+	height : 80px;
+	font-size : 20px;
+	text-align: center;
+	background-color: #5C75E6;
+	border-radius : 8px;
+	color : white;
+	outline: none;
+	border : none;
+	transition: all 0.2s ;
+	display: block;
+}
+
+#edit-button:hover {
+	background-color: #68abfe;
+	color : black;
+	transform: scale(1.03);
+}
+
+#password-modal {
+	width : 500px;
+}
+
+.password-table {
+	margin: 0 auto;
+	border-collapse: separate !important;
+	border-spacing: 2px;
+	border : none;
+	text-align: center;
+	font-size: 16px;
+}
+
+
+#key2 , #password-change , #user_email2 {
+	width : 100%;
+	height: 100%;
+	border: 1px solid black;
+	border-radius : 8px;
+	transition: all 0.2s;
+}
+
+#key2:hover , #password-change:hover , #user_email2:hover {
+	border : 1px solid #5C75E6;
+	background-color: #f0f0f0;
+}
+
+#user_email2 {
+	color : #5C75E6;
+}
+
+.modal-head {
+	width : 230px;
+	height: 40px;
+	border : none;
+}
+
+.modal-child {
+	width : 200px;
+	border : none;
+}
+
+#button2 , #button3 {
+	width : 180px;
+	height : 35px;
+	background-color: #5C75E6;
+	border : none;
+	border-radius: 8px;
+	color : white;
+	transition: all 0.2s;
+}
+
+#button2:hover , #button3:hover {
+	background-color: #68abfe;
+	color : black;
+}
+
+#check2 {
+	margin: 0 auto;
+	text-align : center;
+	margin-top: 5px;
+	color : red;
+}

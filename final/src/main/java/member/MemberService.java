@@ -44,4 +44,7 @@ public interface MemberService {
 	
 	public void addmoney(int pay_price , int user_num);
 	// 계좌 충전
+	
+	public void editaccount(int user_num , String user_name , String user_email , String user_tel);
+	public void changepassword(int user_num , String user_password);
 }

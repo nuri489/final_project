@@ -178,5 +178,15 @@ public class MemberService_Impl implements MemberService {
 		dao.addMoney(pay_price, user_num);
 	}
 
+	@Override
+	public void editaccount(int user_num, String user_name, String user_email, String user_tel) {
+		dao.editAccount(user_num, user_name, user_email, user_tel);
+	}
+
+	@Override
+	public void changepassword(int user_num, String user_password) {
+		dao.changePassword(user_num, user_password);
+	}
+
 
 }

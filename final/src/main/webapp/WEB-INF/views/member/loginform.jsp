@@ -166,7 +166,7 @@ $(document).ready(function() {
 			}
 		}
 		else {
-			$("#result").html("인증번호를 먼저 발급 받아야 합니다");
+			$("#check2").html("인증번호를 먼저 발급 받아야 합니다");
 		}
 	});
 
