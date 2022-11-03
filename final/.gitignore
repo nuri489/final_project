@@ -4,8 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-# ignore
-src/main/resources/application.properties
+
 
 ### STS ###
 .apt_generated
@@ -36,5 +35,3 @@ build/
 .vscode/
 /.metadata/
 
-#Email
-src/main/java/member/MailConfig.java
