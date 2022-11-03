@@ -4,8 +4,8 @@ public class NaverInform {
 	
 	public final static String id = "";
 	public final static String password = "";
-	//public final static String path = "D:\\Download\\chatting/";
-	public final static String path = "/root/chatting/";
+	public final static String path = "D:\\Download\\chatting/";
+//	public final static String path = "/root/chatting/";
 	//public final static String path = "/Users/choiyoonseo/Documents/chatting/";
 	public final static String yspath = "/Users/choiyoonseo/Documents/chatting/";
 	public final static String voice_id = "toes1a91cu";

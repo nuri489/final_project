@@ -6,9 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>판매 목록 보기</title>
+<jsp:include page="/WEB-INF/views/template/header.jsp" />
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function(){
+	
+	if("${sessionUser_num}" == "") {
+		window.location.replace("getproducts");
+	}
+	
 	$('.idol_name_btn_e').on('mouseover', function(){
 		var idol =$(this).val();
 		if(idol=='bts'){
@@ -391,10 +397,10 @@ a:hover{
 							<div class="product_item">
 							<!-- src=""부분 경로 본인에 맞춰서 작성해야합니다! -->
 						<div>
-						<c:if test="${p.product_sell == 1 }"><img alt="등록된 이미지 없음" src="resources/images/soldout.png"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;"></c:if>
+						<c:if test="${p.product_sell == 1 }"><img alt="등록된 이미지 없음" src="resources/images/soldout.png"  OnClick= "location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;" onerror="this.src=null; this.src='/serverimg/none.png'"></c:if>
 						<c:if test="${p.product_sell == 0 }">
-							<c:if test="${not empty p.image_path }"><img alt="등록된 이미지 없음" src="resources/images/${p.image_path}"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;"></c:if>
-							<c:if test="${empty p.image_path }"><img alt="등록된 이미지 없음" src="/serverimg/noimage.png"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;"></c:if>
+							<c:if test="${not empty p.image_path }"><img alt="등록된 이미지 없음" src="resources/images/${p.image_path}"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;" onerror="this.src=null; this.src='/serverimg/none.png'"></c:if>
+							<c:if test="${empty p.image_path }"><img alt="등록된 이미지 없음" src="/serverimg/noimage.png"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;" onerror="this.src=null; this.src='/serverimg/none.png'"></c:if>
 						</c:if>
 							<!-- 윤서님이 만들어주신 전체 판매목록 보기 JSP를 사용했습니다! 따라서 찜목록 부분만 지우고 나머지는 동일합니다! -->
 						</div>

@@ -150,8 +150,8 @@ $(document).ready(function() {
 									var really = confirm("보유 머니가 부족합니다! 충전하시겠습니까?");
 									
 									if(really) {
-										window.location.replace("temp_main");
-										// 보유 머니 충전 페이지로 바꾸자@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+										window.location.replace("addMoneyform?user_num=${sessionUser_num}");
+										
 									}
 									else { }
 			
@@ -218,8 +218,7 @@ $(document).ready(function() {
 										var really = confirm("보유 머니가 부족합니다! 충전하시겠습니까?");
 										
 										if(really) {
-											window.location.replace("temp_main");
-											// 보유 머니 충전 페이지로 바꾸자@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+											window.location.replace("addMoneyform?user_num=${sessionUser_num}");
 										}
 										else { }
 				
@@ -278,14 +277,6 @@ $(document).ready(function() {
 	}
 	// 상품 상태
 	
-	if("${product_dto.safe_trade}" == 0) {
-		$("#safe-trade").html("불가능");
-	}
-	else {
-		$("#safe-trade").html("가능");
-	}
-	
-	
 	var count = ${count};
 	// 이미지 갯수
 	
@@ -322,9 +313,6 @@ $(document).ready(function() {
 			    <c:forEach var="image" items="${images}">
 				<li><img class="img-list" src="/final/${image}" onerror="this.src=null; this.src='/serverimg/none.png'"></li>
 				</c:forEach>
-		</td>
-		<td class="head">안전거래</td><td class="info"><div id="safe-trade"></div></td>
-		</tr>
 		<tr>
 		<td class="head" id="statu-td">물품 상태</td>
 		<td>

@@ -792,12 +792,12 @@ body::-webkit-scrollbar-thumb:hover {
 <table id="mypage-table"></table>
 
 	<ul id="mypage-ul">
-		<li class="mypage-li"><a href="/wish/${user.user_num}" class="mypage-a">찜 목록</a></li>
+		<li class="mypage-li"><a href="/wish2?user_num=${sessionUser_num}" class="mypage-a">찜 목록</a></li>
 		<li class="mypage-li"><a href="sellproductlist" class="mypage-a">판매내역</a></li>
 		<li class="mypage-li"><a href="buyinglist?buyer_num=${sessionUser_num}" class="mypage-a">구매내역</a></li>
 		<li class="mypage-li"><a href="editAccount?user_num=${sessionUser_num}" class="mypage-a">정보수정</a></li>
 		<li class="mypage-li">
-			<form action="addMoneyform" method="post">
+			<form action="addMoneyform">
 				<input type=hidden value="${sessionUser_num}" name="user_num">
 				<input type=submit value="머니충전" id="charge-button" class="mypage-a">
 			</form>

@@ -5,13 +5,23 @@ public class LikeInfoDTO {
 	int user_num;
 	int product_num;
 	String product_title;
-	String product_contents;
 	int product_price;
 	String product_time;
-	String idol_num;
-	int category_num;
-	String category_name;
+	String image_path;
+	String user_name;
 	
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public String getImage_path() {
+		return image_path;
+	}
+	public void setImage_path(String image_path) {
+		this.image_path = image_path;
+	}
 	public int getUser_num() {
 		return user_num;
 	}
@@ -30,12 +40,6 @@ public class LikeInfoDTO {
 	public void setProduct_title(String product_title) {
 		this.product_title = product_title;
 	}
-	public String getProduct_contents() {
-		return product_contents;
-	}
-	public void setProduct_contents(String product_contents) {
-		this.product_contents = product_contents;
-	}
 	public int getProduct_price() {
 		return product_price;
 	}
@@ -47,24 +51,6 @@ public class LikeInfoDTO {
 	}
 	public void setProduct_time(String product_time) {
 		this.product_time = product_time;
-	}
-	public String getIdol_num() {
-		return idol_num;
-	}
-	public void setIdol_num(String idol_num) {
-		this.idol_num = idol_num;
-	}
-	public int getCategory_num() {
-		return category_num;
-	}
-	public void setCategory_num(int category_num) {
-		this.category_num = category_num;
-	}
-	public String getCategory_name() {
-		return category_name;
-	}
-	public void setCategory_name(String category_name) {
-		this.category_name = category_name;
 	}
 
 	

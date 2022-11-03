@@ -10,8 +10,6 @@
 <script>
 $(document).ready(function(){
 	
-
-	
 	$('.idol_name_btn_e').on('mouseover', function(){
 		var idol =$(this).val();
 		if(idol=='bts'){

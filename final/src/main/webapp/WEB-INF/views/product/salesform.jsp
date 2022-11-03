@@ -9,6 +9,10 @@
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function(){
+	
+	if("${sessionUser_num}" == "") {
+		window.location.replace("getproducts");
+	}
 
 	
 	//태그 자동 추천 함수

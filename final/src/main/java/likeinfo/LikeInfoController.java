@@ -30,17 +30,25 @@ public class LikeInfoController {
 	 * @param user_num 유저 식별자
 	 */
 
-	@GetMapping("/wish")
-	public ModelAndView getMemberWishList(int user_num) {
-		
-		ModelAndView mv = new ModelAndView();
+	@GetMapping("/wish/{user_num}")
+	public String getMemberWishList(@PathVariable int user_num, Model model) {
 		List<LikeInfoDTO> dtos = likeinfoservice.getWishList(user_num);
+		System.out.println(dtos);
+		model.addAttribute("dtos", dtos);
+		return "likeinfo/wishlist";
+	
+	}
+	// 찜 목록 수량 수정
+	//@PostMapping("/wish/update")
+	
+	
+	@GetMapping("/wish2")
+	public ModelAndView ggg(int user_num) {
+		List<LikeInfoDTO> dto = likeinfoservice.getWishList(user_num);
+		ModelAndView mv = new ModelAndView();
 		
-		mv.addObject("dtos",dtos);
-//		model.addAttribute("dtos", dtos);
-		
-		mv.setViewName("likeinfo/wishlist");
-		
+		mv.addObject("dto",dto);
+		mv.setViewName("likeinfo/wishlist2");
 		return mv;
 	}
 

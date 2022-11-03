@@ -10,9 +10,14 @@ public class LikeInfoServiceImpl implements LikeInfoService {
 	@Autowired
 	LikeInfoDAO dao;
 	
+	// 찜 목록
 	@Override
 	public List<LikeInfoDTO> getWishList(int user_num) {
 		return dao.selectMemberWishList(user_num);
 	}
-
+	/*public int deleteLikeInfo(int likeinfoId) {
+		return likeinfoMapper.deletelikeinfo(likeinfoId);
+	}*/
+		
+	//
 }

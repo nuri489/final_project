@@ -1,69 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+  
 <mapper namespace="likeinfo.LikeInfoDAO">
-
-<!-- 
-	<select id="selectMemberWishList" parameterType="int" resultType="likeinfodto">
-
-<select id="selectMemberWishList" resultType="likeinfodto" parameterType="int">
+	
+	<select id="selectMemberWishList" resultType="likeinfodto" parameterType="int">
 		select 
-			li.user_num,
-			li.product_num,
+			pi.user_num,
 			pi.product_num,
 			pi.product_title,
-			pi.idol_num,
-			pi.category_num,
-			pi.user_num,
-			pi.product_contents,
 			pi.product_price,
-			pi.product_time,
-			pc.category_name
-		from like_info li
-		inner join product_info pi
-		on li.product_num = pi.product_num
-		inner join product_category pc
-		on pi.category_num = pc.category_num
-		where li.user_num = #{user_num}
+			ig.image_path,
+			ui.user_name
+		from (
+		
+		product_info as pi
+		join like_info as li
+		on pi.product_num = li.product_num
+		
+		join image as ig
+		on pi.product_num = ig.product_num
+		
+		join user_info as ui
+		on pi.user_num = ui.user_num
+
+		where li.user_num = #{user_num})
 	</select>
+	
 
-	<select id="selectMemberWishList" resultMap="likeinfodto">
-		select 
-			li.user_num,
-			li.product_num,
-			pi.product_num,
-			pi.product_title,
-			pi.idol_num,
-			pi.category_num,
-			pi.user_num,
-			pi.product_contents,
-			pi.product_price,
-			pi.product_time,
-			pc.category_name
-		from like_info li
-		inner join product_info pi
-		on li.product_num = pi.product_num
-		inner join product_category pc
-		on pi.category_num = pc.category_num
-		where li.user_num = #{user_num}
-	</select>
-	<resultMap type="ProductDTO" id="product">
-		<result column="product_title" property="product_title"/>
-		<result column="product_contents" property="product_contents"/>
-		<result column="product_price" property="product_price"/>
-		<result column="product_time" property="product_time"/>
-	</resultMap>
+	
 
-	<resultMap type="LikeInfoDTO" id="likeInfo">
-		<id column="user_num" property="user_num"/>
-		<id column="product_num" property="product_num"/>
-	</resultMap>
-
-
-	<select id="selectMemberWishList" resultMap="likeInfo">
-		select * from like_info
-	</select>
- -->	
 
 </mapper>

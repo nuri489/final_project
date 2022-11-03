@@ -179,7 +179,7 @@ public class MemberController {
 			return dto;
 		}
 		
-		@PostMapping("/addMoneyform")
+		@GetMapping("/addMoneyform")
 		public ModelAndView addMoneyform(int user_num) {
 			
 			ModelAndView mv = new ModelAndView();

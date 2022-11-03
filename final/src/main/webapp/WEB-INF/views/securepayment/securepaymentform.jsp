@@ -250,7 +250,7 @@ input[type="checkbox"]:checked {
 					<td colspan="3" id="formtitletext">택배거래, 안전결제로 구매합니다.</td>
 				</tr>
 				<tr>
-					<th rowspan="2"><img src="${image_path}" width="50px" height="50px"> </th>
+					<th rowspan="2"><img src="${image_path}" width="50px" height="50px" onerror="this.src=null; this.src='/serverimg/none.png'"> </th>
 					<td id="pay_price" class="price">${productdto.product_price }원</td>
 				</tr>
 				<tr>
