@@ -189,7 +189,7 @@ $(document).ready(function() {
 		<tr>
 				<tr><td rowspan="2" class="img">
 			    <c:forEach var="image" items="${images}">
-				<li><img class="img-list" src="/final/${image}" onerror="this.src=null; this.src='/serverimg/none.png'"></li>
+				<li><img class="img-list" src="/images/${image}" onerror="this.src=null; this.src='/serverimg/none.png'"></li>
 				</c:forEach>
 		</td>
 		<td class="head" id="statu-td">물품 상태</td>
