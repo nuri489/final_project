@@ -426,7 +426,7 @@ a:hover{
 						<div class="product_info"  OnClick="location.href ='productdetail?product_num=${p.product_num}'" style="cursor: pointer;">
 							<div class="product_title" style="font-weight: 700;margin-bottom: 5px;"><a>${p.product_title }</a></div>
 							<div class="product_price price" style="margin-bottom: 5px;">${p.product_price }원</div>
-							<div class="product_title" style="margin-bottom: 5px;"><a href="/userreview?user_num=${p.user_num}">h</a></div>
+							
 							<%-- ${p.safe_trade} ${p.auction_check} --%>
 							<div class="product_option">
 								<div class="top">
