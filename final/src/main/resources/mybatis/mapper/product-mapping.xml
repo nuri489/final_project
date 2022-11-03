@@ -126,7 +126,7 @@
 		select detail_num from product_detail where detail_name like #{detail_name}
 	</select>
 	<select id="getSaleslist" parameterType="int" resultType="productdto">
-		select * from product_info where product_sell = 1 and user_num = #{user_num}
+		select * from product_info where product_sell = 1 and user_num = #{user_num} and buyer_num is not null;
 	</select>
 	
 	
