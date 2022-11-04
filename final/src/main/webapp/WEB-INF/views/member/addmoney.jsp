@@ -16,7 +16,7 @@ $(document).ready(function() {
 	var ref = document.referrer;
 	
 	if("${sessionUser_num}" == "") {
-		window.location.replace("temp_main");
+		window.location.replace("getproducts");
 	}
 	
     var IMP = window.IMP;
