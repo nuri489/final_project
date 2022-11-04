@@ -58,7 +58,7 @@
 				if(d.type == "getId"){
 					var si = d.sessionUser_num != null ? d.sessionUser_num : "";
 					if(si != ''){
-						$("#sessionId").val(si); 
+						$("#sessionUser_num").val(si); 
 					}
 				}
 				else if(d.type == "message"){
