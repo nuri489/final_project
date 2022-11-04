@@ -9,6 +9,10 @@
 <script src="js/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function(){
+	
+	if("${sessionUser_num}" == "") {
+		window.location.replace("getproducts");
+	}
 	$('.idol_name_btn_e').on('mouseover', function(){
 		var idol =$(this).val();
 		if(idol=='bts'){
@@ -331,6 +335,7 @@ a:hover{
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/template/header.jsp" />
 <main class="product_list">
 	<section class="section1">
 		<div class="left">
