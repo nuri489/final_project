@@ -184,6 +184,7 @@ $(document).ready(function() {
 		<tr><td class="head">판매자</td><td class="info"><a href="/userreview?user_num=${product_dto.user_num}" id="user-id">${user_id}</a></td></tr>
 		<tr><td class="head">물품번호</td><td class="info">${product_dto.product_num}</td></tr>
 		<tr><td class="head">경매요청횟수</td><td class="info">${request_num}</td></tr>
+		<tr><td class="head">상품가격</td><td class="info">${product_dto.product_price}</td></tr>
 
 		<tr><td class="head">안전거래</td><td class="info"><div id="safe-trade"></div></td></tr>
 		<tr>
