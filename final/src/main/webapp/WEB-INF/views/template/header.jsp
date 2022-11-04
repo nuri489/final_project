@@ -204,7 +204,7 @@ $(document).ready(function(){
 			data: {'user_num' : "${sessionUser_num}"},
 			dataType : 'JSON',
 			success : function(s) { 
-				$("#mypage-table").append("<tr><td colspan='2' id='mypage-name'><a href="/userreview?user_num=${sessionUser_num}">"+s.user_name+"</a></td></tr>");
+				$("#mypage-table").append("<tr><td colspan='2' id='mypage-name'>"+s.user_name+"</td></tr>");
 				$("#mypage-table").append("<tr><td class='mypage-head'>아이디</td><td>"+s.user_id+"</td></tr>");
 				$("#mypage-table").append("<tr><td class='mypage-head'>전화번호</td><td>"+s.user_tel+"</td></tr>");
 				$("#mypage-table").append("<tr><td class='mypage-head'>이메일</td><td>"+s.user_email+"</td></tr>");
