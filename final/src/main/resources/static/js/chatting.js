@@ -28,11 +28,11 @@
 		});
 		
 		if($("#buyer_num").val() == $("#sessionUser_num").val()) {
-			$("#title").html("<a href='aa' id='other'>"+$("#seller_name").val()+"</a> 님과의 채팅");
+			$("#title").html("<a id='other' href='/userreview?user_num="+$("#seller_num").val()+"'>"+$("#seller_name").val()+"</a> 님과의 채팅");
 		}
 		// 구매자 입장
 		else {
-			$("#title").html("<a href='aa' id='other'>"+$("#buyer_name").val()+"</a> 님과의 채팅");
+			$("#title").html("<a id='other' href='/userreview?user_num="+$("#buyer_num").val()+"'>"+$("#buyer_name").val()+"</a> 님과의 채팅");
 		}
 		// 판매자 입장
 		
