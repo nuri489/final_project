@@ -56,14 +56,14 @@
 			if(msg != null && msg.trim() != ''){
 				var d = JSON.parse(msg);
 				if(d.type == "getId"){
-					var si = d.sessionId != null ? d.sessionId : "";
+					var si = d.sessionUser_num != null ? d.sessionUser_num : "";
 					if(si != ''){
 						$("#sessionId").val(si); 
 					}
 				}
 				else if(d.type == "message"){
 					
-					if(d.sessionId == $("#sessionId").val()){
+					if(d.sessionUser_num == $("#sessionUser_num").val()){
 						$(".div1").append("<div class='div2'><div class='me'><div class='chat'>"+d.msg+"</div></div><div class='my-time'>"+d.time+"</div></div>");
 					}
 					else{
