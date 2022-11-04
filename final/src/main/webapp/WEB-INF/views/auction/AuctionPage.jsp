@@ -150,8 +150,10 @@ $(document).ready(function() {
 									var really = confirm("보유 머니가 부족합니다! 충전하시겠습니까?");
 									
 									if(really) {
-										window.location.replace("temp_main");
+										//window.location.replace("temp_main");
 										// 보유 머니 충전 페이지로 바꾸자@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+										window.location.replace("addMoneyform?user_num=${sessionUser_num}");
+										
 									}
 									else { }
 			
