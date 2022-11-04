@@ -1,0 +1,95 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
+
+body {
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size : 16px;
+}
+
+#wish-table {
+	border-collapse: separate !important;
+	border-spacing: 2px;
+	border : none;
+	margin: 0 auto;
+	margin-top : 50px;
+	text-align: center;
+	font-size: 18px;
+}
+
+#wish-table .head {
+	height: 50px;
+	border : 1px solid black;
+}
+
+#wish-title {
+	color :white;
+	background-color: #5C75E6;
+	height: 70px;
+	font-size: 25px;
+	border-radius: 8px;
+}
+
+#cancle-button {
+	width : 100%;
+	height : 40px;
+	background-color: #5C75E6;
+	color : white;
+	transition: 0.1s;
+}
+
+#cancle-button:hover {
+	border : 1px solid white;
+	background-color: #68abfe;
+}
+
+.wish-td1 {
+	min-width : 80px;
+	width : auto;
+	height: 40px;
+	border : 1px solid black;
+}
+
+.wish-td2 {
+	min-width : 90px;
+	width : auto;
+	border : 1px solid black;
+}
+
+.wish-td3 {
+	min-width : 500px;
+	width : auto;
+	padding: 3px 10px 3px 10px;
+	border : 1px solid black;
+}
+
+.wish-td4 {
+	min-width : 120px;
+	width : auto;
+	border : 1px solid black;
+}
+
+.wish-td5 {
+	min-width : 110px;
+	width : auto;
+	border : 1px solid black;
+}
+
+.wish-a1 {
+	color : #5C75E6;
+	font-weight: bold;
+	transition: 0.1s;
+}
+
+.wish-a1:hover {
+	color : #68abfe;
+}
+
+.wish-a2 {
+	color : #5C75E6;
+	font-weight: bold;
+	transition: 0.1s;
+}
+
+.wish-a2:hover {
+	color : #68abfe;
+}
